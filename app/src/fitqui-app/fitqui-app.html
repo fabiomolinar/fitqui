@@ -1,0 +1,23 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="fitqui-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[prop1]]</h2>
+  </template>
+  <script>
+    Polymer({
+      is: 'fitqui-app',
+      properties: {
+        prop1: {
+          type: String,
+          value: 'Olá',
+        },
+      },
+    });
+  </script>
+</dom-module>

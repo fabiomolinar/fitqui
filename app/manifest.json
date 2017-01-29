@@ -1,0 +1,7 @@
+{
+  "name": "Fitqui",
+  "short_name": "Fitqui",
+  "description": "Fitqui é sua base de dados de exercícios físicos!",
+  "start_url": "/",
+  "display": "standalone"
+}
