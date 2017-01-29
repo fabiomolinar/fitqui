@@ -10,5 +10,22 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
-  }
+  },
+  "keywords": [
+    "exercícios",
+    "físicos"
+  ],
+  "authors": [
+    "Fabio Thomaz Molinar"
+  ],
+  "license": "MIT",
+  "homepage": "www.fitqui.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
