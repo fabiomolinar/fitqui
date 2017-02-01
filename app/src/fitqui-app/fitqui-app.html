@@ -1,4 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="fitqui-header.html">
+<link rel="import" href="fitqui-content/fitqui-content.html">
+<link rel="import" href="fitqui-buttons-menu.html">
+<link rel="import" href="fitqui-footer.html">
 
 <dom-module id="fitqui-app">
   <template>
@@ -7,13 +11,15 @@
         display: block;
       }
     </style>
-    <h1>Hello!</h1>
-    <p>We are working on this page for you. Try to return here in a few days to find awesome content!</p>
+    <fitqui-header></fitqui-header>
+    <fitqui-content></fitqui-content>
+    <fitqui-buttons-menu></fitqui-buttons-menu>
+    <fitqui-footer></fitqui-footer>
   </template>
   <script>
     Polymer({
       is: 'fitqui-app',
-      properties: {},
+      properties: {}
     });
   </script>
 </dom-module>
