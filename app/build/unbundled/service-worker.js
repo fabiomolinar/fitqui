@@ -29,7 +29,7 @@
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/bower_components/polymer/polymer-micro.html","c8afdb92849d162268e7cc58eff5cd57"],["/bower_components/polymer/polymer-mini.html","33af9817ee3946c225d038f5a04d276a"],["/bower_components/polymer/polymer.html","186cfd0bba3b39fd262e69dc7bcc699a"],["/bower_components/webcomponentsjs/webcomponents-lite.js","ea1b320f1cc7094f02a4b410c0763a6f"],["/index.html","94168ef8999aa8fc6d5d4f9a0152e5f3"],["/src/fitqui-app/fitqui-app.html","4c524a60d385b03f7b06e16b81b5b0c4"]];
+var PrecacheConfig = [["/bower_components/polymer/polymer-micro.html","c8afdb92849d162268e7cc58eff5cd57"],["/bower_components/polymer/polymer-mini.html","33af9817ee3946c225d038f5a04d276a"],["/bower_components/polymer/polymer.html","186cfd0bba3b39fd262e69dc7bcc699a"],["/bower_components/webcomponentsjs/webcomponents-lite.js","ea1b320f1cc7094f02a4b410c0763a6f"],["/index.html","104dc0d46e730ab3d10df75d971c5e6e"],["/src/fitqui-app/fitqui-app.html","b857a49a8eb4fca7be05ed267ae2155d"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
