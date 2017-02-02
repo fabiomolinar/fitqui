@@ -1,3 +1,4 @@
 app/bower_components/
 public/**
 app/build/**
+app/src/scss/.sass-cache/

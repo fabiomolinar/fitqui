@@ -1,0 +1,13 @@
+$break-celular: 767px;
+$header-height: 20vh;
+$header-height-mobile: 10vh;
+$footer-height: 10vh;
+$footer-height-mobile: 10vh;
+
+@mixin tipo-de-aparelho($media) {
+  @if $media == celular {
+    @media only screen and (max-width: $break-celular) {
+      @content;
+    }
+  }
+}
