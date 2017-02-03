@@ -1,4 +1,7 @@
-@import 'variaveis';
-.test{
-  margin: auto;
+@import '../variaveis';
+:host {
+  display: block;
+}
+.test2{
+  padding: inherit;
 }
