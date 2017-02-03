@@ -1,0 +1,41 @@
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="84.401154mm"
+   height="97.720749mm"
+   viewBox="0 0 299.05921 346.25462">  
+  <g transform="translate(-292.69043,-407.55348)">
+	  <path
+		 d="m 486.45585,655.23753 c 35.10279,-114.65231 95.18965,94.89033 104.55079,54.54824 10.6066,-45.7094 -95.71196,-197.9899 -104.55079,-54.54824 z"
+		 style="fill:#4caf50;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+	  <path
+		 d="M 292.69043,752.76531 C 396.73614,771.95821 536.39427,519.36845 508.358,558.31095 413.79709,689.65644 292.69043,752.76531 292.69043,752.76531 Z"
+		 style="fill:#4caf50;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+	  <path
+		 d="m 408.05601,412.37774 c 64.3885,273.93803 152.75757,4.72248 140.26507,45.45176 -12.04046,39.25552 -86.42624,227.27562 -140.26507,-45.45176 z"
+		 style="fill:#4caf50;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+	  <ellipse
+		 ry="44.479782"
+		 rx="39.479782"
+		 cy="452.03326"
+		 cx="485.73361"
+		 style="fill:#4caf50;fill-opacity:1;stroke:none;stroke-width:1.04043615;stroke-miterlimit:4;stroke-dasharray:none" />
+	  <path
+		 style="fill:#1b5e20;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+		 d="m 408.05601,412.37774 c 64.3885,273.93803 152.75757,4.72248 140.26507,45.45176 -12.04046,39.25552 -86.42624,227.27562 -140.26507,-45.45176 z"/>
+	  <ellipse
+		 style="fill:#1b5e21;fill-opacity:0;stroke:none;stroke-width:1.04043615;stroke-miterlimit:4;stroke-dasharray:none"
+		 cx="485.73361"
+		 cy="452.03326"
+		 rx="39.479782"
+		 ry="44.479782" />
+	  <path
+		 d="m 408.05601,412.37774 c 64.3885,273.93803 152.75757,4.72248 140.26507,45.45176 -12.04046,39.25552 -86.42624,227.27562 -140.26507,-45.45176 z"
+		 style="fill:#1b5e20;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+	  <ellipse
+		 ry="44.479782"
+		 rx="39.479782"
+		 cy="452.03326"
+		 cx="485.73361"
+		 style="fill:#1b5e21;fill-opacity:0;stroke:none;stroke-width:1.04043615;stroke-miterlimit:4;stroke-dasharray:none" />
+  </g>
+</svg>

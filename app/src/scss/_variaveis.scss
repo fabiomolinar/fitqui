@@ -3,6 +3,19 @@ $header-height: 20vh;
 $header-height-mobile: 10vh;
 $footer-height: 10vh;
 $footer-height-mobile: 10vh;
+$cor-principal: #4CAF50;
+$cor-escura: #1B5E20;
+$cor-clara: #81C784;
+$cor-branca: #E8F5E9;
+$cor-oposta: #DE6461;
+$cor-adjacente1: #3B8386;
+$cor-adjacente2: #A7CF5A;
+$cor-triad1: #DE9B61;
+$cor-triad2: #B44E86;
+$cor-tetrad1: #3B8386;
+$cor-tetrad2: #DE6461;
+$cor-tetrad3: #DE9B61;
+
 
 @mixin tipo-de-aparelho($media) {
   @if $media == celular {
