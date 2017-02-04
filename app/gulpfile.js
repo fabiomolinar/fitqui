@@ -4,9 +4,12 @@ var
   inlineCss = require('gulp-inline-css');
 
 //Helper functions
-var mudarPath = function(caminho, alvo, destino){
+var mudarPath = function(caminho, alvo, destino,removerFileName){
+  removerFileName = (removerFileName !== "undefined") ? removerFileName : true;
   var final = caminho.replace(alvo,destino);
-  final = final.substring(0,final.lastIndexOf("/"));
+  if (removerFileName === true){
+    final = final.substring(0,final.lastIndexOf("/"));
+  }
   return final;
 }
 //Global gulp variables
@@ -20,10 +23,12 @@ var arquivosScss = [
 ];
 var elementos = [ //arquivos que tem que ser inseridos nos elementos
   './src/fitqui-app/fitqui-app.html',
+  /*
   './src/fitqui-app/fitqui-buttons-menu.html',
   './src/fitqui-app/fitqui-footer.html',
   './src/fitqui-app/fitqui-header.html',
   './src/fitqui-app/fitqui-content/fitqui-content.html'
+  */
 ];
 //-------------------------------
 //TASKS
