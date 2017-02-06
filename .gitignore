@@ -4,3 +4,4 @@ app/build/**
 app/src/scss/.sass-cache/
 app/node_modules/
 app/src/fitqui-app/
+app/src/css/

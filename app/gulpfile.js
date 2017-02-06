@@ -1,7 +1,8 @@
 var
   gulp = require('gulp'),
   sass = require('gulp-sass'),
-  inlineSource = require('gulp-inline-source');
+  inlineSource = require('gulp-inline-source'),
+  runSequence = require('run-sequence');
 
 //Helper functions
 var mudarPath = function(caminho, alvo, destino,removerFileName){
@@ -29,10 +30,18 @@ var elementos = [ //arquivos que tem que ser inseridos nos elementos
   './src/elementos/fitqui-content/fitqui-content.html'
 ];
 //-------------------------------
-//TASKS
+//TASKS-DEV
 //-------------------------------
-
 //Criar CSS
 gulp.task('sass',require('./tasks/dev/sass')(gulp,sass,arquivosScss,mudarPath));
 //Adicionar CSS aos elementos
 gulp.task('inline-css',require('./tasks/dev/css')(gulp,inlineSource,elementos,mudarPath));
+//Compilar versão dev
+gulp.task('compile-dev',function(done){
+  runSequence('sass','inline-css',function(){
+    console.log('Versão dev compilada');
+    done();
+  });
+});
+//Setando default para compilar a versão dev
+gulp.task('default',['compile-dev']);
