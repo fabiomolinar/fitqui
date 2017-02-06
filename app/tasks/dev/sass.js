@@ -1,12 +1,11 @@
-module.exports = function(gulp,sass,arquivos,mudarPath){
+module.exports = function(gulp,sass){
+  console.log('compilando os scss e criando os css');
   return function(){
-    if (arquivos.length > 0){
-      for (var i = 0; i < arquivos.length; i++){
-        gulp.src(arquivos[i])
-          .pipe(sass().on('error',sass.logError))
-          .pipe(gulp.dest(mudarPath(arquivos[i],"/scss/","/css/",true)));
-      }
-    }
-    console.log("processado scss individualmente");
+    return gulp.src("./src/scss/**/*.scss")
+      .pipe(sass().on('error',sass.logError))
+      //.pipe(rename(function(path){
+        //path.dirname = path.dirname.replace("/src/scss/","/css2/");
+      //}));
+      .pipe(gulp.dest("./src/css/"));
   }
 }
