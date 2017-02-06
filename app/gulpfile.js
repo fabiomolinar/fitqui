@@ -1,7 +1,7 @@
 var
   gulp = require('gulp'),
   sass = require('gulp-sass'),
-  inlineCss = require('gulp-inline-css');
+  inlineSource = require('gulp-inline-source');
 
 //Helper functions
 var mudarPath = function(caminho, alvo, destino,removerFileName){
@@ -22,13 +22,11 @@ var arquivosScss = [
   './src/scss/fitqui-app/fitqui-content/fitqui-content.scss'
 ];
 var elementos = [ //arquivos que tem que ser inseridos nos elementos
-  './src/fitqui-app/fitqui-app.html',
-  /*
-  './src/fitqui-app/fitqui-buttons-menu.html',
-  './src/fitqui-app/fitqui-footer.html',
-  './src/fitqui-app/fitqui-header.html',
-  './src/fitqui-app/fitqui-content/fitqui-content.html'
-  */
+  './src/elementos/fitqui-app.html',
+  './src/elementos/fitqui-buttons-menu.html',
+  './src/elementos/fitqui-footer.html',
+  './src/elementos/fitqui-header.html',
+  './src/elementos/fitqui-content/fitqui-content.html'
 ];
 //-------------------------------
 //TASKS
@@ -37,4 +35,4 @@ var elementos = [ //arquivos que tem que ser inseridos nos elementos
 //Criar CSS
 gulp.task('sass',require('./tasks/dev/sass')(gulp,sass,arquivosScss,mudarPath));
 //Adicionar CSS aos elementos
-gulp.task('inline-css',require('./tasks/dev/css')(gulp,inlineCss,elementos,mudarPath));
+gulp.task('inline-css',require('./tasks/dev/css')(gulp,inlineSource,elementos,mudarPath));
