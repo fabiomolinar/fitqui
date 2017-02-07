@@ -1,16 +1,5 @@
 @import 'variaveis';
-
-
 html,body{
   margin: 0;
   padding: 0;
-  height: 100%;
 }
-/*
-.example{
-  height: $header-height;
-  @include tipo-de-aparelho(celular){
-    height: $header-height-mobile;
-  }
-}
-*/
