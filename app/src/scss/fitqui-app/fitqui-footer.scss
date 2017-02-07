@@ -1,8 +1,5 @@
 @import '../variaveis';
 :host{
   display: block;
-  position: absolute;
   height: $footer-height;
-  bottom: 0;
-  left: 0;
 }

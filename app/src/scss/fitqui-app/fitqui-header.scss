@@ -1,4 +1,28 @@
 @import '../variaveis';
+$imgPaddingTop: 3vh;
+$imageHeight: $header-height - 2*$imgPaddingTop;
 :host{
   display: block;
+  height: $header-height;
+  background-color: $cor-principal;
+}
+img{
+  display: block;
+  padding: $imgPaddingTop 0 $imgPaddingTop 0;
+  height: $imageHeight;
+  width: auto;
+  color: $cor-branca;
+  margin: 0 auto;
+}
+paper-progress{
+  width: 100%;
+  --paper-progress-active-color: $cor-principal;
+  --paper-progress-secondary-color: $cor-clara;
+  --paper-progress-container-color: $cor-branca;
+  --paper-progress-transition-duration: 0.08s;
+  --paper-progress-transition-timing-function: ease;
+  --paper-progress-transition-transition-delay: 0s;
+  --paper-progress-indeterminate-cycle-duration: 3s;
+  --paper-progress-disabled-active-color: $cor-principal;
+  --paper-progress-disabled-secondary-color: $cor-principal;
 }

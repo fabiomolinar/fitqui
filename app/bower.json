@@ -3,7 +3,8 @@
   "description": "Fitqui é sua base de dados de exercícios físicos!",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-progress": "PolymerElements/paper-progress#^1.0.11"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
