@@ -5,7 +5,9 @@
   <template>
     <link rel="stylesheet" type="text/css" href="../css/fitqui-app/fitqui-spinner.css" inline>
 
-    <paper-spinner id="spinner" active="[[ativado]]" alt="Carregando a página"></paper-spinner>
+    <div>
+      <paper-spinner id="spinner" active="[[ativado]]" alt="Carregando a página"></paper-spinner>
+    </div>
   </template>
   <script>
     Polymer({
@@ -21,8 +23,10 @@
       },
       _esconderSpinner: function(valorNovo, valorAntigo){
         if (!valorNovo){
+          document.body.style.overflow = "visible";
           this.style.display = "none";
         } else {
+          document.body.style.overflow = "hidden";
           this.style.display = "";
         }
       }
