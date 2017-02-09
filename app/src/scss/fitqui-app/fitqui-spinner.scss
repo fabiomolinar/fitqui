@@ -1,0 +1,14 @@
+@import '../variaveis';
+$spinner-size: 69px;
+paper-spinner{
+  width: $spinner-size;
+  height: $spinner-size;
+  --paper-spinner-layer-1-color: $cor-principal;
+  --paper-spinner-layer-2-color: $cor-principal;
+  --paper-spinner-layer-3-color: $cor-clara;
+  --paper-spinner-layer-4-color: $cor-branca;
+  background-image: var(--img-url,url("/../../img/logo-principal.png"));
+  background-repeat: no-repeat;
+  background-size: 51% 51%;
+  background-position: center;
+}

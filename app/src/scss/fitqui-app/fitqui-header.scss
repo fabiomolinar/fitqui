@@ -3,7 +3,7 @@ $imgPaddingTop: 3vh;
 $imageHeight: $header-height - 2*$imgPaddingTop;
 :host{
   display: block;
-  height: $header-height;
+  min-height: $header-height;
   background-color: $cor-principal;
 }
 img{

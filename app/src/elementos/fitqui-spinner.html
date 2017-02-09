@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+
+<dom-module id="fitqui-spinner">
+  <template>
+    <link rel="stylesheet" type="text/css" href="../css/fitqui-app/fitqui-spinner.css" inline>
+
+    <paper-spinner id="spinner" active="[[ativado]]" alt="Carregando a página"></paper-spinner>
+  </template>
+  <script>
+    Polymer({
+      is: 'fitqui-spinner',
+      properties: {
+        ativado: {
+          type: Boolean,
+          value: false,
+          notify: true,
+          reflectToAttribute: true,
+          observer: '_esconderSpinner'
+        }
+      },
+      _esconderSpinner: function(valorNovo, valorAntigo){
+        if (!valorNovo){
+          this.style.display = "none";
+        } else {
+          this.style.display = "";
+        }
+      }
+    });
+  </script>
+</dom-module>

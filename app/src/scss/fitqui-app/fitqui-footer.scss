@@ -1,5 +1,21 @@
 @import '../variaveis';
 :host{
   display: block;
-  height: $footer-height;
+  min-height: $footer-height;
+  background-color: $cor-principal;
+}
+$img-height: $footer-height*0.3;
+$img-padding-top: $footer-height*0.1;
+img{
+  display: block;
+  height: $img-height;
+  margin: 0 auto;
+  padding-top: $img-padding-top;
+}
+paper-progress{
+  width: 100%;
+  --paper-progress-container-color: $cor-clara;
+  --paper-progress-active-color: $cor-principal;
+  --paper-progress-secondary-color: $cor-principal;
+  --paper-progress-indeterminate-cycle-duration: 13s;
 }
