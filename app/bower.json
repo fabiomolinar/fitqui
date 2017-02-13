@@ -7,7 +7,9 @@
     "paper-progress": "PolymerElements/paper-progress#^1.0.11",
     "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
     "app-route": "PolymerElements/app-route#^0.9.3",
-    "iron-pages": "PolymerElements/iron-pages#^1.0.8"
+    "iron-pages": "PolymerElements/iron-pages#^1.0.8",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.12",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.1.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

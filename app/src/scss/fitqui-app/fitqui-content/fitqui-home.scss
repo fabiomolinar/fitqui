@@ -1,3 +1,48 @@
+@import '../../variaveis';
 :host{
   display: block;
+}
+:host div{
+  display: flex;
+  flex-direction: column;
+}
+.chamada{
+  display: block;
+  padding-bottom: 3vh;
+  width: 100%;
+  background-color: $cor-principal;
+  color: $cor-branca;
+  text-align: center;
+}
+.chamada p{
+  font-size: 2.4em;
+}
+.explicacao{
+  display: block;
+}
+.explicacao p{
+  padding-top: 3vh;
+  font-size: 1.2em;
+  text-align: center;
+  color: $cor-triad1;
+}
+paper-button{
+  font-size: 1.8em;
+  background-color: $cor-triad1;
+}
+paper-button iron-icon{
+  --iron-icon-fill-color: $cor-branca;
+  --iron-icon-stroke-color: $cor-branca;
+  margin-right: 3vw;
+}
+@include tipo-de-aparelho(celular){
+  .chamada p{
+    font-size: 1.8em;
+  }
+  .explicacao p{
+    font-size: 1.2em;
+  }
+  paper-button{
+    font-size: 1.2em;
+  }
 }

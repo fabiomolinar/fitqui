@@ -1,25 +1,52 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../fitqui-spinner.html">
 <link rel="import" href="../../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../fitqui-spinner.html">
+<link rel="import" href="fitqui-home.html">
+<link rel="import" href="fitqui-filters.html">
+<link rel="import" href="fitqui-selector.html">
+<link rel="import" href="fitqui-trainer.html">
 
 <dom-module id="fitqui-content">
   <template>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-content.css" inline>
 
-    <fitqui-spinner></fitqui-spinner>
+    <fitqui-spinner id="spinner"></fitqui-spinner>
     <app-location route={{route}} use-hash-as-path></app-location>
     <app-route
       route="{{route}}"
-      pattern="/:pagina/"
-      data="{{pagina}}"
-      tail="{{rabo}}">
+      pattern=":pagina"
+      data="{{dados}}"
+      tail="{{tail}}">
     </app-route>
+    <iron-pages
+      selected="{{dados.pagina}}"
+      attr-for-selected="name"
+      fallback-selection="home">
+      <fitqui-home name="home"></fitqui-home>
+      <fitqui-filters name="filters"></fitqui-filters>
+      <fitqui-selector name="selector"></fitqui-selector>
+      <fitqui-trainer name="trainer"></fitqui-trainer>
+    </iron-pages>
   </template>
   <script>
     Polymer({
       is: 'fitqui-content',
-      properties: {},
+      properties: {
+        route: {
+          type: Object,
+          observer: "pageChanged"
+        }
+      },
+      ready: function(){
+        this.$.spinner.setAttribute("ativado",true);
+      },
+      attached: function(){
+        this.$.spinner.removeAttribute("ativado");
+      },
+      pageChanged: function(){
+      }
     });
   </script>
 </dom-module>
