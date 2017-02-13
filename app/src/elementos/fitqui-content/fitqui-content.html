@@ -1,11 +1,20 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../fitqui-spinner.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
 
 <dom-module id="fitqui-content">
   <template>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-content.css" inline>
 
-    <fitqui-spinner ativado="false"></fitqui-spinner>
+    <fitqui-spinner></fitqui-spinner>
+    <app-location route={{route}} use-hash-as-path></app-location>
+    <app-route
+      route="{{route}}"
+      pattern="/:pagina/"
+      data="{{pagina}}"
+      tail="{{rabo}}">
+    </app-route>
   </template>
   <script>
     Polymer({
