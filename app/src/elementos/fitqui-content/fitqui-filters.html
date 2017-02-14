@@ -11,7 +11,7 @@
     <style include="fitqui-shared-styles"></style>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-filters.css" inline>
 
-    <div class="">
+    <div id="wrapper" class="">
       <h1>Preferências</h1>
       <p>De acordo com suas preferências abaixo, tentaremos criar o melhor treino para você.</p>
       <label for="dificuldade">Dificuldade: </label>
@@ -49,20 +49,19 @@
         <paper-checkbox>Abdômen</paper-checkbox>
         <paper-checkbox>Costas</paper-checkbox>
       </div>
+      <paper-button id="proximo" raised>Próximo</paper-button>
     </div>
 
   </template>
   <script>
     Polymer({
       is: 'fitqui-filters',
-      properties: {
-        usarAerobico: {
-          type: Boolean,
-          observer: "aerobicoChanged"
-        }
+      properties: {},
+      listeners: {
+        'proximo.tap': 'irSelector'
       },
-      aerobicoChanged: function(novo,velho){
-        console.log(novo);
+      irSelector: function(){
+        window.location.href = "#selector"
       }
     });
   </script>

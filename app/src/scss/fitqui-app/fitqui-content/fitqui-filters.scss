@@ -3,12 +3,16 @@
   display: block;
   color: $cor-principal;
 }
-:host div{
+#wrapper{
   display: table;
+  padding-bottom: 27px;
   margin: 0px 9em 0px 9em;
 }
+h1, p{
+  color: $cor-triad1;
+}
 paper-input{
-  width: 21em;
+  max-width: 18em;
 }
 paper-input iron-icon{
   padding-right: 9px;
@@ -25,8 +29,12 @@ paper-checkbox{
 #musculos label{
   display: block;
 }
+paper-button{
+  color: $cor-branca;
+  background-color: $cor-triad1;
+}
 @include tipo-de-aparelho(celular){
-  :host div{
+  #wrapper{
     margin: 0px 27px 0px 27px;
   }
 }

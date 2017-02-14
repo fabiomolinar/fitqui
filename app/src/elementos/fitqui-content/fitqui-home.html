@@ -10,7 +10,7 @@
       <div class="chamada">
         <p>Bla bla bla bla bla bla</p>
         <p>Bel bel bel bel bel bel</p>
-        <paper-button raised>
+        <paper-button raised id="proximo">
           <iron-icon icon="icones:play-arrow"></iron-icon>
           ASD
         </paper-button>
@@ -24,7 +24,13 @@
   <script>
     Polymer({
       is: 'fitqui-home',
-      properties: {}
+      properties: {},
+      listeners: {
+        'proximo.tap': 'irFilters'
+      },
+      irFilters: function(){
+        window.location.href = "#filters";
+      }
     });
   </script>
 </dom-module>
