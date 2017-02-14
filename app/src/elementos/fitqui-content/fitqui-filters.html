@@ -1,7 +1,9 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 
 <dom-module id="fitqui-filters">
@@ -11,20 +13,57 @@
 
     <div class="">
       <h1>Preferências</h1>
+      <p>De acordo com suas preferências abaixo, tentaremos criar o melhor treino para você.</p>
       <label for="dificuldade">Dificuldade: </label>
       <paper-radio-group id="dificuldade" selected="iniciante">
         <paper-radio-button name="iniciante">Iniciante</paper-radio-button>
         <paper-radio-button name="intermediário">Intermediário</paper-radio-button>
         <paper-radio-button name="avancado">Avançado</paper-radio-button>
       </paper-radio-group>
-      
+      <paper-input
+        label="Duração do treino"
+        prevent-invalid-input
+        allowed-pattern="[0-9]">
+        <iron-icon icon="icones:timer" prefix></iron-icon>
+        <div suffix>minutos</div>
+      </paper-input>
+      <paper-checkbox checked={{usarAerobico}}>Adicionar exercícios aeróbicos</paper-checkbox>
+      <div id="local" hidden={{!usarAerobico}}>
+        <label for="local">Onde: </label>
+        <paper-radio-group id="local" selected="casa">
+          <paper-radio-button name="casa">Em casa</paper-radio-button>
+          <paper-radio-button name="parque">No parque</paper-radio-button>
+        </paper-radio-group>
+      </div>
+      <div id="musculos">
+        <label for="musculos">Grupos musculares: </label>
+        <paper-checkbox>Quadríceps</paper-checkbox>
+        <paper-checkbox>Panturrilha</paper-checkbox>
+        <paper-checkbox>Glúteo</paper-checkbox>
+        <paper-checkbox>Trapézio</paper-checkbox>
+        <paper-checkbox>Ombros</paper-checkbox>
+        <paper-checkbox>Biceps</paper-checkbox>
+        <paper-checkbox>Triceps</paper-checkbox>
+        <paper-checkbox>Antebraço</paper-checkbox>
+        <paper-checkbox>Peito</paper-checkbox>
+        <paper-checkbox>Abdômen</paper-checkbox>
+        <paper-checkbox>Costas</paper-checkbox>
+      </div>
     </div>
 
   </template>
   <script>
     Polymer({
       is: 'fitqui-filters',
-      properties: {}
+      properties: {
+        usarAerobico: {
+          type: Boolean,
+          observer: "aerobicoChanged"
+        }
+      },
+      aerobicoChanged: function(novo,velho){
+        console.log(novo);
+      }
     });
   </script>
 </dom-module>

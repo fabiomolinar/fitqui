@@ -5,10 +5,28 @@
 }
 :host div{
   display: table;
-  margin: 0px auto 0px auto;
+  margin: 0px 9em 0px 9em;
+}
+paper-input{
+  width: 21em;
+}
+paper-input iron-icon{
+  padding-right: 9px;
+}
+paper-checkbox{
+  margin-top: 27px;
+}
+#local{
+  display: block;
+}
+#musculos{
+  margin: 27px 0px 27px 0px;
+}
+#musculos label{
+  display: block;
 }
 @include tipo-de-aparelho(celular){
   :host div{
-    margin: 0px auto 0px auto;
+    margin: 0px 27px 0px 27px;
   }
 }

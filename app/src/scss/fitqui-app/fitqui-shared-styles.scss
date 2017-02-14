@@ -1,6 +1,23 @@
 @import '../variaveis';
 paper-radio-button{
-  --paper-radio-button-unchecked-color: $cor-clara;
+  --paper-radio-button-unchecked-color: $cor-principal;
   --paper-radio-button-checked-color: $cor-escura;
   --paper-radio-button-label-color: $cor-principal;
+}
+paper-input{
+  --paper-input-container-color: $cor-principal;
+  --paper-input-container-focus-color: $cor-escura;
+  --paper-input-container-invalid-color: $cor-tetrad2;
+  --paper-input-container-input-color: $cor-principal;
+}
+paper-checkbox{
+  --paper-checkbox-unchecked-color: $cor-principal;
+  --paper-checkbox-unchecked-ink-color: $cor-principal;
+  --paper-checkbox-checked-color: $cor-escura;
+  --paper-checkbox-checked-ink-color: $cor-principal;
+  --paper-checkbox-checkmark-color: $cor-branca;
+  --paper-checkbox-label-color: $cor-principal;
+  --paper-checkbox-label-checked-color: $cor-escura;
+  --paper-checkbox-error-color: $cor-tetrad2;
+  padding-right: 27px;
 }
