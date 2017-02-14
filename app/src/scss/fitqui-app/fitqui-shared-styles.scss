@@ -1,0 +1,6 @@
+@import '../variaveis';
+paper-radio-button{
+  --paper-radio-button-unchecked-color: $cor-clara;
+  --paper-radio-button-checked-color: $cor-escura;
+  --paper-radio-button-label-color: $cor-principal;
+}

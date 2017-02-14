@@ -1,4 +1,14 @@
 @import '../../variaveis';
 :host{
   display: block;
+  color: $cor-principal;
+}
+:host div{
+  display: table;
+  margin: 0px auto 0px auto;
+}
+@include tipo-de-aparelho(celular){
+  :host div{
+    margin: 0px auto 0px auto;
+  }
 }
