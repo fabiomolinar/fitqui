@@ -1,0 +1,92 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="fitqui-exercise-icon">
+  <template>
+    <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-exercise-icon.css" inline>
+
+    <svg
+       xmlns="http://www.w3.org/2000/svg"
+       id="icone"
+       width="111.48255mm"
+       height="132.2888mm"
+       viewBox="0 0 395.01692 468.73985">
+      <g
+         id="layer1"
+         transform="translate(-149.37933,-207.37692)">
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 208.57143,555.21935 c 314.28571,-280 314.28571,-280 314.28571,-280"
+           id="costas" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 448.57143,675.21935 534.28571,452.3622"
+           id="peito" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 300,355.21935 80,168.57143"
+           id="triceps" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 542.85714,355.21935 360,212.3622 354.28571,369.50506"
+           id="panturrilha" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 151.42857,369.50506 317.14286,606.64792"
+           id="biceps" />
+      </g>
+    </svg>
+
+
+  </template>
+  <script>
+    var todosOsPaths;
+    Polymer({
+      is: 'fitqui-exercise-icon',
+      properties: {
+        musculos: {
+          type: Array,
+          observer: "musculosChanged"
+        },
+        corDefault: {
+          type: String,
+          value: "#000000"
+        },
+        corSelected: {
+          type: String,
+          value: "#4CAF50"
+        }
+      },
+      attached: function(){
+        this.pintar(this.musculos);
+      },
+      musculosChanged: function(){
+        this.pintar(this.musculos);
+      },
+      pintar: function(_musculos){
+        //pintar tudo de preto primeiro
+        var paths = this.getElementsByTagName('path');
+        for (var i = 0; i < paths.length; i++){
+          paths[i].style.stroke = this.corDefault;
+        }
+        //pintar musculo específico
+        for (var i = 0; i < _musculos.length; i++){
+          //Se for aeróbico, pintar tudo
+          if (_musculos[i] === "aerobico"){
+            this.pintarTodos();
+            break;
+          }
+          var path = this.$$("#" + _musculos[i]);
+          if (path){
+            path.style.stroke = this.corSelected;
+          }
+        }
+      },
+      pintarTodos: function(){
+        var paths = this.getElementsByTagName('path');
+        for (var i = 0; i < paths.length; i++){
+          paths[i].style.stroke = this.corSelected;
+        }
+      }
+    });
+  </script>
+</dom-module>

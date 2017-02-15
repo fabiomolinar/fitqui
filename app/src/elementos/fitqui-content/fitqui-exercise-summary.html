@@ -1,0 +1,61 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="fitqui-exercise-icon.html">
+
+<dom-module id="fitqui-exercise-summary">
+  <template>
+    <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-exercise-summary.css" inline>
+
+    <table>
+      <tr id="icones">
+        <td><!-- Vazio --></td>
+        <template is="dom-repeat" items="{{programa}}">
+          <td>
+            <fitqui-exercise-icon
+              musculos="{{item.musculos}}"
+              cor-default="#000000"
+              cor-selected="#4CAF50">
+            </fitqui-exercise-icon>
+          </td>
+        </template>
+      </tr>
+      <tr id="repeticoes">
+        <td class="header">Repetições</td>
+        <template is="dom-repeat" items="{{programa}}">
+          <td>{{item.repeticoes}}</td>
+        </template>
+      </tr>
+      <tr id="duracao">
+        <td class="header">Duração (min)</td>
+        <template is="dom-repeat" items="{{programa}}">
+          <td>{{item.duracao}}</td>
+        </template>
+      </tr>
+    </table>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'fitqui-exercise-summary',
+      properties: {
+        corShadow: {
+          type: String,
+          value: "#1B5E20"
+        },
+        programa: {
+          type: Array,
+          value: []
+        }
+      },
+      listeners: {
+        'mouseover': 'onMouseOver',
+        'mouseout': 'onMouseOut'
+      },
+      onMouseOver: function(){
+        this.style.boxShadow = "0px 0px 9px 9px " + this.corShadow;
+      },
+      onMouseOut: function(){
+        this.style.boxShadow = "3px 3px 3px " + this.corShadow;
+      }
+    });
+  </script>
+</dom-module>

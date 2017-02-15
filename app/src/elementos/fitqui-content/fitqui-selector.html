@@ -1,21 +1,30 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="fitqui-exercise-summary.html">
 
 <dom-module id="fitqui-selector">
   <template>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-selector.css" inline>
 
     <div id="wrapper">
-      <h1>Selector</h1>
+      <p>Montamos alguns treinos para você. Qual deles você prefere?</p>
+      <template is="dom-repeat" items="{{dados}}">
+        <fitqui-exercise-summary programa="{{item}}" on-tap="onTap"></fitqui-exercise-summary>
+      </template>
     </div>
-
   </template>
   <script>
     Polymer({
       is: 'fitqui-selector',
       properties: {
         dados: {
-          type: Object
+          type: Array
+        },
+        selecionado: {
+          type: Object,
+          notify: true
         }
+      },
+      onTap: function(evento,objeto){
       }
     });
   </script>

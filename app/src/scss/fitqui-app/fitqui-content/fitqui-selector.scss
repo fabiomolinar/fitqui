@@ -1,7 +1,8 @@
 @import '../../variaveis';
 :host{
-  display: block;
+  display: table;
+  margin: 0px auto;
 }
-#wrapper{
-  display: inline-block;
+p{
+  color: $cor-triad1;
 }

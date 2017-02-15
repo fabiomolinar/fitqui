@@ -26,8 +26,8 @@
       fallback-selection="home">
       <fitqui-home name="home"></fitqui-home>
       <fitqui-filters name="filters" dados="{{exercicios}}"></fitqui-filters>
-      <fitqui-selector name="selector" dados="{{exercicios}}"></fitqui-selector>
-      <fitqui-trainer name="trainer"></fitqui-trainer>
+      <fitqui-selector name="selector" dados="{{exercicios}}" selecionado="{{selecionado}}"></fitqui-selector>
+      <fitqui-trainer name="trainer" selecionado="{{selecionado}}"></fitqui-trainer>
     </iron-pages>
   </template>
   <script>
@@ -38,7 +38,11 @@
           type: Object,
           observer: "pageChanged"
         },
-        exercicios:{
+        exercicios: {
+          type: Array,
+          value: []
+        },
+        selecionado: {
           type: Object,
           value: {}
         }
