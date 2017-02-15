@@ -2,6 +2,7 @@
 :host{
   display: block;
   color: $cor-principal;
+  font-size: 80%;
 }
 #wrapper{
   display: table;
@@ -11,6 +12,10 @@
 h1, p{
   color: $cor-triad1;
 }
+label{
+  font-weight: bold;
+  font-size: 108%;
+}
 paper-input{
   max-width: 18em;
 }
@@ -18,16 +23,16 @@ paper-input iron-icon{
   padding-right: 9px;
 }
 paper-checkbox{
-  margin-top: 27px;
+  margin-top: 13px;
 }
 #local{
   display: block;
 }
 #musculos{
-  margin: 27px 0px 27px 0px;
+  margin: 13px 0px 27px 0px;
 }
 #musculos label{
-  display: block;
+  padding-right: 13px;
 }
 paper-button{
   color: $cor-branca;

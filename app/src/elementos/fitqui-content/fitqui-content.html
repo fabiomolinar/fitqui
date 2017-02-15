@@ -25,8 +25,8 @@
       attr-for-selected="name"
       fallback-selection="home">
       <fitqui-home name="home"></fitqui-home>
-      <fitqui-filters name="filters"></fitqui-filters>
-      <fitqui-selector name="selector"></fitqui-selector>
+      <fitqui-filters name="filters" dados="{{exercicios}}"></fitqui-filters>
+      <fitqui-selector name="selector" dados="{{exercicios}}"></fitqui-selector>
       <fitqui-trainer name="trainer"></fitqui-trainer>
     </iron-pages>
   </template>
@@ -37,6 +37,10 @@
         route: {
           type: Object,
           observer: "pageChanged"
+        },
+        exercicios:{
+          type: Object,
+          value: {}
         }
       },
       ready: function(){

@@ -37,17 +37,17 @@
       </div>
       <div id="musculos">
         <label for="musculos">Grupos musculares: </label>
-        <paper-checkbox>Quadríceps</paper-checkbox>
-        <paper-checkbox>Panturrilha</paper-checkbox>
-        <paper-checkbox>Glúteo</paper-checkbox>
-        <paper-checkbox>Trapézio</paper-checkbox>
-        <paper-checkbox>Ombros</paper-checkbox>
-        <paper-checkbox>Biceps</paper-checkbox>
-        <paper-checkbox>Triceps</paper-checkbox>
-        <paper-checkbox>Antebraço</paper-checkbox>
-        <paper-checkbox>Peito</paper-checkbox>
-        <paper-checkbox>Abdômen</paper-checkbox>
-        <paper-checkbox>Costas</paper-checkbox>
+        <paper-checkbox name="quadriceps">Quadríceps</paper-checkbox>
+        <paper-checkbox name="panturrilha">Panturrilha</paper-checkbox>
+        <paper-checkbox name="gluteo">Glúteo</paper-checkbox>
+        <paper-checkbox name="trapezio">Trapézio</paper-checkbox>
+        <paper-checkbox name="ombros">Ombros</paper-checkbox>
+        <paper-checkbox name="biceps">Biceps</paper-checkbox>
+        <paper-checkbox name="triceps">Triceps</paper-checkbox>
+        <paper-checkbox name="antebraco">Antebraço</paper-checkbox>
+        <paper-checkbox name="peito">Peito</paper-checkbox>
+        <paper-checkbox name="abdomen">Abdômen</paper-checkbox>
+        <paper-checkbox name="costas">Costas</paper-checkbox>
       </div>
       <paper-button id="proximo" raised>Próximo</paper-button>
     </div>
@@ -56,12 +56,23 @@
   <script>
     Polymer({
       is: 'fitqui-filters',
-      properties: {},
+      properties: {
+        dados: {
+          type: Object,
+          notify: true
+        }
+      },
       listeners: {
         'proximo.tap': 'irSelector'
       },
       irSelector: function(){
-        window.location.href = "#selector"
+        this.prepararDados();
+        window.location.href = "#selector";
+      },
+      prepararDados: function(){
+        var exercicios = {};
+        //Adicionar lógica para ler os inputs aqui
+        this.dados = exercicios;
       }
     });
   </script>
