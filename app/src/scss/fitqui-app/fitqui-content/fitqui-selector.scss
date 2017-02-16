@@ -6,3 +6,12 @@
 p{
   color: $cor-triad1;
 }
+paper-button{
+  font-size: 1.3em;
+  color: $cor-branca;
+  background-color: $cor-triad1;
+}
+#nao-ha-dados{
+  text-align: center;
+  padding: 24px;
+}

@@ -6,25 +6,67 @@
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-selector.css" inline>
 
     <div id="wrapper">
-      <p>Montamos alguns treinos para você. Qual deles você prefere?</p>
-      <template is="dom-repeat" items="{{dados}}">
-        <fitqui-exercise-summary programa="{{item}}" on-tap="onTap"></fitqui-exercise-summary>
+      <template is="dom-if" if="[[!haDados]]">
+        <div id="nao-ha-dados">
+          <p>Opa, algo deu errado. Você selecionou os itens na página anterior?</p>
+          <p>Se não, clique no botão abaixo para selecionar o tipo de exercício que você está procurando!</p>
+          <paper-button on-tap="voltar" raised>Selecionar exercícios</paper-button>
+        </div>
+      </template>
+      <template is="dom-if" if="[[haDados]]">
+        <p>Montamos alguns treinos para você. Qual deles você prefere?</p>
+        <template is="dom-repeat" items="{{dados}}">
+          <fitqui-exercise-summary programa="{{item}}" on-tap="onTap"></fitqui-exercise-summary>
+        </template>
       </template>
     </div>
   </template>
   <script>
+    var asd;
     Polymer({
       is: 'fitqui-selector',
       properties: {
         dados: {
-          type: Array
+          type: Array,
+          value: [],
+          observer: 'dadosChanged'
         },
         selecionado: {
           type: Object,
           notify: true
+        },
+        haDados: {
+          type: Boolean,
+          value: false
         }
       },
       onTap: function(evento,objeto){
+        var paths = evento.path;
+        var clicado;
+        for (var i = 0; i < paths.length; i++){
+          if (paths[i].tagName === "FITQUI-EXERCISE-SUMMARY"){
+            clicado = paths[i];
+            break;
+          }
+        }
+        if (clicado){
+          this.selecionado = clicado.programa;
+        }
+        window.location.href = "#trainer";
+      },
+      voltar: function(){
+        window.location.href = "#filters";
+      },
+      dadosChanged: function(){
+        if (this.dados){
+          if (this.dados.length > 0) {
+            this.haDados = true;
+          } else {
+            this.haDados = false;
+          }
+        } else {
+          this.haDados = false;
+        }
       }
     });
   </script>
