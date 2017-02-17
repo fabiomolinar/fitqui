@@ -4,11 +4,17 @@
 }
 table{
   text-align: center;
-  color: $cor-principal;
+  color: $cor-triad1;
 }
 iron-icon{
-  --iron-icon-width: 51px;
-  --iron-icon-height: 51px;
-  --iron-icon-fill-color: $cor-principal;
-  --iron-icon-stroke-color: $cor-principal;
+  --iron-icon-width: 9vh;
+  --iron-icon-height: auto;
+  --iron-icon-fill-color: $cor-triad1;
+  --iron-icon-stroke-color: $cor-triad1;
+}
+paper-progress{
+  width: 100%;
+  --paper-progress-container-color: $cor-triad1;
+  --paper-progress-active-color: $cor-principal;
+  --paper-progress-secondary-color: $cor-principal;
 }

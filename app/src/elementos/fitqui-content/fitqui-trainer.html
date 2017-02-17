@@ -2,11 +2,16 @@
 <link rel="import" href="fitqui-controls.html">
 
 <dom-module id="fitqui-trainer">
-  <template on-scroll="posicionarControle">
+  <template>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-trainer.css" inline>
 
-    <div class="" style="height:900px;">
+    <div class="flex-row">
+      <div class="programa">
+        <h2></h2>
+      </div>
+      <div class="prop1">
 
+      </div>
     </div>
     <fitqui-controls id="controle"
       atual-repeticoes=1
@@ -22,21 +27,11 @@
       properties: {
         programa: {
           type: Array,
-          value: [],
-          observer: 'programaChanged'
+          value: []
         },
         route: {
           type: Object
         }
-      },
-      listeners: {
-        'track': 'posicionarControle'
-      },
-      attached: function(){
-        this.posicionarControle();
-      },
-      posicionarControle: function(){
-        console.log('oiii');
       }
     });
   </script>

@@ -1,9 +1,14 @@
 @import '../../variaveis';
 :host{
   display: flex;
+  flex-direction: column;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  color: $cor-principal;
 }
 fitqui-controls{
-  position: fixed;
-  bottom: 0;
   margin: 24px auto 0px auto;
 }
