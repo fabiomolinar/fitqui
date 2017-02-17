@@ -1,0 +1,14 @@
+@import '../../variaveis';
+:host{
+  display: block;
+}
+table{
+  text-align: center;
+  color: $cor-principal;
+}
+iron-icon{
+  --iron-icon-width: 51px;
+  --iron-icon-height: 51px;
+  --iron-icon-fill-color: $cor-principal;
+  --iron-icon-stroke-color: $cor-principal;
+}

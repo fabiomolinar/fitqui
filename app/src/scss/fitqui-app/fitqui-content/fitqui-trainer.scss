@@ -1,4 +1,9 @@
 @import '../../variaveis';
 :host{
-  display: table;
+  display: flex;
+}
+fitqui-controls{
+  position: fixed;
+  bottom: 0;
+  margin: 24px auto 0px auto;
 }

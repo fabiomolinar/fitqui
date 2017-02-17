@@ -1,0 +1,78 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../fitqui-icones.html">
+
+<dom-module id="fitqui-controls">
+  <template>
+    <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-controls.css" inline>
+
+    <table>
+      <tr>
+        <td><iron-icon icon="icones:skip-previous"></iron-icon></td>
+        <td>
+          <template is="dom-if" if="{{ehUnico}}">
+            <iron-icon icon="icones:fast-rewind"></iron-icon>
+          </template>
+        </td>
+        <td colspan="2">
+          <template is="dom-if" if="{{pausado}}">
+            <iron-icon icon="icones:play-arrow"></iron-icon>
+          </template>
+          <template is="dom-if" if="{{!pausado}}">
+            <iron-icon icon="icones:pause"></iron-icon>
+          </template>
+        </td>
+        <td>
+          <template is="dom-if" if="{{ehUnico}}">
+            <iron-icon icon="icones:fast-forward"></iron-icon>
+          </template>
+        </td>
+        <td><iron-icon icon="icones:skip-next"></iron-icon></td>
+      </tr>
+      <tr>
+        <td colspan="2">Repetições</td>
+        <td colspan="2"></td>
+        <td colspan="2">Exercícios</td>
+      </tr>
+      <tr>
+        <td colspan="2">{{atualRepeticoes}} de {{totalRepeticoes}}</td>
+        <td colspan="2"></td>
+        <td colspan="2">{{atualExercicios}} de {{totalExercicios}}</td>
+      </tr>
+    </table>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'fitqui-controls',
+      properties: {
+        atualRepeticoes: {
+          type: Number,
+          value: 1
+        },
+        totalRepeticoes: {
+          type: Number,
+          value: 1
+        },
+        atualExercicios: {
+          type: Number,
+          value: 1
+        },
+        totalExercicios: {
+          type: Number,
+          value: 1
+        },
+        pausado: {
+          type: Boolean,
+          value: false
+        },
+        ehUnico: {
+          type: Boolean,
+          computed: 'computeEhUnico(totalRepeticoes)'
+        }
+      },
+      computeEhUnico: function(total){
+        return total > 1 ? true : false;
+      }
+    });
+  </script>
+</dom-module>

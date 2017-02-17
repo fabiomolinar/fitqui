@@ -1,10 +1,19 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="fitqui-controls.html">
 
 <dom-module id="fitqui-trainer">
-  <template>
+  <template on-scroll="posicionarControle">
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-trainer.css" inline>
 
-    <h1>Trainer</h1>
+    <div class="" style="height:900px;">
+
+    </div>
+    <fitqui-controls id="controle"
+      atual-repeticoes=1
+      total-repeticoes=3
+      atual-exercicios=1
+      total-exercicios=5>
+    </fitqui-controls>
 
   </template>
   <script>
@@ -13,8 +22,21 @@
       properties: {
         programa: {
           type: Array,
-          value: []
+          value: [],
+          observer: 'programaChanged'
+        },
+        route: {
+          type: Object
         }
+      },
+      listeners: {
+        'track': 'posicionarControle'
+      },
+      attached: function(){
+        this.posicionarControle();
+      },
+      posicionarControle: function(){
+        console.log('oiii');
       }
     });
   </script>
