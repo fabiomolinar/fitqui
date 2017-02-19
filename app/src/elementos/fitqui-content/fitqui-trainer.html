@@ -9,15 +9,14 @@
       <div class="programa">
         <h2></h2>
       </div>
+      <!-- prop1 = container para propaganda 1 -->
       <div class="prop1">
 
       </div>
     </div>
     <fitqui-controls id="controle"
-      atual-repeticoes=1
-      total-repeticoes=3
-      atual-exercicios=1
-      total-exercicios=5>
+      atual-exercicios={{posicao}}
+      total-exercicios={{programa.length}}>
     </fitqui-controls>
 
   </template>
@@ -31,6 +30,28 @@
         },
         route: {
           type: Object
+        },
+        posicao: {
+          type: Number,
+          computed: 'computePosicao(route)'
+        }
+      },
+      computePosicao: function(route){
+        var path = route.path;
+        var posicao = 1;
+        var primeiro = path.indexOf("/");
+        if (primeiro > -1){
+          var ultimo = path.lastIndexOf("/");
+          if (primeiro === ultimo){
+            posicao = parseInt(path.substring(primeiro + 1,path.length));
+          } else {
+            posicao = parseInt(path.substring(primeiro + 1, ultimo + 1));
+          }
+        }
+        if (!isNaN(posicao)){
+          return posicao;
+        } else {
+          return 1;
         }
       }
     });

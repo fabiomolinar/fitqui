@@ -27,16 +27,6 @@
           </paper-progress>
         </td>
       </tr>
-      <tr>
-        <td colspan="2">Repetições</td>
-        <td colspan="2"></td>
-        <td colspan="2">Exercícios</td>
-      </tr>
-      <tr>
-        <td colspan="2">{{totalRepeticoes}}</td>
-        <td colspan="2"></td>
-        <td colspan="2">{{atualExercicios}} de {{totalExercicios}}</td>
-      </tr>
     </table>
 
   </template>
@@ -44,14 +34,6 @@
     Polymer({
       is: 'fitqui-controls',
       properties: {
-        atualRepeticoes: {
-          type: Number,
-          value: 1
-        },
-        totalRepeticoes: {
-          type: Number,
-          value: 1
-        },
         atualExercicios: {
           type: Number,
           value: 1
