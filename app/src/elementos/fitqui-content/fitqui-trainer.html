@@ -7,7 +7,13 @@
 
     <div class="flex-row">
       <div class="programa">
-        <h2></h2>
+        <h2 id="nome"></h2>
+        <h3 id="musculosPrimarios"></h3>
+        <h4 id="musculosSecundarios"></h4>
+        <p id="repeticoes"></p>
+        <p id="duracao"></p>
+        <img id="gif" src="" alt="">
+        <p><a id="youtube" href="#"></a></p>
       </div>
       <!-- prop1 = container para propaganda 1 -->
       <div class="prop1">
@@ -26,14 +32,16 @@
       properties: {
         programa: {
           type: Array,
-          value: []
+          value: [],
+          observer: 'atualizarTela'
         },
         route: {
           type: Object
         },
         posicao: {
           type: Number,
-          computed: 'computePosicao(route)'
+          computed: 'computePosicao(route)',
+          observer: 'atualizarTela'
         }
       },
       computePosicao: function(route){
@@ -52,6 +60,23 @@
           return posicao;
         } else {
           return 1;
+        }
+      },
+      atualizarTela: function(){
+        try {
+          this.$.nome.textContent = this.programa[this.posicao].nome;
+          this.$.musculosPrimarios.textContent = this.programa[this.posicao].musculosPrimarios.toString();
+          this.$.musculosSecundarios.textContent = this.programa[this.posicao].musculosSecundarios.toString();
+          this.$.repeticoes.textContent = this.programa[this.posicao].repeticoes.toString();
+          this.$.duracao.textContent = this.programa[this.posicao].duracao.toString();
+          this.$.gif.src = this.programa[this.posicao].gif;
+          this.$.youtube.href = this.programa[this.posicao].youtube;
+        } catch (e) {
+          if (_fitqui.devMode()){
+            console.log(e.name + ": " + e.message);
+          }
+        } finally {
+
         }
       }
     });
