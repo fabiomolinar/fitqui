@@ -11,8 +11,8 @@ var _fitquiClasses = (function(){
     //detratores = [],
     //Nível de dificuldade para realizar 10 repetições de um exercício de força ou 10 minutos de um aeróbico
     //dificuldade = 0,
-    //Caminho para o gif
-    gif = "path/to/gif.gif",
+    //Caminho para o giy
+    gif = "src/gif/gif.png",
     //Musculos primários usados no exercício; vazio se o exercício for aeróbico
     musculosPrimarios = ["biceps"],
     //Musculos secundários usados no exercício; vazio se o exercício for aeróbico
@@ -37,7 +37,7 @@ var _fitquiClasses = (function(){
     //Número de repetições para exercícios de força. Igual a 1 quando aeróbico
     repeticoes = 3,
     //Duração do exercício aeróbico. Igual a 0 quando exercício de força
-    duracao = 0
+    duracao = 13
   ){
     return {
       gif: gif,

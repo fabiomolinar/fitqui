@@ -30,5 +30,5 @@ gulp.task('watch',function(){
     livereload: true
   });
   gulp.watch('./src/elementos/**/*.html',['inline-css']);
-  gulp.watch('./src/scss/**/*.scss',['compile-dev']);
+  gulp.watch(['./src/scss/**/*.scss','./src/js/**/*.js'],['compile-dev']);
 });

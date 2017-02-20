@@ -1,19 +1,58 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../fitqui-shared-styles.html">
+<link rel="import" href="../fitqui-icones.html">
 <link rel="import" href="fitqui-controls.html">
 
 <dom-module id="fitqui-trainer">
   <template>
+    <style include="fitqui-shared-styles"></style>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-trainer.css" inline>
 
+    <template is="dom-if" if="[[!haDados]]">
+      <div id="nao-ha-dados">
+        <p>Opa, algo deu errado. Você chegou a selecionar os ítens?</p>
+        <p>Se não, clique no botão abaixo para selecionar o tipo de exercício que você está procurando!</p>
+        <paper-button on-tap="voltar" raised>Selecionar exercícios</paper-button>
+      </div>
+    </template>
     <div class="flex-row">
-      <div class="programa">
+      <div class="programa" id="info-exercicio">
         <h2 id="nome"></h2>
-        <h3 id="musculosPrimarios"></h3>
-        <h4 id="musculosSecundarios"></h4>
-        <p id="repeticoes"></p>
-        <p id="duracao"></p>
+        <table>
+          <col>
+          <col width="24">
+          <col>
+          <tr>
+            <td><h3 id="musculosPrimarios"></h3></td>
+            <td></td>
+            <td><p id="pRepeticoes">Repetições: <span id="repeticoes"></span></p></td>
+          </tr>
+          <tr>
+            <td><h5 id="musculosSecundarios"></h4></td>
+            <td ></td>
+            <td><p id="pDuracao">Duração: <span id="duracao"></span></p></td>
+          </tr>
+        </table>
         <img id="gif" src="" alt="">
-        <p><a id="youtube" href="#"></a></p>
+        <table>
+          <col>
+          <col width="24">
+          <col>
+          <tr>
+            <td><p><a id="youtube" href="#">Veja o vídeo</a></p></td>
+            <td></td>
+            <td>
+              <div id="avaliar">
+                <p>Avalie o exercício:</p>
+                <div class="">
+                  <iron-icon icon="icones:mood-bad"></iron-icon>
+                  <iron-icon icon="icones:face"></iron-icon>
+                  <iron-icon icon="icones:mood"></iron-icon>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
       <!-- prop1 = container para propaganda 1 -->
       <div class="prop1">
@@ -42,42 +81,97 @@
           type: Number,
           computed: 'computePosicao(route)',
           observer: 'atualizarTela'
+        },
+        haDados: {
+          type: Boolean,
+          value: false,
+          computed: 'computeHaDados(programa)'
         }
       },
       computePosicao: function(route){
-        var path = route.path;
-        var posicao = 1;
-        var primeiro = path.indexOf("/");
-        if (primeiro > -1){
-          var ultimo = path.lastIndexOf("/");
-          if (primeiro === ultimo){
-            posicao = parseInt(path.substring(primeiro + 1,path.length));
+        try {
+          var path = route.path;
+          var posicao = 1;
+          var primeiro = path.indexOf("/");
+          if (primeiro > -1){
+            var ultimo = path.lastIndexOf("/");
+            if (primeiro === ultimo){
+              posicao = parseInt(path.substring(primeiro + 1,path.length));
+            } else {
+              posicao = parseInt(path.substring(primeiro + 1, ultimo + 1));
+            }
+          }
+          if (!isNaN(posicao)){
+            return posicao;
           } else {
-            posicao = parseInt(path.substring(primeiro + 1, ultimo + 1));
+            return 1;
+          }
+        } catch (e) {
+          if (_fitqui.devMode()) {
+            console.log(e.name + ": " + e.message);
           }
         }
-        if (!isNaN(posicao)){
-          return posicao;
+      },
+      computeHaDados: function(programa){
+        if (programa){
+          if (programa.length > 0) {
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return 1;
+          return false;
         }
       },
       atualizarTela: function(){
+        if (this.haDados === true) {
+          this.$.pRepeticoes.hidden = false;
+          this.$.pDuracao.hidden = false;
+          this.$.youtube.hidden = false;
+          this.$.controle.hidden = false;
+          this.$.avaliar.hidden = false;
+          try {
+            this.$.nome.textContent = this.programa[this.posicao].nome;
+            this.$.musculosPrimarios.textContent = this.programa[this.posicao].musculosPrimarios.toString();
+            this.$.musculosSecundarios.textContent = this.programa[this.posicao].musculosSecundarios.toString();
+            this.$.repeticoes.textContent = this.programa[this.posicao].repeticoes.toString();
+            var duracao = this.programa[this.posicao].duracao.toString();
+            if (duracao != 0) {
+              this.$.pDuracao.hidden = false;
+              this.$.duracao.textContent = duracao;
+            } else {
+              this.$.pDuracao.hidden = true;
+            }
+            this.$.gif.src = this.programa[this.posicao].gif;
+            this.$.youtube.href = this.programa[this.posicao].youtube;
+          } catch (e) {
+            if (_fitqui.devMode()){
+              console.log(e.name + ": " + e.message);
+            }
+          }
+        } else {
+          this.$.pRepeticoes.hidden = true;
+          this.$.pDuracao.hidden = true;
+          this.$.youtube.hidden = true;
+          this.$.controle.hidden = true;
+          this.$.avaliar.hidden = true;
+        }
+      },
+      duracaoZero: function(){
+        var ehZero = true;
         try {
-          this.$.nome.textContent = this.programa[this.posicao].nome;
-          this.$.musculosPrimarios.textContent = this.programa[this.posicao].musculosPrimarios.toString();
-          this.$.musculosSecundarios.textContent = this.programa[this.posicao].musculosSecundarios.toString();
-          this.$.repeticoes.textContent = this.programa[this.posicao].repeticoes.toString();
-          this.$.duracao.textContent = this.programa[this.posicao].duracao.toString();
-          this.$.gif.src = this.programa[this.posicao].gif;
-          this.$.youtube.href = this.programa[this.posicao].youtube;
+          if (!(this.programa[this.posicao].duracao == 0)){
+            ehZero = false;
+          }
         } catch (e) {
           if (_fitqui.devMode()){
             console.log(e.name + ": " + e.message);
           }
-        } finally {
-
         }
+        return ehZero;
+      },
+      voltar: function(){
+        window.location.href = "#filters";
       }
     });
   </script>

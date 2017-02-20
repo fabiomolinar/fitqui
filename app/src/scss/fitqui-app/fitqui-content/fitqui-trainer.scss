@@ -10,5 +10,32 @@
   color: $cor-principal;
 }
 fitqui-controls{
-  margin: 24px auto 0px auto;
+  margin: 24px auto 13px auto;
+}
+.programa img{
+  height: 100px;
+  width: auto;
+}
+.programa h2{
+  margin-bottom: 0px;
+}
+.programa h3,h5,p{
+  margin: 0px;
+}
+.programa img{
+  display: block;
+  margin: 0px auto;
+}
+#nao-ha-dados{
+  text-align: center;
+  padding: 24px;
+}
+#nao-ha-dados p{
+  color: $cor-triad1;
+}
+#nao-ha-dados paper-button{
+  font-size: 1.3em;
+  color: $cor-branca;
+  background-color: $cor-triad1;
+  margin-top: 24px;
 }

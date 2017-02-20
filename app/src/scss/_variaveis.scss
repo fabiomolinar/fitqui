@@ -13,7 +13,9 @@ $cor-triad2: #B44E86;
 $cor-tetrad1: #3B8386;
 $cor-tetrad2: #DE6461;
 $cor-tetrad3: #DE9B61;
-
+$cor-link: $cor-tetrad1;
+$cor-link-visitado: #10585B;
+$cor-link-hover: #5E9C9F;
 
 @mixin tipo-de-aparelho($media) {
   @if $media == celular {
