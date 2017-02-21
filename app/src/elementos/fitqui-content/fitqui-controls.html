@@ -8,22 +8,24 @@
 
     <table>
       <tr>
-        <td colspan="2"><iron-icon icon="icones:skip-previous"></iron-icon></tdcolspan>
+        <td colspan="2"><iron-icon icon="icones:skip-previous" id="previous"></iron-icon></tdcolspan>
         <td colspan="2">
           <template is="dom-if" if="{{pausado}}">
-            <iron-icon icon="icones:play-arrow"></iron-icon>
+            <iron-icon icon="icones:play-arrow" id="play"></iron-icon>
           </template>
           <template is="dom-if" if="{{!pausado}}">
-            <iron-icon icon="icones:pause"></iron-icon>
+            <iron-icon icon="icones:pause" id="pause"></iron-icon>
           </template>
         </td>
-        <td colspan="2"><iron-icon icon="icones:skip-next"></iron-icon></td>
+        <td colspan="2"><iron-icon icon="icones:skip-next" id="next"></iron-icon></td>
       </tr>
       <tr>
         <td colspan="6">
           <paper-progress
             value="{{atualExercicios}}"
-            max="{{totalExercicios}}" class="transiting">
+            min="1"
+            max="{{totalExercicios}}"
+            class="transiting">
           </paper-progress>
         </td>
       </tr>

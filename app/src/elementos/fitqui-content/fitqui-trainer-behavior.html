@@ -1,0 +1,196 @@
+<script>
+    FitquiTrainerBehavior = {
+      properties: {
+        programa: {
+          type: Array,
+          value: [],
+          observer: 'atualizarTela'
+        },
+        route: {
+          type: Object
+        },
+        posicao: {
+          type: Number,
+          computed: 'computePosicao(route)',
+          observer: 'atualizarTela'
+        },
+        progresso: {
+          type: Object,
+          value: {
+            max: 0,
+            min: 0,
+            value: 1,
+            timerID: 1,
+            passo: 100
+          },
+          computed: 'computeProgresso(programa)'
+        },
+        haDados: {
+          type: Boolean,
+          value: false,
+          computed: 'computeHaDados(programa)'
+        },
+        ehAerobico: {
+          type: Boolean,
+          value: false,
+          computed: 'computeHeAerobico(programa)'
+        }
+      },
+      computePosicao: function(route){
+        try {
+          var path = route.path;
+          var posicao = 1;
+          var primeiro = path.indexOf("/");
+          if (primeiro > -1){
+            var ultimo = path.lastIndexOf("/");
+            if (primeiro === ultimo){
+              posicao = parseInt(path.substring(primeiro + 1,path.length));
+            } else {
+              posicao = parseInt(path.substring(primeiro + 1, ultimo + 1));
+            }
+          }
+          if (!isNaN(posicao)){
+            return posicao;
+          } else {
+            return 1;
+          }
+        } catch (e) {
+          if (_fitqui.devMode()) {
+            console.log(e.name + ": " + e.message);
+          }
+        }
+      },
+      computeProgresso: function(programa){
+        if (programa) {
+          if (programa.length > 0) {
+            var tempoMilli = programa[this.posicao - 1].duracao*60*1000;
+            var timer = setInterval(this.contarTempo,this.progresso.passo);
+            return {
+              min: 0,
+              max: tempoMilli,
+              value: 0,
+              timerID: timer,
+              passo: this.progresso.passo
+            };
+          }
+        }
+      },
+      computeHaDados: function(programa){
+        if (programa){
+          if (programa.length > 0) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      },
+      computeHeAerobico: function(programa){
+        if (programa.length > 0){
+          if (programa[this.posicao - 1].tipo == "Aeróbico") {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      },
+      contarTempo: function(){
+        //Essa função será rodada dentro do contexto da window
+        var progresso = document.querySelector('fitqui-trainer').progresso;
+        try {
+          if (progresso.value < progresso.max - progresso.passo) {
+            progresso.value = progresso.value + progresso.passo;
+          } else {
+            progresso.value = progresso.max;
+          }
+        } catch (e) {
+          _fitqui.log(e.name + ": " + e.message);
+        }
+      },
+      atualizarTela: function(){
+        if (this.haDados === true) {
+          this.$.pRepeticoes.hidden = false;
+          this.$.pDuracao.hidden = false;
+          this.$.youtube.hidden = false;
+          this.$.controle.hidden = false;
+          this.$.avaliar.hidden = false;
+          this.$.tabelaInfo.hidden = false;
+          try {
+            this.$.nome.textContent = this.programa[this.posicao - 1].nome;
+            this.$.musculosPrimarios.textContent = this.programa[this.posicao - 1].musculosPrimarios.toString();
+            this.$.musculosSecundarios.textContent = this.programa[this.posicao - 1].musculosSecundarios.toString();
+            this.$.repeticoes.textContent = this.programa[this.posicao - 1].repeticoes.toString();
+            //Apenas exercícios aeróbicos tem duração
+            var duracao = this.programa[this.posicao - 1].duracao.toString();
+            if (duracao != 0) {
+              this.$.pDuracao.hidden = false;
+              this.$.duracao.textContent = duracao;
+              this.$.progressoAerobico.hidden = false;
+            } else {
+              this.$.pDuracao.hidden = true;
+              this.$.progressoAerobico.hidden = true;
+            }
+            this.$.gif.src = this.programa[this.posicao - 1].gif;
+            this.$.youtube.href = this.programa[this.posicao - 1].youtube;
+          } catch (e) {
+            if (_fitqui.devMode()){
+              console.log(e.name + ": " + e.message);
+            }
+          }
+        } else {
+          this.$.pRepeticoes.hidden = true;
+          this.$.pDuracao.hidden = true;
+          this.$.youtube.hidden = true;
+          this.$.controle.hidden = true;
+          this.$.avaliar.hidden = true;
+          this.$.tabelaInfo.hidden = true;
+          this.$.progressoAerobico.hidden = true;
+        }
+      },
+      duracaoZero: function(){
+        var ehZero = true;
+        try {
+          if (!(this.programa[this.posicao - 1].duracao == 0)){
+            ehZero = false;
+          }
+        } catch (e) {
+          if (_fitqui.devMode()){
+            console.log(e.name + ": " + e.message);
+          }
+        }
+        return ehZero;
+      },
+      voltar: function(){
+        window.location.href = "#filters";
+      },
+      controlTap: function(evento,objeto){
+        var botao = evento.path[0];
+        switch (botao.id) {
+          case "pause":
+            clearInterval(this.progresso.timerID);
+            this.$.controle.setAttribute("pausado",true);
+            break;
+          case "play":
+            var timer = setInterval(this.contarTempo,this.progresso.passo);
+            this.progresso.timerID = timer;
+            this.$.controle.removeAttribute("pausado");
+            break;
+          case "next":
+            if (this.posicao < this.programa.length) {
+              var posicao = this.posicao + 1;
+              window.location.href = "#trainer/" + posicao;
+            }
+            break;
+          case "previous":
+            if (this.posicao > 1) {
+              var posicao = this.posicao - 1;
+              window.location.href = "#trainer/" + posicao;
+            }
+            break;
+          default:
+            console.log(Error("Ação não suportada."));
+        }
+      }
+    }
+</script>

@@ -12,6 +12,13 @@
 fitqui-controls{
   margin: 24px auto 13px auto;
 }
+paper-progress{
+  width: 100%;
+  margin: 3px 0px 9px 0px;
+  --paper-progress-container-color: $cor-triad1;
+  --paper-progress-active-color: $cor-principal;
+  --paper-progress-secondary-color: $cor-principal;
+}
 .programa img{
   height: 100px;
   width: auto;

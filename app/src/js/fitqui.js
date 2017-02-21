@@ -5,8 +5,14 @@ var _fitqui = (function(){
       emTeste = true;
     }
     return emTeste;
-  }
+  };
+  var log = function(conteudo){
+    if (this.devMode()){
+      console.log(conteudo);
+    }
+  };
   return {
-    devMode: devMode
+    devMode: devMode,
+    log: log
   }
 })();

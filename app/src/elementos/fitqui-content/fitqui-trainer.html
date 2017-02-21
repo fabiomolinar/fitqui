@@ -1,7 +1,9 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 <link rel="import" href="../fitqui-icones.html">
 <link rel="import" href="fitqui-controls.html">
+<link rel="import" href="fitqui-trainer-behavior.html">
 
 <dom-module id="fitqui-trainer">
   <template>
@@ -34,6 +36,13 @@
           </tr>
         </table>
         <img id="gif" src="" alt="">
+        <paper-progress
+          id="progressoAerobico"
+          value="{{progresso.value}}"
+          min="{{progresso.min}}"
+          max="{{progresso.max}}"
+          class="transiting">
+        </paper-progress>
         <table id="youtube-avaliacao">
           <col>
           <col width="24">
@@ -60,7 +69,7 @@
 
       </div>
     </div>
-    <fitqui-controls id="controle"
+    <fitqui-controls id="controle" on-tap="controlTap"
       atual-exercicios={{posicao}}
       total-exercicios={{programa.length}}>
     </fitqui-controls>
@@ -69,113 +78,7 @@
   <script>
     Polymer({
       is: 'fitqui-trainer',
-      properties: {
-        programa: {
-          type: Array,
-          value: [],
-          observer: 'atualizarTela'
-        },
-        route: {
-          type: Object
-        },
-        posicao: {
-          type: Number,
-          computed: 'computePosicao(route)',
-          observer: 'atualizarTela'
-        },
-        haDados: {
-          type: Boolean,
-          value: false,
-          computed: 'computeHaDados(programa)'
-        }
-      },
-      computePosicao: function(route){
-        try {
-          var path = route.path;
-          var posicao = 1;
-          var primeiro = path.indexOf("/");
-          if (primeiro > -1){
-            var ultimo = path.lastIndexOf("/");
-            if (primeiro === ultimo){
-              posicao = parseInt(path.substring(primeiro + 1,path.length));
-            } else {
-              posicao = parseInt(path.substring(primeiro + 1, ultimo + 1));
-            }
-          }
-          if (!isNaN(posicao)){
-            return posicao;
-          } else {
-            return 1;
-          }
-        } catch (e) {
-          if (_fitqui.devMode()) {
-            console.log(e.name + ": " + e.message);
-          }
-        }
-      },
-      computeHaDados: function(programa){
-        if (programa){
-          if (programa.length > 0) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      },
-      atualizarTela: function(){
-        if (this.haDados === true) {
-          this.$.pRepeticoes.hidden = false;
-          this.$.pDuracao.hidden = false;
-          this.$.youtube.hidden = false;
-          this.$.controle.hidden = false;
-          this.$.avaliar.hidden = false;
-          this.$.tabelaInfo.hidden = false;
-          try {
-            this.$.nome.textContent = this.programa[this.posicao].nome;
-            this.$.musculosPrimarios.textContent = this.programa[this.posicao].musculosPrimarios.toString();
-            this.$.musculosSecundarios.textContent = this.programa[this.posicao].musculosSecundarios.toString();
-            this.$.repeticoes.textContent = this.programa[this.posicao].repeticoes.toString();
-            var duracao = this.programa[this.posicao].duracao.toString();
-            if (duracao != 0) {
-              this.$.pDuracao.hidden = false;
-              this.$.duracao.textContent = duracao;
-            } else {
-              this.$.pDuracao.hidden = true;
-            }
-            this.$.gif.src = this.programa[this.posicao].gif;
-            this.$.youtube.href = this.programa[this.posicao].youtube;
-          } catch (e) {
-            if (_fitqui.devMode()){
-              console.log(e.name + ": " + e.message);
-            }
-          }
-        } else {
-          this.$.pRepeticoes.hidden = true;
-          this.$.pDuracao.hidden = true;
-          this.$.youtube.hidden = true;
-          this.$.controle.hidden = true;
-          this.$.avaliar.hidden = true;
-          this.$.tabelaInfo.hidden = true;
-        }
-      },
-      duracaoZero: function(){
-        var ehZero = true;
-        try {
-          if (!(this.programa[this.posicao].duracao == 0)){
-            ehZero = false;
-          }
-        } catch (e) {
-          if (_fitqui.devMode()){
-            console.log(e.name + ": " + e.message);
-          }
-        }
-        return ehZero;
-      },
-      voltar: function(){
-        window.location.href = "#filters";
-      }
+      behaviors: [FitquiTrainerBehavior]
     });
   </script>
 </dom-module>
