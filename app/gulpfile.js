@@ -3,7 +3,6 @@ var
   sass = require('gulp-sass'),
   inlineSource = require('gulp-inline-source'),
   runSequence = require('run-sequence'),
-  rename = require('gulp-rename'),
   connect = require('gulp-connect');
 //-------------------------------
 //TASKS-DEV
