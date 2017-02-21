@@ -39,3 +39,27 @@ fitqui-controls{
   background-color: $cor-triad1;
   margin-top: 24px;
 }
+#youtube-avaliacao{
+  text-align: center;
+  display: block;
+}
+#avaliar iron-icon{
+  height: 33.3px;
+  width: 33.3px;
+}
+#notaNegativa{
+  color: $cor-tetrad2;
+}
+#notaNeutra{
+  color: $cor-triad1;
+}
+#notaPositiva{
+  color: $cor-escura;
+}
+#tabelaInfo{
+  border-collapse: collapse;
+  margin-bottom: 3px;
+}
+#quantidades{
+  border: 3px solid $cor-principal;
+}

@@ -18,23 +18,23 @@
     <div class="flex-row">
       <div class="programa" id="info-exercicio">
         <h2 id="nome"></h2>
-        <table>
+        <table id="tabelaInfo">
           <col>
           <col width="24">
-          <col>
+          <col id="quantidades">
           <tr>
             <td><h3 id="musculosPrimarios"></h3></td>
             <td></td>
             <td><p id="pRepeticoes">Repetições: <span id="repeticoes"></span></p></td>
           </tr>
           <tr>
-            <td><h5 id="musculosSecundarios"></h4></td>
+            <td><h5 id="musculosSecundarios"></h5></td>
             <td ></td>
             <td><p id="pDuracao">Duração: <span id="duracao"></span></p></td>
           </tr>
         </table>
         <img id="gif" src="" alt="">
-        <table>
+        <table id="youtube-avaliacao">
           <col>
           <col width="24">
           <col>
@@ -45,15 +45,16 @@
               <div id="avaliar">
                 <p>Avalie o exercício:</p>
                 <div class="">
-                  <iron-icon icon="icones:mood-bad"></iron-icon>
-                  <iron-icon icon="icones:face"></iron-icon>
-                  <iron-icon icon="icones:mood"></iron-icon>
+                  <iron-icon id="notaNegativa" icon="icones:mood-bad"></iron-icon>
+                  <iron-icon id="notaNeutra" icon="icones:face"></iron-icon>
+                  <iron-icon id="notaPositiva" icon="icones:mood"></iron-icon>
                 </div>
               </div>
             </td>
           </tr>
         </table>
       </div>
+      <!-- TODO: Adicionar container com propaganda -->
       <!-- prop1 = container para propaganda 1 -->
       <div class="prop1">
 
@@ -130,6 +131,7 @@
           this.$.youtube.hidden = false;
           this.$.controle.hidden = false;
           this.$.avaliar.hidden = false;
+          this.$.tabelaInfo.hidden = false;
           try {
             this.$.nome.textContent = this.programa[this.posicao].nome;
             this.$.musculosPrimarios.textContent = this.programa[this.posicao].musculosPrimarios.toString();
@@ -155,6 +157,7 @@
           this.$.youtube.hidden = true;
           this.$.controle.hidden = true;
           this.$.avaliar.hidden = true;
+          this.$.tabelaInfo.hidden = true;
         }
       },
       duracaoZero: function(){
