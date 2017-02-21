@@ -1,3 +1,6 @@
 {
-  "directory": "bower_components"
+  "directory": "bower_components",
+  "proxy": "${HTTPS_PROXY}",
+  "https-proxy": "${HTTPS_PROXY}",
+  "no-proxy": "${NO_PROXY}"
 }
