@@ -1,0 +1,59 @@
+@import '../../variaveis';
+:host{
+  display: flex;
+  flex-direction: column;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  color: $cor-principal;
+}
+fitqui-controls{
+  margin: 24px auto 13px auto;
+}
+paper-progress{
+  width: 100%;
+  margin: 3px 0px 9px 0px;
+  --paper-progress-container-color: $cor-triad1;
+  --paper-progress-active-color: $cor-principal;
+  --paper-progress-secondary-color: $cor-principal;
+}
+.programa img{
+  height: 100px;
+  width: auto;
+}
+.programa h2{
+  margin-bottom: 0px;
+}
+.programa h3,h5,p{
+  margin: 0px;
+}
+.programa img{
+  display: block;
+  margin: 0px auto;
+}
+#youtube-avaliacao{
+  text-align: center;
+  display: block;
+}
+#avaliar iron-icon{
+  height: 33.3px;
+  width: 33.3px;
+}
+#notaNegativa{
+  color: $cor-tetrad2;
+}
+#notaNeutra{
+  color: $cor-triad1;
+}
+#notaPositiva{
+  color: $cor-escura;
+}
+#tabelaInfo{
+  border-collapse: collapse;
+  margin-bottom: 3px;
+}
+#quantidades{
+  border: 3px solid $cor-principal;
+}

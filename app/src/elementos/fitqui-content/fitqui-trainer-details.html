@@ -1,0 +1,75 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../fitqui-shared-styles.html">
+<link rel="import" href="../fitqui-icones.html">
+
+<dom-module id="fitqui-trainer-details">
+  <template>
+    <style include="fitqui-shared-styles"></style>
+    <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-trainer-details.css" inline>
+
+    <div class="flex-row">
+      <div class="programa" id="info-exercicio">
+        <h2 id="nome"></h2>
+        <table id="tabelaInfo">
+          <col>
+          <col width="24">
+          <col id="quantidades">
+          <tr>
+            <td><h3 id="musculosPrimarios"></h3></td>
+            <td></td>
+            <td><p id="pRepeticoes">Repetições: <span id="repeticoes"></span></p></td>
+          </tr>
+          <tr>
+            <td><h5 id="musculosSecundarios"></h5></td>
+            <td ></td>
+            <td><p id="pDuracao">Duração: <span id="duracao"></span></p></td>
+          </tr>
+        </table>
+        <img id="gif" src="" alt="">
+        <paper-progress
+          id="progressoAerobico"
+          value="{{progresso.value}}"
+          min="{{progresso.min}}"
+          max="{{progresso.max}}"
+          class="transiting">
+        </paper-progress>
+        <table id="youtube-avaliacao">
+          <col>
+          <col width="24">
+          <col>
+          <tr>
+            <td><p><a id="youtube" href="#">Veja o vídeo</a></p></td>
+            <td></td>
+            <td>
+              <div id="avaliar">
+                <p>Avalie o exercício:</p>
+                <div class="">
+                  <iron-icon id="notaNegativa" icon="icones:mood-bad"></iron-icon>
+                  <iron-icon id="notaNeutra" icon="icones:face"></iron-icon>
+                  <iron-icon id="notaPositiva" icon="icones:mood"></iron-icon>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- TODO: Adicionar container com propaganda -->
+      <!-- prop1 = container para propaganda 1 -->
+      <div class="prop1">
+
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'fitqui-trainer-details',
+      properties: {
+        programa: {
+          type: Array
+        }
+      }
+    });
+  </script>
+</dom-module>
