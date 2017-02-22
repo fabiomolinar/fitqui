@@ -64,7 +64,7 @@
         if (programa) {
           if (programa.length > 0) {
             var tempoMilli = programa[this.posicao - 1].duracao*60*1000;
-            var timer = setInterval(this.contarTempo,this.progresso.passo);
+            var timer = setInterval(this.contarTempo.bind(this),this.progresso.passo);
             return {
               min: 0,
               max: tempoMilli,
@@ -96,16 +96,17 @@
         }
       },
       contarTempo: function(){
-        //Essa função será rodada dentro do contexto da window
-        var progresso = document.querySelector('fitqui-trainer').progresso;
         try {
-          if (progresso.value < progresso.max - progresso.passo) {
-            progresso.value = progresso.value + progresso.passo;
+          if (this.progresso.value < this.progresso.max - this.progresso.passo) {
+            this.progresso.value = this.progresso.value + this.progresso.passo;
           } else {
-            progresso.value = progresso.max;
+            this.progresso.value = this.progresso.max;
           }
         } catch (e) {
           _fitqui.log(e.name + ": " + e.message);
+        } finally {
+          //Como estou atualizando subproperties, preciso "forcar" a atualizacao dos bindings
+          this.notifyPath("progresso.value");
         }
       },
       atualizarTela: function(){
@@ -172,7 +173,7 @@
             this.$.controle.setAttribute("pausado",true);
             break;
           case "play":
-            var timer = setInterval(this.contarTempo,this.progresso.passo);
+            var timer = setInterval(this.contarTempo.bind(this),this.progresso.passo);
             this.progresso.timerID = timer;
             this.$.controle.removeAttribute("pausado");
             break;
