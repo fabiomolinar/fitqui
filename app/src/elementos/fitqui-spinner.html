@@ -15,7 +15,7 @@
       properties: {
         ativado: {
           type: Boolean,
-          value: false,
+          value: () => false,
           notify: true,
           reflectToAttribute: true,
           observer: '_esconderSpinner'

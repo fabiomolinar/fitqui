@@ -3,7 +3,7 @@
       properties: {
         programa: {
           type: Array,
-          value: [],
+          value: () => [],
           observer: 'atualizarTela'
         },
         route: {
@@ -16,23 +16,23 @@
         },
         progresso: {
           type: Object,
-          value: {
+          value: () => ({
             max: 0,
             min: 0,
             value: 1,
             timerID: 1,
             passo: 100
-          },
+          }),
           computed: 'computeProgresso(programa)'
         },
         haDados: {
           type: Boolean,
-          value: false,
+          value: () => false,
           computed: 'computeHaDados(programa)'
         },
         ehAerobico: {
           type: Boolean,
-          value: false,
+          value: () => false,
           computed: 'computeHeAerobico(programa)'
         }
       },

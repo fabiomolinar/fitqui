@@ -28,7 +28,7 @@
       properties: {
         dados: {
           type: Array,
-          value: [],
+          value: () => [],
           observer: 'dadosChanged'
         },
         selecionado: {
@@ -37,7 +37,7 @@
         },
         haDados: {
           type: Boolean,
-          value: false
+          value: () => false
         }
       },
       onTap: function(evento,objeto){
