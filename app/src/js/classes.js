@@ -37,7 +37,7 @@ var _fitquiClasses = (function(){
     //Número de repetições para exercícios de força. Igual a 1 quando aeróbico
     repeticoes = 3,
     //Duração do exercício aeróbico. Igual a 0 quando exercício de força
-    duracao = 1
+    duracao = 0
   ){
     return {
       gif: gif,

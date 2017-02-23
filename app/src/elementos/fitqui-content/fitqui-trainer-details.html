@@ -16,30 +16,33 @@
           <col width="24">
           <col id="quantidades">
           <tr>
-              <td><h3 id="musculosPrimarios">{{musculosPrimarios}}</h3></td>
+            <td><h3 id="musculosPrimarios">{{musculosPrimarios}}</h3></td>
             <td></td>
             <td><p id="pRepeticoes">Repetições: <span id="repeticoes">{{repeticoes}}</span></p></td>
           </tr>
           <tr>
             <td><h5 id="musculosSecundarios">{{musculosSecundarios}}</h5></td>
             <td ></td>
-            <td><p id="pDuracao">Duração: <span id="duracao">{{duracao}}</span></p></td>
+            <td><p id="pDuracao" hidden$="{{!ehAerobico}}">Duração: <span id="duracao">{{duracao}}</span><span> minutos</span></p></td>
           </tr>
         </table>
-        <img id="gif" src="{{gif}}" alt="">
         <paper-progress
           id="progressoAerobico"
+          hidden$="{{!ehAerobico}}"
           value="{{progresso.value}}"
           min="{{progresso.min}}"
           max="{{progresso.max}}"
           class="transiting">
         </paper-progress>
+        <img id="gif" src="{{gif}}" alt="">
         <table id="youtube-avaliacao">
           <col>
           <col width="24">
           <col>
           <tr>
-            <td><p><a id="youtube" href="{{youtube}}">Veja o vídeo</a></p></td>
+            <td>
+              <p><a id="youtube" href="{{youtube}}" rel="author" target="_blank">Veja o vídeo</a></p>
+            </td>
             <td></td>
             <td>
               <div id="avaliar">
@@ -65,10 +68,12 @@
           type: Array
         },
         posicao: {
-          type: Number
+          type: Number,
+          observer: 'changedPosicao'
         },
         pausado: {
-          type: Boolean
+          type: Boolean,
+          observer: 'changedPausado'
         },
         nome: {
           type: String,
@@ -105,11 +110,72 @@
           value: () => "",
           computed: 'computeVariavel(programa, posicao, "youtube")'
         },
+        ehAerobico: {
+          type: Boolean,
+          value: () => false,
+          computed: 'computeEhAerobico(programa, posicao)'
+        },
+        progresso: {
+          type: Object,
+          value: () => ({
+            value: 0,
+            min: 0,
+            max: 0
+          })
+        },
+        passo: {
+          type: Number,
+          value: () => 200
+        },
+        timerID: {
+          type: Number,
+          value: () => 0
+        }
       },
       computeVariavel: function(programa, posicao, variavel){
         if (this.checkProgramaPosicao()) {
-          return programa[posicao]  [variavel];
+          return programa[posicao - 1][variavel];
         }
+      },
+      computeEhAerobico: function(programa, posicao){
+        var eh = false;
+        try {
+          eh = programa[posicao - 1].tipo == "Aeróbico" ? true : false;
+        } finally {
+          return eh;
+        }
+      },
+      changedPosicao: function(){
+        if (this.checkProgramaPosicao()) {
+          if (this.programa[this.posicao - 1].tipo == "Aeróbico") {
+            if (this.timerID > 0) {
+              clearInterval(this.timerID);
+            }
+            this.progresso = {
+              value: 0,
+              min: 0,
+              max: this.programa[this.posicao - 1].duracao * 60 * 1000
+            }
+            this.timerID = setInterval(this.contarTempo.bind(this),this.passo);
+          }
+        }
+      },
+      changedPausado: function(novo, antigo) {
+        if (novo != antigo) {
+          if (novo === true) {
+            clearInterval(this.timerID);
+          } else {
+            this.timerID = setInterval(this.contarTempo.bind(this),this.passo);
+          }
+        }
+      },
+      contarTempo: function(){
+        if (this.progresso.value < this.progresso.max - this.passo) {
+          this.progresso.value = this.progresso.value + this.passo;
+        } else {
+          this.progresso.value = this.progresso.max;
+        }
+        this.notifyPath("progresso.value");
       },
       checkProgramaPosicao: function(){
         var verificado = false;

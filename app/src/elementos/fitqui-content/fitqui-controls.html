@@ -9,7 +9,7 @@
     <table>
       <tr>
         <td colspan="2"><iron-icon icon="icones:skip-previous" id="previous"></iron-icon></tdcolspan>
-        <td colspan="2">
+        <td colspan="2" hidden$="{{!mostrarPlayPause}}">
           <template is="dom-if" if="{{pausado}}">
             <iron-icon icon="icones:play-arrow" id="play"></iron-icon>
           </template>
@@ -45,6 +45,10 @@
           value: () => 1
         },
         pausado: {
+          type: Boolean,
+          value: () => false
+        },
+        mostrarPlayPause: {
           type: Boolean,
           value: () => false
         }
