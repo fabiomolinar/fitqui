@@ -10,23 +10,23 @@
 
     <div>
       <div class="programa" id="info-exercicio">
-        <h2 id="nome"></h2>
+        <h2 id="nome">{{nome}}</h2>
         <table id="tabelaInfo">
           <col>
           <col width="24">
           <col id="quantidades">
           <tr>
-            <td><h3 id="musculosPrimarios"></h3></td>
+              <td><h3 id="musculosPrimarios">{{musculosPrimarios}}</h3></td>
             <td></td>
-            <td><p id="pRepeticoes">Repetições: <span id="repeticoes"></span></p></td>
+            <td><p id="pRepeticoes">Repetições: <span id="repeticoes">{{repeticoes}}</span></p></td>
           </tr>
           <tr>
-            <td><h5 id="musculosSecundarios"></h5></td>
+            <td><h5 id="musculosSecundarios">{{musculosSecundarios}}</h5></td>
             <td ></td>
-            <td><p id="pDuracao">Duração: <span id="duracao"></span></p></td>
+            <td><p id="pDuracao">Duração: <span id="duracao">{{duracao}}</span></p></td>
           </tr>
         </table>
-        <img id="gif" src="" alt="">
+        <img id="gif" src="{{gif}}" alt="">
         <paper-progress
           id="progressoAerobico"
           value="{{progresso.value}}"
@@ -39,7 +39,7 @@
           <col width="24">
           <col>
           <tr>
-            <td><p><a id="youtube" href="#">Veja o vídeo</a></p></td>
+            <td><p><a id="youtube" href="{{youtube}}">Veja o vídeo</a></p></td>
             <td></td>
             <td>
               <div id="avaliar">
@@ -63,6 +63,67 @@
       properties: {
         programa: {
           type: Array
+        },
+        posicao: {
+          type: Number
+        },
+        pausado: {
+          type: Boolean
+        },
+        nome: {
+          type: String,
+          value: () => "Exercicio",
+          computed: 'computeVariavel(programa, posicao, "nome")'
+        },
+        musculosPrimarios: {
+          type: Array,
+          value: () => [],
+          computed: 'computeVariavel(programa, posicao, "musculosPrimarios")'
+        },
+        musculosSecundarios: {
+          type: Array,
+          value: () => [],
+          computed: 'computeVariavel(programa, posicao, "musculosSecundarios")'
+        },
+        repeticoes: {
+          type: Number,
+          value: () => -1,
+          computed: 'computeVariavel(programa, posicao, "repeticoes")'
+        },
+        duracao: {
+          type: Number,
+          value: () => -1,
+          computed: 'computeVariavel(programa, posicao, "duracao")'
+        },
+        gif: {
+          type: String,
+          value: () => "",
+          computed: 'computeVariavel(programa, posicao, "gif")'
+        },
+        youtube: {
+          type: String,
+          value: () => "",
+          computed: 'computeVariavel(programa, posicao, "youtube")'
+        },
+      },
+      computeVariavel: function(programa, posicao, variavel){
+        if (this.checkProgramaPosicao()) {
+          return programa[posicao]  [variavel];
+        }
+      },
+      checkProgramaPosicao: function(){
+        var verificado = false;
+        try {
+          if (
+            this.programa &&
+            this.posicao &&
+            this.programa.length > 0 &&
+            this.posicao > 0 &&
+            this.posicao < this.programa.length + 1) {
+              verificado = true;
+          }
+        } finally {
+          return verificado;
         }
       }
     });
