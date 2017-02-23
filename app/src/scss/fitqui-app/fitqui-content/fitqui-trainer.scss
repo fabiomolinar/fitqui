@@ -1,6 +1,7 @@
 @import '../../variaveis';
 :host{
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 #nao-ha-dados{
   text-align: center;

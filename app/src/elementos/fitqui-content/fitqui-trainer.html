@@ -16,11 +16,14 @@
     <template is="dom-if" if="{{haDados}}">
       <fitqui-trainer-details
         id="detalhes"
-        programa="[[programa]]">
+        programa="[[programa]]"
+        posicao="[[posicao]]"
+        pausado="[[pausado]]">
       </fitqui-trainer-details>
       <fitqui-controls id="controle" on-tap="controlTap"
         atual-exercicios={{posicao}}
-        total-exercicios={{programa.length}}>
+        total-exercicios={{programa.length}}
+        pausado="[[pausado]]">
       </fitqui-controls>
     </template>
   </template>
@@ -30,10 +33,21 @@
       properties: {
         programa: {
           type: Array,
-          value: () => []
+          value: () => [],
+          observer: `changedPrograma`
         },
         route: {
           type: Object
+        },
+        posicao: {
+          type: Number,
+          value: () => -1,
+          computed: 'computePosicao(route)',
+          observer: 'changedPosicao'
+        },
+        pausado: {
+          type: Boolean,
+          value: () => false
         },
         haDados: {
           type: Boolean,
@@ -44,6 +58,34 @@
       computeHaDados: function(programa){
         return (programa.length > 0 ? true : false);
       },
+      computePosicao: function(route){
+        try {
+          var path = route.path;
+          var posicao = 1;
+          var primeiro = path.indexOf("/");
+          if (primeiro > -1){
+            var ultimo = path.lastIndexOf("/");
+            if (primeiro === ultimo){
+              posicao = parseInt(path.substring(primeiro + 1,path.length));
+            } else {
+              posicao = parseInt(path.substring(primeiro + 1, ultimo + 1));
+            }
+          }
+          if (!isNaN(posicao)){
+            return posicao;
+          } else {
+            return 1;
+          }
+        } catch (e) {
+          _fitqui.log(e.name + ": " + e.message);
+        }
+      },
+      changedPrograma: function() {
+        this.pausado = false;
+      },
+      changedPosicao: function() {
+        this.pausado = false;
+      },
       voltar: function(){
         window.location.href = "#filters";
       },
@@ -51,16 +93,22 @@
         var botao = evento.path[0];
         switch (botao.id) {
           case "pause":
-            console.log("pause");
+            this.pausado = true;
             break;
           case "play":
-            console.log("play");
+            this.pausado = false;
             break;
           case "next":
-            console.log("next");
+            if (this.posicao < this.programa.length) {
+              var posicao = this.posicao + 1;
+              window.location.href = "#trainer/" + posicao;
+            }
             break;
           case "previous":
-            console.log("previous");
+              if (this.posicao > 1) {
+                var posicao = this.posicao - 1;
+                window.location.href = "#trainer/" + posicao;
+              }
             break;
           default:
             _fitqui.log("algo deu errado na função 'controlTap' no 'fitqui-trainer'.");
