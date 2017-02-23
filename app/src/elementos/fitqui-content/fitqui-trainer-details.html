@@ -14,16 +14,19 @@
         <table id="tabelaInfo">
           <col>
           <col width="24">
-          <col id="quantidades">
+          <col>
           <tr>
             <td><h3 id="musculosPrimarios">{{musculosPrimarios}}</h3></td>
             <td></td>
-            <td><p id="pRepeticoes">Repetições: <span id="repeticoes">{{repeticoes}}</span></p></td>
+            <td id="quantidades">
+              <p id="pRepeticoes" hidden$="{{ehAerobico}}">Repetições: <span id="repeticoes">{{repeticoes}}</span></p>
+              <p id="pDuracao" hidden$="{{!ehAerobico}}">Duração: <span id="duracao">{{duracao}}</span><span> minutos</span></p>
+            </td>
           </tr>
           <tr>
             <td><h5 id="musculosSecundarios">{{musculosSecundarios}}</h5></td>
-            <td ></td>
-            <td><p id="pDuracao" hidden$="{{!ehAerobico}}">Duração: <span id="duracao">{{duracao}}</span><span> minutos</span></p></td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
         <paper-progress
