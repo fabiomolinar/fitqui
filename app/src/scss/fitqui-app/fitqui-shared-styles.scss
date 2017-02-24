@@ -21,6 +21,11 @@ paper-checkbox{
   --paper-checkbox-error-color: $cor-tetrad2;
   padding-right: 27px;
 }
+paper-button{
+  font-size: 1.8em;
+  color: $cor-branca;
+  background-color: $cor-triad1;
+}
 a{
   color: $cor-link;
 }

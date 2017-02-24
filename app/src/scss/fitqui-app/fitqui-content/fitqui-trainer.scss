@@ -16,3 +16,11 @@
   background-color: $cor-triad1;
   margin-top: 24px;
 }
+#dialogoSucesso{
+  background-color: $cor-branca;
+  color: $cor-principal;
+}
+#dialogoSucesso paper-button{
+  float: right;
+  font-size: 1em;
+}
