@@ -68,7 +68,8 @@
       is: 'fitqui-trainer-details',
       properties: {
         programa: {
-          type: Array
+          type: Array,
+          observer: 'changedPrograma'
         },
         posicao: {
           type: Number,
@@ -148,6 +149,11 @@
           return eh;
         }
       },
+      changedPrograma: function() {
+        if (this.checkProgramaPosicao()) {
+          this.sizeGif();
+        }
+      },
       changedPosicao: function(){
         if (this.checkProgramaPosicao()) {
           //Verificando se é necessário acionar o timer
@@ -184,28 +190,16 @@
       },
       sizeGif: function() {
         if (this.checkProgramaPosicao()) {
-          var img = {
-            largura: this.$.gif.width,
-            altura: this.$.gif.height,
-            relacao: 0
-          };
-          img.relacao = img.largura/img.altura;
-          var trainerBottom = document.querySelector('fitqui-trainer').getBoundingClientRect().bottom;
-          var footerTop = document.querySelector('fitqui-footer').getBoundingClientRect().top;
+          var tHeader = 133;
+          var tFooter = 92;
+          var tRestoTabela = 33 + 20 + 50 + 5 + 85 + 13 + 106 + 13;
           var margem = 13;
-          if (footerTop > trainerBottom + margem) {
-            var diferenca = footerTop - trainerBottom - margem;
-            var larguraTela = window.innerWidth;
-            var novaLargura = (diferenca + img.altura)*img.relacao;
-            if (novaLargura > larguraTela - margem*2) {
-              //altura muito grande; ajustar na largura
-              this.$.gif.style.height = "auto";
-              this.$.gif.style.width = (larguraTela - margem*2) + "px";
-            } else {
-              //largura não limitada pela altura; ajustar na altura
-              this.$.gif.style.width = "auto";
-              this.$.gif.style.height = (diferenca + img.altura - margem) + "px";
-            }
+          var tamanhoMin = 200;
+          var tamanho = window.innerHeight - (tHeader + tFooter + tRestoTabela + margem);
+          if (window.innerHeight > tHeader + tFooter + tRestoTabela + margem + tamanhoMin) {
+            this.$.gif.style.height = tamanho + "px";
+          } else {
+            this.$.gif.style.height = tamanhoMin + "px";
           }
         }
       },
