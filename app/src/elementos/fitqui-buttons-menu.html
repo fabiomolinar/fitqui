@@ -1,10 +1,17 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-fab-speed-dial/paper-fab-speed-dial.html">
+<link rel="import" href="../../bower_components/paper-fab-speed-dial/paper-fab-speed-dial-action.html">
+<link rel="import" href="fitqui-icones.html">
 
 <dom-module id="fitqui-buttons-menu">
   <template>
     <link rel="stylesheet" type="text/css" href="../css/fitqui-app/fitqui-buttons-menu.css" inline>
 
-    <p>Buttons</p>
+    <paper-fab-speed-dial>
+      <paper-fab-speed-dial-action icon="icones:bug-report">Reportar um erro</paper-fab-speed-dial-action>
+      <paper-fab-speed-dial-action icon="icones:email">Contate-nos</paper-fab-speed-dial-action>
+    </paper-fab-speed-dial>
+
   </template>
   <script>
     Polymer({

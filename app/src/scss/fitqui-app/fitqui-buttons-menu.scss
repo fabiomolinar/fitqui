@@ -1,4 +1,12 @@
 @import '../variaveis';
-:host{
-  display: none;;
+
+paper-fab-speed-dial{
+  --paper-fab-speed-dial-background: $cor-triad1;
+  --paper-fab-speed-dial-keyboard-focus-background: $cor-branca;
+  --paper-fab-speed-dial-right: 9px;
+  --paper-fab-speed-dial-bottom: 9.99vh;
+}
+paper-fab-speed-dial-action{
+  --paper-fab-speed-dial-action-background: $cor-triad1;
+  --paper-fab-speed-dial-action-keyboard-focus-background: cor-triad1; 
 }
