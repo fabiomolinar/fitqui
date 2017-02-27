@@ -4,17 +4,21 @@
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="fitqui-icones.html">
+<link rel="impoer" href="fitqui-shared-styles.html">
 
 <dom-module id="fitqui-buttons-menu">
   <template>
+    <style include="fitqui-shared-styles"></style>
     <link rel="stylesheet" type="text/css" href="../css/fitqui-app/fitqui-buttons-menu.css" inline>
 
-    <paper-fab-speed-dial>
-      <paper-fab-speed-dial-action icon="icones:bug-report">Reportar um erro</paper-fab-speed-dial-action>
-      <paper-fab-speed-dial-action icon="icones:email">Contate-nos</paper-fab-speed-dial-action>
+    <paper-fab-speed-dial id="botoes">
+      <paper-fab-speed-dial-action icon="icones:bug-report" on-tap="tapMensagem">Reportar um erro</paper-fab-speed-dial-action>
+      <paper-fab-speed-dial-action icon="icones:thumbs-up-down" on-tap="tapOpiniao">Dê-nos sua opinião</paper-fab-speed-dial-action>
+      <paper-fab-speed-dial-action icon="icones:email" on-tap="tapMensagem">Contate-nos</paper-fab-speed-dial-action>
     </paper-fab-speed-dial>
 
     <paper-dialog
@@ -22,10 +26,24 @@
       modal
       entry-animation="scale-up-animation">
       <form class="" action="index.html" method="post">
-
-        <div class="botoes">
-          <paper-button autofocus on-tap="enviar">Enviar</paper-button>
-          <paper-button autofocus on-tap="cancelar">Cancelar</paper-button>
+        <h2 hidden$="{{mandarEmail}}">Reporte um erro</h2>
+        <h2 hidden$="{{mandarErro}}">Entre em contato</h2>
+        <paper-input
+          label="Seu email"
+          required>
+          <iron-icon icon="icones:email" prefix></iron-icon>
+        </paper-input>
+        <paper-textarea
+          label="Deixe sua mensagem"
+          required
+          charCounter
+          minlength="10"
+          maxRows="10"
+          rows="3">
+        </paper-textarea>
+        <div class="botoesDialogo">
+          <paper-button autofocus on-tap="enviarMensagem">Enviar</paper-button>
+          <paper-button autofocus on-tap="cancelarMensagem">Cancelar</paper-button>
         </div>
       </form>
     </paper-dialog>
@@ -34,7 +52,38 @@
   <script>
     Polymer({
       is: 'fitqui-buttons-menu',
-      properties: {},
+      properties: {
+        mandarErro: {
+          type: Boolean,
+          value: () => false
+        },
+        mandarEmail: {
+          type: Boolean,
+          value: () => false
+        }
+      },
+      tapMensagem: function(evento,objeto) {
+        var botao = objeto.sourceEvent.path[0]._iconName;
+        if (botao === "bug-report") {
+          this.mandarErro = true;
+          this.mandarEmail = false;
+          this.$.mensagem.open();
+        } else if (botao === "email") {
+          this.mandarErro = false;
+          this.mandarEmail = true;
+          this.$.mensagem.open();
+        }
+        this.$.botoes.close();
+      },
+      enviarMensagem: function() {
+
+      },
+      cancelarMensagem: function() {
+        this.$.mensagem.close();
+      },
+      tapOpiniao: function() {
+
+      }
     });
   </script>
 </dom-module>

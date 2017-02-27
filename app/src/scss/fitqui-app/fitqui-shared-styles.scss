@@ -10,6 +10,16 @@ paper-input{
   --paper-input-container-invalid-color: $cor-tetrad2;
   --paper-input-container-input-color: $cor-principal;
 }
+paper-input iron-icon{
+  padding-right: 9px;
+  --iron-icon-fill-color: $cor-principal;
+}
+paper-textarea{
+  --paper-input-container-color: $cor-principal;
+  --paper-input-container-focus-color: $cor-escura;
+  --paper-input-container-invalid-color: $cor-tetrad2;
+  --paper-input-container-input-color: $cor-principal;
+}
 paper-checkbox{
   --paper-checkbox-unchecked-color: $cor-principal;
   --paper-checkbox-unchecked-ink-color: $cor-principal;
