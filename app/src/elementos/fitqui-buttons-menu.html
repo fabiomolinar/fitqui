@@ -3,7 +3,7 @@
 <link rel="import" href="../../bower_components/paper-fab-speed-dial/paper-fab-speed-dial-action.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
@@ -28,13 +28,15 @@
       <form class="" action="index.html" method="post">
         <h2 hidden$="{{mandarEmail}}">Reporte um erro</h2>
         <h2 hidden$="{{mandarErro}}">Entre em contato</h2>
-        <paper-input
+        <gold-email-input
           label="Seu email"
-          required>
+          required
+          auto-validate>
           <iron-icon icon="icones:email" prefix></iron-icon>
-        </paper-input>
+        </gold-email-input>
         <paper-textarea
           label="Deixe sua mensagem"
+          auto-validate
           required
           charCounter
           minlength="10"
@@ -42,8 +44,8 @@
           rows="3">
         </paper-textarea>
         <div class="botoesDialogo">
-          <paper-button autofocus on-tap="enviarMensagem">Enviar</paper-button>
-          <paper-button autofocus on-tap="cancelarMensagem">Cancelar</paper-button>
+          <paper-button class="botao-verde" autofocus on-tap="enviarMensagem">Enviar</paper-button>
+          <paper-button class="botao-vermelho" autofocus on-tap="cancelarMensagem">Cancelar</paper-button>
         </div>
       </form>
     </paper-dialog>

@@ -13,3 +13,10 @@ paper-fab-speed-dial-action{
 h2{
   color: $cor-escura;
 }
+paper-button{
+  font-size: 1em;
+}
+.botoesDialogo{
+  display: flex;
+  flex-direction: row-reverse;
+}

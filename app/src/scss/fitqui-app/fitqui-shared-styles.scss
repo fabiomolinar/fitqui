@@ -4,13 +4,13 @@ paper-radio-button{
   --paper-radio-button-checked-color: $cor-escura;
   --paper-radio-button-label-color: $cor-principal;
 }
-paper-input{
+paper-input, gold-email-input{
   --paper-input-container-color: $cor-principal;
   --paper-input-container-focus-color: $cor-escura;
   --paper-input-container-invalid-color: $cor-tetrad2;
   --paper-input-container-input-color: $cor-principal;
 }
-paper-input iron-icon{
+paper-input iron-icon, gold-email-input iron-icon{
   padding-right: 9px;
   --iron-icon-fill-color: $cor-principal;
 }
@@ -35,6 +35,14 @@ paper-button{
   font-size: 1.8em;
   color: $cor-branca;
   background-color: $cor-triad1;
+}
+paper-button.botao-verde{
+  color: $cor-branca;
+  background-color: $cor-escura;
+}
+paper-button.botao-vermelho{
+  color: $cor-branca;
+  background-color: $cor-tetrad2;
 }
 a{
   color: $cor-link;
