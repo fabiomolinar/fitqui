@@ -15,13 +15,15 @@
   text-align: center;
 }
 .chamada p{
-  font-size: 2.4em;
+  font-size: 1.8em;
 }
 .explicacao{
   display: block;
 }
-.explicacao p{
+.explicacao{
   padding-top: 3vh;
+}
+.explicacao p{
   font-size: 1.2em;
   text-align: center;
   color: $cor-triad1;
