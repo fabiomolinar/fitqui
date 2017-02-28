@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 <link rel="import" href="../fitqui-icones.html">
 
@@ -51,9 +52,9 @@
               <div id="avaliar">
                 <p>Avalie o exercício:</p>
                 <div class="">
-                  <iron-icon id="notaNegativa" icon="icones:mood-bad"></iron-icon>
-                  <iron-icon id="notaNeutra" icon="icones:face"></iron-icon>
-                  <iron-icon id="notaPositiva" icon="icones:mood"></iron-icon>
+                  <iron-icon id="notaNegativa" icon="icones:mood-bad" on-tap="enviarNota"></iron-icon>
+                  <iron-icon id="notaNeutra" icon="icones:face" on-tap="enviarNota"></iron-icon>
+                  <iron-icon id="notaPositiva" icon="icones:mood" on-tap="enviarNota"></iron-icon>
                 </div>
               </div>
             </td>
@@ -61,6 +62,8 @@
         </table>
       </div>
     </div>
+
+    <paper-toast id="enviandoNota">Enviando avaliação. Agradecemos sua opinião!</paper-toast>
 
   </template>
   <script>
@@ -217,6 +220,10 @@
         } finally {
           return verificado;
         }
+      },
+      enviarNota: function(e){
+        var nota = e.srcElement.id;
+        this.$.enviandoNota.show();
       }
     });
   </script>
