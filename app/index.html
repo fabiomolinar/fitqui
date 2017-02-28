@@ -12,14 +12,13 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics_debug.js','ga');
       //Acionar o modo verbose do analytics_debug
-      window.ga_debug = {trace: true};
+      window.ga_debug = {trace: false};
       ga('create', 'UA-51812651-5', 'auto');
       ga('set', 'transport', 'beacon');
       //Se estivermos em localhost, não enviar hits
       if (location.hostname == 'localhost') {
         ga('set', 'sendHitTask', null);
       }
-      ga('send', 'pageview');
     </script>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="/src/js/classes.js"></script>
