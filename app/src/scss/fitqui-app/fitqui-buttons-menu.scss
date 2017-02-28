@@ -1,5 +1,4 @@
 @import '../variaveis';
-
 paper-fab-speed-dial{
   --paper-fab-speed-dial-background: $cor-triad1;
   --paper-fab-speed-dial-keyboard-focus-background: $cor-branca;
@@ -12,6 +11,10 @@ paper-fab-speed-dial-action{
 }
 h2{
   color: $cor-escura;
+}
+p{
+  color: $cor-principal;
+  font-size: 16px;
 }
 paper-button{
   font-size: 1em;
