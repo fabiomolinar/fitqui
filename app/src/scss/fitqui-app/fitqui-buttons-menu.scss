@@ -24,13 +24,15 @@ paper-dialog h2{
 }
 paper-range-slider{
   margin-top: 24px;
+  width: 100%;
   --paper-range-slider-lower-color: $cor-branca;
   --paper-range-slider-active-color: $cor-principal;
   --paper-range-slider-higher-color: $cor-branca;
   --paper-range-slider-knob-color: $cor-principal;
   --paper-range-slider-pin-color: $cor-principal;
-  --paper-range-slider-pin-start-color: $cor-branca;
-  --paper-range-slider-knob-start-border-color: $cor-branca;
+  --paper-range-slider-pin-start-color: $cor-principal;
+  --paper-range-slider-knob-start-color: $cor-principal;
+  --paper-range-slider-knob-start-border-color: $cor-principal;
 }
 .botoesDialogo{
   display: flex;

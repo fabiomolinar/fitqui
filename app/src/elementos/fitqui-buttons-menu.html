@@ -38,6 +38,7 @@
             <iron-icon icon="icones:email" prefix></iron-icon>
           </gold-email-input>
           <paper-textarea
+            id="texto"
             label="Deixe sua mensagem"
             auto-validate
             required
@@ -68,18 +69,18 @@
             rows="3">
           </paper-textarea>
           <paper-textarea
-            label="O que fazemos bem?"
+            label="O que você gostou?"
             charCounter
             maxRows="10"
             rows="3">
           </paper-textarea>
           <h3>Em uma escale de 0 a 10, que nota você nos daria?</h3>
           <paper-range-slider
+            id="nota"
             single-slider
-            value-max="-1"
-            value-min="-1"
-            min="-1"
+            min="0"
             max="10"
+            value-max="5"
             always-show-pin>
           </paper-range-slider>
           <div class="botoesDialogo">
@@ -97,12 +98,17 @@
       properties: {
         mandarErro: {
           type: Boolean,
-          value: () => false
+          value: () => false,
+          observer: 'changedTipoDialogo'
         },
         mandarEmail: {
           type: Boolean,
-          value: () => false
+          value: () => false,
+          observer: 'changedTipoDialogo'
         }
+      },
+      changedTipoDialogo: function(){
+        this.$.texto.value = "";
       },
       tapMensagem: function(evento,objeto) {
         var botao = objeto.sourceEvent.path[0]._iconName;
@@ -119,6 +125,7 @@
       },
       tapOpiniao: function() {
         this.$.avaliar.open();
+        this.$.nota.setAttribute("style","width:100%");
         this.$.botoes.close();
       },
       enviarMensagem: function(evento,objeto) {
