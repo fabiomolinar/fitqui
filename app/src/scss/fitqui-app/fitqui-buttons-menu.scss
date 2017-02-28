@@ -16,7 +16,27 @@ h2{
 paper-button{
   font-size: 1em;
 }
+iron-form div{
+  margin: 24px;
+}
+paper-dialog h2{
+  margin-top: 24px;
+}
+paper-range-slider{
+  margin-top: 24px;
+  --paper-range-slider-lower-color: $cor-branca;
+  --paper-range-slider-active-color: $cor-principal;
+  --paper-range-slider-higher-color: $cor-branca;
+  --paper-range-slider-knob-color: $cor-principal;
+  --paper-range-slider-pin-color: $cor-principal;
+  --paper-range-slider-pin-start-color: $cor-branca;
+  --paper-range-slider-knob-start-border-color: $cor-branca;
+}
 .botoesDialogo{
   display: flex;
   flex-direction: row-reverse;
+}
+.dialogos{
+  width: 100%;
+  max-width: 459.9px;
 }
