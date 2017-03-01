@@ -1,0 +1,18 @@
+[
+  {
+    "curtidores" : [],
+    "detratores" : [],
+    "dificuldade" : 0,
+    "gif" : "src/gif/gif.png",
+    "musculosPrimarios" : ["Biceps"],
+    "musculosSecundarios" : ["Triceps","Antebraço"],
+    "nome" : "Exercício",
+    "notaPositiva" : 0,
+    "notaNeutra" : 0,
+    "notaNegativa" : 0,
+    "nps" : 0,
+    "tipo" : "Força",
+    "youtube" : "https://www.youtube.com/watch?v:C8ptU8OJvCM",
+    "youtubePublico" : true
+  }
+]

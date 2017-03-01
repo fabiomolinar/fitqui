@@ -6,6 +6,7 @@
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../fitqui-shared-styles.html">
+<link rel="import" href="fitqui-filters-behavior.html">
 
 <dom-module id="fitqui-filters">
   <template>
@@ -15,7 +16,7 @@
     <div id="wrapper" class="">
       <h1>Preferências</h1>
       <p>De acordo com suas preferências abaixo, tentaremos criar o melhor treino para você.</p>
-      <iron-form>
+      <form is="iron-form" id="formulario">
         <label for="dificuldade">Dificuldade: </label>
         <paper-radio-group id="dificuldade" selected="iniciante">
           <paper-radio-button name="iniciante">Iniciante</paper-radio-button>
@@ -25,11 +26,12 @@
         <paper-input
           label="Duração do treino"
           prevent-invalid-input
-          allowed-pattern="[0-9]">
+          allowed-pattern="[0-9]"
+          name="duracao">
           <iron-icon icon="icones:timer" prefix></iron-icon>
           <div suffix>minutos</div>
         </paper-input>
-        <paper-checkbox checked={{usarAerobico}}>Adicionar exercícios aeróbicos</paper-checkbox>
+        <paper-checkbox name="aerobico" checked={{usarAerobico}}>Adicionar exercícios aeróbicos</paper-checkbox>
         <div id="local" hidden={{!usarAerobico}}>
           <label for="local">Onde: </label>
           <paper-radio-group id="local" selected="casa">
@@ -52,7 +54,7 @@
           <paper-checkbox name="costas">Costas</paper-checkbox>
         </div>
         <paper-button id="proximo" raised>Próximo</paper-button>
-      </iron-form>
+      </form>
     </div>
 
   </template>
@@ -65,15 +67,20 @@
           notify: true
         }
       },
+      behaviors: [FitquiFiltersBehavior],
       listeners: {
         'proximo.tap': 'irSelector'
       },
       irSelector: function(){
+        var spinner = document.querySelector('fitqui-spinner#spinner');
+        spinner.setAttribute("ativado",true);
         this.prepararDados();
+        spinner.removeAttribute("ativado");
         window.location.href = "#selector";
       },
       prepararDados: function(){
-        var exercicios = [];
+        var dadosForm = this.$.formulario.serialize();
+        var exercicios = this.prepararExercicios(dadosForm);
         // TODO: Adicionar lógica para ler os inputs aqui
         // TODO: Remover os dados falsos abaixo. Foram usados só para testes
         exercicios = [

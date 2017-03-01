@@ -29,7 +29,7 @@
       entry-animation="scale-up-animation">
       <h2 hidden$="{{mandarEmail}}">Reporte um erro</h2>
       <h2 hidden$="{{mandarErro}}">Entre em contato</h2>
-      <iron-form class="" action="index.html" method="post">
+      <form is="iron-form" class="" action="index.html" method="post">
         <div>
           <gold-email-input
             label="Seu email"
@@ -52,7 +52,7 @@
             <paper-button class="botao-vermelho" autofocus on-tap="cancelarMensagem">Cancelar</paper-button>
           </div>
         </div>
-      </iron-form>
+      </form>
     </paper-dialog>
     <paper-dialog
       id="avaliar"
@@ -60,7 +60,7 @@
       modal
       entry-animation="scale-up-animation">
       <h2>Avalie-nos</h2>
-      <iron-form>
+      <form is="iron-form">
         <div>
           <paper-textarea
             label="Onde precisamos melhorar?"
@@ -88,7 +88,7 @@
             <paper-button class="botao-vermelho" autofocus on-tap="cancelarMensagem">Cancelar</paper-button>
           </div>
         </div>
-      </iron-form>
+      </form>
     </paper-dialog>
 
   </template>

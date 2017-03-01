@@ -11,12 +11,12 @@ var _fitquiClasses = (function(){
     //detratores = [],
     //Nível de dificuldade para realizar 10 repetições de um exercício de força ou 10 minutos de um aeróbico
     //dificuldade = 0,
-    //Caminho para o giy
+    //Caminho para o gif
     gif = "src/gif/gif.png",
     //Musculos primários usados no exercício; vazio se o exercício for aeróbico
-    musculosPrimarios = ["biceps"],
+    musculosPrimarios = ["Biceps"],
     //Musculos secundários usados no exercício; vazio se o exercício for aeróbico
-    musculosSecundarios = ["triceps","antebraço"],
+    musculosSecundarios = ["Triceps","Antebraço"],
     //Nome do exercício
     nome = "Exercício",
     //Notas positivas recebidas
@@ -31,6 +31,8 @@ var _fitquiClasses = (function(){
     tipo = "Força",
     //Link do youtube que mostra alguém realizando o exercício
     youtube = "https://www.youtube.com/watch?v=C8ptU8OJvCM",
+    //Indicador mostrando se o vídeo relacionado ao exercício é domínio público
+    //youtubePublico = true
     /*
     *Adicionais que não são salvos no banco de dados
     */
@@ -56,6 +58,8 @@ var _fitquiClasses = (function(){
     *Os itens que estão comentados é por que não são usados no front-end,
     *apenas no banco de dados
     */
+    //Exercícios aeróbicos inclusos na série
+    //aerobico = ["Corrida","Polichinelo"]
     //Usuários que curtiram o exercício
     //curtidores = [],
     //Usuários que não gostaram do exercício
