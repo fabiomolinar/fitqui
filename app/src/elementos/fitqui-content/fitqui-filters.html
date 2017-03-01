@@ -4,6 +4,7 @@
 <link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 
 <dom-module id="fitqui-filters">
@@ -14,42 +15,44 @@
     <div id="wrapper" class="">
       <h1>Preferências</h1>
       <p>De acordo com suas preferências abaixo, tentaremos criar o melhor treino para você.</p>
-      <label for="dificuldade">Dificuldade: </label>
-      <paper-radio-group id="dificuldade" selected="iniciante">
-        <paper-radio-button name="iniciante">Iniciante</paper-radio-button>
-        <paper-radio-button name="intermediário">Intermediário</paper-radio-button>
-        <paper-radio-button name="avancado">Avançado</paper-radio-button>
-      </paper-radio-group>
-      <paper-input
-        label="Duração do treino"
-        prevent-invalid-input
-        allowed-pattern="[0-9]">
-        <iron-icon icon="icones:timer" prefix></iron-icon>
-        <div suffix>minutos</div>
-      </paper-input>
-      <paper-checkbox checked={{usarAerobico}}>Adicionar exercícios aeróbicos</paper-checkbox>
-      <div id="local" hidden={{!usarAerobico}}>
-        <label for="local">Onde: </label>
-        <paper-radio-group id="local" selected="casa">
-          <paper-radio-button name="casa">Em casa</paper-radio-button>
-          <paper-radio-button name="parque">No parque</paper-radio-button>
+      <iron-form>
+        <label for="dificuldade">Dificuldade: </label>
+        <paper-radio-group id="dificuldade" selected="iniciante">
+          <paper-radio-button name="iniciante">Iniciante</paper-radio-button>
+          <paper-radio-button name="intermediário">Intermediário</paper-radio-button>
+          <paper-radio-button name="avancado">Avançado</paper-radio-button>
         </paper-radio-group>
-      </div>
-      <div id="musculos">
-        <label for="musculos">Grupos musculares: </label>
-        <paper-checkbox name="quadriceps">Quadríceps</paper-checkbox>
-        <paper-checkbox name="panturrilha">Panturrilha</paper-checkbox>
-        <paper-checkbox name="gluteo">Glúteo</paper-checkbox>
-        <paper-checkbox name="trapezio">Trapézio</paper-checkbox>
-        <paper-checkbox name="ombros">Ombros</paper-checkbox>
-        <paper-checkbox name="biceps">Biceps</paper-checkbox>
-        <paper-checkbox name="triceps">Triceps</paper-checkbox>
-        <paper-checkbox name="antebraco">Antebraço</paper-checkbox>
-        <paper-checkbox name="peito">Peito</paper-checkbox>
-        <paper-checkbox name="abdomen">Abdômen</paper-checkbox>
-        <paper-checkbox name="costas">Costas</paper-checkbox>
-      </div>
-      <paper-button id="proximo" raised>Próximo</paper-button>
+        <paper-input
+          label="Duração do treino"
+          prevent-invalid-input
+          allowed-pattern="[0-9]">
+          <iron-icon icon="icones:timer" prefix></iron-icon>
+          <div suffix>minutos</div>
+        </paper-input>
+        <paper-checkbox checked={{usarAerobico}}>Adicionar exercícios aeróbicos</paper-checkbox>
+        <div id="local" hidden={{!usarAerobico}}>
+          <label for="local">Onde: </label>
+          <paper-radio-group id="local" selected="casa">
+            <paper-radio-button name="casa">Em casa</paper-radio-button>
+            <paper-radio-button name="parque">No parque</paper-radio-button>
+          </paper-radio-group>
+        </div>
+        <div id="musculos">
+          <label for="musculos">Grupos musculares: </label>
+          <paper-checkbox name="quadriceps">Quadríceps</paper-checkbox>
+          <paper-checkbox name="panturrilha">Panturrilha</paper-checkbox>
+          <paper-checkbox name="gluteo">Glúteo</paper-checkbox>
+          <paper-checkbox name="trapezio">Trapézio</paper-checkbox>
+          <paper-checkbox name="ombros">Ombros</paper-checkbox>
+          <paper-checkbox name="biceps">Biceps</paper-checkbox>
+          <paper-checkbox name="triceps">Triceps</paper-checkbox>
+          <paper-checkbox name="antebraco">Antebraço</paper-checkbox>
+          <paper-checkbox name="peito">Peito</paper-checkbox>
+          <paper-checkbox name="abdomen">Abdômen</paper-checkbox>
+          <paper-checkbox name="costas">Costas</paper-checkbox>
+        </div>
+        <paper-button id="proximo" raised>Próximo</paper-button>
+      </iron-form>
     </div>
 
   </template>

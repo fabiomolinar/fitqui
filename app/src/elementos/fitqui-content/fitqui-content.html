@@ -52,36 +52,45 @@
       },
       ready: function(){
         this.$.spinner.setAttribute("ativado",true);
+        if (window.performance) {
+          var tempo = Math.round(performance.now());
+          ga('send','timing','Página','Carregamento',tempo);
+        }
       },
       attached: function(){
         this.$.spinner.removeAttribute("ativado");
       },
       changedPagina: function(e) {
-        console.log(this.$.paginas.selected);
-        var pagina = this.$.paginas.selected;
-        switch (pagina) {
-          case "home":
-            document.title = "Fitqui - Bem vindo!";
-            ga('set', 'page', '/home.html');
-            ga('send', 'pageview');
-            break;
-          case "filters":
-            document.title = "Personalize seu exercício.";
-            ga('set', 'page', '/filters.html');
-            ga('send', 'pageview');
-            break;
-          case "selector":
-            document.title = "Selecione uma série de exercícios.";
-            ga('set', 'page', '/selector.html');
-            ga('send', 'pageview');
-            break;
-          case "trainer":
-            document.title = "Treinando!";
-            ga('set', 'page', '/trainer.html');
-            ga('send', 'pageview');
-            break;
-          default:
-
+        if (e.target.id === 'paginas') {
+          var pagina = this.$.paginas.selected;
+          switch (pagina) {
+            case "home":
+              document.title = "Fitqui - Bem vindo!";
+              ga('set', 'page', '/home.html');
+              ga('send', 'pageview');
+              break;
+            case "filters":
+              document.title = "Personalize seu exercício.";
+              ga('set', 'page', '/filters.html');
+              ga('send', 'pageview');
+              break;
+            case "selector":
+              document.title = "Selecione uma série de exercícios.";
+              ga('set', 'page', '/selector.html');
+              ga('send', 'pageview');
+              break;
+            case "trainer":
+              document.title = "Treinando!";
+              ga('set', 'page', '/trainer.html');
+              ga('send', 'pageview');
+              break;
+            default:
+              document.title = "Fitqui";
+              ga('send','exception',{
+                'exDescription': 'evento iron-select do iron-pages no fitqui-content não existe',
+                'exFatal': true
+              });
+          }
         }
       }
     });
