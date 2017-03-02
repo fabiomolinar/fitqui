@@ -9,7 +9,7 @@ var _fitquiClasses = (function(){
     //curtidores = [],
     //Usuários que não gostaram do exercício
     //detratores = [],
-    //Nível de dificuldade para realizar 10 repetições de um exercício de força ou 10 minutos de um aeróbico
+    //Nível de dificuldade (medido de 1 a 9) para realizar 10 repetições de um exercício de força ou 10 minutos de um aeróbico
     //dificuldade = 0,
     //Caminho para o gif
     gif = "src/gif/gif.png",

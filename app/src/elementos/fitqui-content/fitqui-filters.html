@@ -78,40 +78,25 @@
       irSelector: function(){
         var spinner = document.querySelector('fitqui-spinner#spinner');
         spinner.setAttribute("ativado",true);
-        this.prepararDados();
+        var usuario = firebase.auth().currentUser;
+        if (!usuario) {
+          firebase.auth().signInAnonymously().then(resposta => {
+            this.prepararDados();
+          },erro => {
+            var msg = "Erro ao registrar usuario de forma anonima; errorCode: " + erro.code + "; errorMessage: " + erro.message + ";";
+            ga('send','exception',{
+              'exDescription': msg,
+              'exFatal': false
+            });
+            this.prepararDados();
+          });
+        } else {
+          this.prepararDados();
+        }
       },
       prepararDados: function(){
         var dadosForm = this.$.formulario.serialize();
-        var exercicios = this.prepararExercicios(dadosForm);
-        // TODO: Adicionar lógica para ler os inputs aqui
-        // TODO: Remover os dados falsos abaixo. Foram usados só para testes
-        exercicios = [
-          [
-            _fitquiClasses.criarExercicio(
-              "src/gif/gif.png",
-              ["peito"],
-              ["biceps","triceps"],
-              "Supino",
-              "Força",
-              "https://www.youtube.com/watch?v=C8ptU8OJvCM",
-              4,
-              0),
-            _fitquiClasses.criarExercicio(
-              "src/gif/gif.png",
-              ["Aeróbico"],
-              [],
-              "Corrida",
-              "Aeróbico",
-              "https://www.youtube.com/watch?v=C8ptU8OJvCM",
-              1,
-              1
-            ),
-            _fitquiClasses.criarExercicio(),
-            _fitquiClasses.criarExercicio(),
-            _fitquiClasses.criarExercicio()
-          ]
-        ]
-        this.dados = exercicios;
+        this.prepararExercicios(dadosForm);
       },
       proximo: function(){
         var spinner = document.querySelector('fitqui-spinner#spinner');

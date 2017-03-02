@@ -9,6 +9,10 @@
         type: Array,
         value: () => ['casa','parque']
       },
+      musculos: {
+        type: Array,
+        value: () => ["quadriceps","panturrilha","gluteo","trapezio","ombros","biceps","triceps","antebraco","peito","abdomen","costas"]
+      },
       duracaoMin: {
         type: Number,
         value: () => 10
@@ -20,6 +24,10 @@
       numSeries: {
         type: Number,
         value: () => 3
+      },
+      todosExercicios: {
+        type: Array,
+        value: () => []
       }
     },
     prepararExercicios: function(dados){
@@ -35,28 +43,62 @@
         duracao: this.duracaoMin,
         aerobico: false,
         local: 'casa',
-        quantidade: 3
+        quantidade: 3,
+        musculosPrimarios: []
       }
-      var exercicios = [];
-      var todosExercicios = [];
       configuracao = this.processarConfiguracao(dados, configuracao);
-      todosExercicios = this.pegarTodosExercicios(configuracao);
-      for (var i = 0; i < this.numSeries; i++) {
-        exercicios.push(this.criarExercicio(configuracao,todosExercicios));
-      }
-      return exercicios;
+      this.pegarTodosExercicios(configuracao);
     },
-    criarExercicio: function(configuracao, todos){
-      //Retorna uma serie aleatoria de exercicios baseado na configuracao e na lista de todos exercicios possiveis
-      //Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
+    criarSerie: function(configuracao, todos){
+      /*
+      *todos é uma array dos exercícios que foram recebidos do DB
+      *Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
+      */
+      var serie = [];
+      console.log(configuracao);
+      return serie;
+    },
+    criarSeries: function(configuracao, todos){
+      /*
+      *Retorna as series de exercicios baseado na configuracao e na lista de todos exercicios possiveis
+      */
+      //Filtrar exercícios de acordo com as configurações
+      for (var i = 0; i < todos.length; i++) {
+        if (configuracao.aerobico === false && todos[i].tipo === "Aeróbico") {
+          todos.splice(i,1);
+          continue;
+        }
+        if (configuracao.nivel === "iniciante" && todos[i].dificuldade > 3) {
+          todos.splice(i,1);
+          continue;
+        }
+        if (configuracao.nivel === "intermediario" && todos[i].dificuldade > 6) {
+          todos.splice(i,1);
+          continue;
+        }
+      }
+      this.dados = [];
+      for (var i = 0; i < this.numSeries; i++) {
+        this.dados.push(this.criarSerie(configuracao,todos));
+      }
+      this.proximo();
     },
     pegarTodosExercicios: function(configuracao){
       //Retorna uma array com todos os exercicios possiveis que obedecem a configuracao
+      this.todosExercicios = [];
+      var tempo;
+      if (window.performance) {
+        tempo = performance.now();
+      }
       var dbExercicios = firebase.database().ref('exercicios');
       dbExercicios.once('value', snap => {
         if (snap.val()) {
-          console.log(snap.val());
-          this.proximo();
+          if (window.performance) {
+            tempo = Math.round(performance.now() - tempo);
+            ga('send','timing','DB','Todos exercícios',tempo);
+          }
+          this.todosExercicios = snap.val();
+          this.criarSeries(configuracao,this.todosExercicios);
         } else {
           var msg = "Nenhum valor retornado do banco de dados. Em fitqui-filters-behavior.html."
           this.databaseError(msg);
@@ -82,6 +124,11 @@
             configuracao.local = locais[i];
             break;
           }
+        }
+      }
+      for (var i = 0; i < this.musculos.length; i++) {
+        if (dados.hasOwnProperty(this.musculos[i])) {
+          configuracao.musculosPrimarios.push(this.musculos[i]);
         }
       }
       if (configuracao.aerobico === true) {

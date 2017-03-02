@@ -88,16 +88,6 @@
             case "trainer":
               document.title = "Treinando!";
               ga('set', 'page', '/trainer.html');
-              var usuario = firebase.auth().currentUser;
-              if (!usuario) {
-                firebase.auth().signInAnonymously().catch(function(e){
-                  var msg = "Erro ao registrar usuario de forma anonima; errorCode: " + e.code + "; errorMessage: " + e.message + ";";
-                  ga('send','exception',{
-                    'exDescription': msg,
-                    'exFatal': false
-                  });
-                });
-              }
               ga('send', 'pageview');
               break;
             default:
