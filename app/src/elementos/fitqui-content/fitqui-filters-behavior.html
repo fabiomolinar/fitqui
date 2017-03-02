@@ -1,8 +1,95 @@
 <script>
   FitquiFiltersBehavior = {
-    properties: {},
+    properties: {
+      niveis: {
+        type: Array,
+        value: () => ['iniciante','intermediario','avancado']
+      },
+      locais: {
+        type: Array,
+        value: () => ['casa','parque']
+      },
+      duracaoMin: {
+        type: Number,
+        value: () => 10
+      },
+      duracaoMax: {
+        type: Number,
+        value: () => 45
+      },
+      numSeries: {
+        type: Number,
+        value: () => 3
+      }
+    },
     prepararExercicios: function(dados){
       console.log(dados);
+      /*
+      *-----Valores iniciais
+      *-nivel => nivel de dificuldade
+      *-duracao: duracao total dos exercicios; quanto tempo o usuario quer se exercitar
+      *-aerobico: se é preciso adicionar exercicios aerobicos
+      *-quantidade: quantidade de exercicios total
+      */
+      var configuracao = {
+        nivel: "iniciante",
+        duracao: this.duracaoMin,
+        aerobico: false,
+        local: 'casa',
+        quantidade: 3
+      }
+      configuracao = this.processarDados(dados, configuracao);
+    },
+    processarDados: function(dados, configuracao){
+      var niveis = this.niveis;
+      var locais = this.locais;
+      for (var i = 0; i < niveis.length; i++) {
+        if (dados.hasOwnProperty(niveis[i])) {
+          configuracao.nivel = niveis[i];
+          break;
+        }
+      }
+      if (dados.hasOwnProperty('aerobico')) {
+        configuracao.aerobico = true;
+        for (var i = 0; i < locais.length; i++) {
+          if (dados.hasOwnProperty(locais[i])) {
+            configuracao.local = locais[i];
+            break;
+          }
+        }
+      }
+      if (configuracao.aerobico === true) {
+        this.duracaoMin = 20;
+      }
+      switch (configuracao.nivel) {
+        case 'iniciante':
+          this.duracaoMax = configuracao.aerobico === true ? 45 : 45;
+          break;
+        case 'intermediario':
+          this.duracaoMax = configuracao.aerobico === true ? 90 : 60;
+          break;
+        case 'avancado':
+          this.duracaoMax = configuracao.aerobico === true ? 120 : 90;
+          break;
+        default:
+          this.duracaoMax = 45;
+          ga('send','exception',{
+            'exDescription': 'tipo de nivel nao encontrado na lista de niveis no fitqui-filters-behavior.html',
+            'exFatal': false
+          });
+      }
+      configuracao.duracao = this.duracaoMin;
+      if (!(isNaN(parseInt(dados.serialize().duracao)))) {
+        var duracao = parseInt(dados.serialize().duracao);
+        if (duracao < this.duracaoMin) {
+          configuracao.duracao = this.duracaoMin;
+        } else if (duracao > this.duracaoMax) {
+          configuracao.duracao = this.duracaoMax;
+        } else {
+          configuracao.duracao = duracao;
+        }
+      }
+      return configuracao;
     }
   }
 </script>
