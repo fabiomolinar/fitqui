@@ -12,6 +12,8 @@
     "notaNegativa" : 0,
     "nps" : 0,
     "tipo" : "Força",
+    "equipamento" : ["pesos","barra","bola"],
+    "local" : ["casa","academia"],
     "youtube" : "https://www.youtube.com/watch?v:C8ptU8OJvCM",
     "youtubePublico" : true
   }

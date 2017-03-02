@@ -6,6 +6,7 @@
     <meta name="description" content="Fitqui, a sua base de dados de exercícios físicos!">
     <title>Fitqui - Seja bem vindo!</title>
 
+    <!-- Google Analytics -->
     <script>
       (function(i,s,o,g,r,a,m){
         i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},
@@ -21,9 +22,27 @@
         ga('set', 'sendHitTask', null);
       }
     </script>
+    <!-- Polymer -->
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAx_st2EBGgMf8pMTW_aVcxftlahoEi6Mg",
+        authDomain: "fitqui.firebaseapp.com",
+        databaseURL: "https://fitqui.firebaseio.com",
+        storageBucket: "fitqui.appspot.com",
+        messagingSenderId: "769337467784"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <!-- Meus -->
     <script src="/src/js/classes.js"></script>
     <script src="/src/js/fitqui.js"></script>
+    <!-- AdSense -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({

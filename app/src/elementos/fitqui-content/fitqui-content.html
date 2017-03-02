@@ -56,6 +56,12 @@
           var tempo = Math.round(performance.now());
           ga('send','timing','Página','Carregamento',tempo);
         }
+        //Criando observer que ira configurar o analytics assim que o usuario for logado
+        firebase.auth().onAuthStateChanged(function(usuario){
+          if (usuario) {
+            ga('set', 'userId', usuario.uid);
+          }
+        });
       },
       attached: function(){
         this.$.spinner.removeAttribute("ativado");
@@ -82,6 +88,16 @@
             case "trainer":
               document.title = "Treinando!";
               ga('set', 'page', '/trainer.html');
+              var usuario = firebase.auth().currentUser;
+              if (!usuario) {
+                firebase.auth().signInAnonymously().catch(function(e){
+                  var msg = "Erro ao registrar usuario de forma anonima; errorCode: " + e.code + "; errorMessage: " + e.message + ";";
+                  ga('send','exception',{
+                    'exDescription': msg,
+                    'exFatal': false
+                  });
+                });
+              }
               ga('send', 'pageview');
               break;
             default:

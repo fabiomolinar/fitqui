@@ -23,7 +23,6 @@
       }
     },
     prepararExercicios: function(dados){
-      console.log(dados);
       /*
       *-----Valores iniciais
       *-nivel => nivel de dificuldade
@@ -38,9 +37,24 @@
         local: 'casa',
         quantidade: 3
       }
-      configuracao = this.processarDados(dados, configuracao);
+      configuracao = this.processarConfiguracao(dados, configuracao);
+      var exercicios = [];
+      var todosExercicios = [];
+      todosExercicios = this.pegarTodosExercicios(configuracao);
+      for (var i = 0; i < this.numSeries; i++) {
+        exercicios.push(this.criarExercicio(configuracao,todosExercicios));
+      }
+      return exercicios;
     },
-    processarDados: function(dados, configuracao){
+    pegarTodosExercicios: function(configuracao){
+      //Retorna uma array com todos os exercicios possiveis que obedecem a configuracao
+    },
+    criarExercicio: function(configuracao, todos){
+      //Retorna uma serie aleatoria de exercicios baseado na configuracao e na lista de todos exercicios possiveis
+      //Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
+      
+    },
+    processarConfiguracao: function(dados, configuracao){
       var niveis = this.niveis;
       var locais = this.locais;
       for (var i = 0; i < niveis.length; i++) {
@@ -79,8 +93,8 @@
           });
       }
       configuracao.duracao = this.duracaoMin;
-      if (!(isNaN(parseInt(dados.serialize().duracao)))) {
-        var duracao = parseInt(dados.serialize().duracao);
+      if (!(isNaN(parseInt(dados.duracao)))) {
+        var duracao = parseInt(dados.duracao);
         if (duracao < this.duracaoMin) {
           configuracao.duracao = this.duracaoMin;
         } else if (duracao > this.duracaoMax) {

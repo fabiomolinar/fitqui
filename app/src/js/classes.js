@@ -29,6 +29,10 @@ var _fitquiClasses = (function(){
     //nps = 0,
     //Tipo do exercício: [Força, Aeróbico, ...]
     tipo = "Força",
+    //Equipamento necessário para realizar o exercício
+    //equipamento = ['pesos','barra','bola'],
+    //Local onde é possível realizar o exercício
+    //local = ['casa','academia'],
     //Link do youtube que mostra alguém realizando o exercício
     youtube = "https://www.youtube.com/watch?v=C8ptU8OJvCM",
     //Indicador mostrando se o vídeo relacionado ao exercício é domínio público
