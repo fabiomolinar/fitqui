@@ -2,6 +2,7 @@
 <link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 <link rel="import" href="fitqui-controls.html">
 <link rel="import" href="fitqui-trainer-details.html">
@@ -40,9 +41,18 @@
         <div class="">
           Você concluiu com sucesso o treinamento!
         </div>
+        <h3>Nos diga abaixo o que você achou dessa série.</h3>
+        <div class="avaliar">
+          <iron-icon id="notaNegativa" icon="icones:mood-bad" on-tap="enviarNota"></iron-icon>
+          <iron-icon id="notaNeutra" icon="icones:face" on-tap="enviarNota"></iron-icon>
+          <iron-icon id="notaPositiva" icon="icones:mood" on-tap="enviarNota"></iron-icon>
+        </div>
         <paper-button autofocus on-tap="terminar">Terminar</paper-button>
       </paper-dialog>
     </template>
+
+    <paper-toast id="enviandoNota">Enviando avaliação. Agradecemos sua opinião!</paper-toast>
+
   </template>
   <script>
     Polymer({
@@ -148,7 +158,11 @@
       },
       terminar: function(){
         this.$$('#dialogoSucesso').close();
-        window.location.href = "#home";
+        window.location.href = "#filters";
+      },
+      enviarNota: function(e){
+        var nota = e.srcElement.id;
+        this.$.enviandoNota.show();
       }
     });
   </script>

@@ -35,6 +35,13 @@ paper-toast{
   --paper-toast-background-color: $cor-escura;
   --paper-toast-color: $cor-branca;
 }
+paper-toast paper-button{
+  color: $cor-triad1;
+  background-color: transparent;
+  margin: 0px;
+  padding: 0px;
+  font-size: 13px;
+}
 paper-button{
   font-size: 1.8em;
   color: $cor-branca;

@@ -17,10 +17,6 @@
       window.ga_debug = {trace: false};
       ga('create', 'UA-51812651-5', 'auto');
       ga('set', 'transport', 'beacon');
-      //Se estivermos em localhost, não enviar hits
-      if (location.hostname == 'localhost') {
-        ga('set', 'sendHitTask', null);
-      }
     </script>
     <!-- Polymer -->
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
@@ -51,6 +47,10 @@
       });
     </script>
     <script>
+      if (location.hostname == 'localhost') {
+        ga('set', 'sendHitTask', null);
+        firebase.database.enableLogging(false);
+      }
       if (window.performance) {
         var tempo = Math.round(performance.now());
         ga('send','timing','Página','Carregamento',tempo);

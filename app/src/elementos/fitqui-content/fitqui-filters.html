@@ -1,10 +1,12 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 <link rel="import" href="fitqui-filters-behavior.html">
 
@@ -57,6 +59,8 @@
       </form>
     </div>
 
+    <paper-toast id="toastFixo" duration="0" text=""><paper-button onclick="toastFixo.toggle()">X</paper-button></paper-toast>
+
   </template>
   <script>
     Polymer({
@@ -75,8 +79,6 @@
         var spinner = document.querySelector('fitqui-spinner#spinner');
         spinner.setAttribute("ativado",true);
         this.prepararDados();
-        spinner.removeAttribute("ativado");
-        window.location.href = "#selector";
       },
       prepararDados: function(){
         var dadosForm = this.$.formulario.serialize();
@@ -110,6 +112,11 @@
           ]
         ]
         this.dados = exercicios;
+      },
+      proximo: function(){
+        var spinner = document.querySelector('fitqui-spinner#spinner');
+        spinner.removeAttribute("ativado");
+        window.location.href = "#selector";
       }
     });
   </script>

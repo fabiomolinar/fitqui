@@ -25,7 +25,7 @@
     prepararExercicios: function(dados){
       /*
       *-----Valores iniciais
-      *-nivel => nivel de dificuldade
+      *-nivel: nivel de dificuldade
       *-duracao: duracao total dos exercicios; quanto tempo o usuario quer se exercitar
       *-aerobico: se é preciso adicionar exercicios aerobicos
       *-quantidade: quantidade de exercicios total
@@ -37,22 +37,34 @@
         local: 'casa',
         quantidade: 3
       }
-      configuracao = this.processarConfiguracao(dados, configuracao);
       var exercicios = [];
       var todosExercicios = [];
+      configuracao = this.processarConfiguracao(dados, configuracao);
       todosExercicios = this.pegarTodosExercicios(configuracao);
       for (var i = 0; i < this.numSeries; i++) {
         exercicios.push(this.criarExercicio(configuracao,todosExercicios));
       }
       return exercicios;
     },
-    pegarTodosExercicios: function(configuracao){
-      //Retorna uma array com todos os exercicios possiveis que obedecem a configuracao
-    },
     criarExercicio: function(configuracao, todos){
       //Retorna uma serie aleatoria de exercicios baseado na configuracao e na lista de todos exercicios possiveis
       //Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
-      
+    },
+    pegarTodosExercicios: function(configuracao){
+      //Retorna uma array com todos os exercicios possiveis que obedecem a configuracao
+      var dbExercicios = firebase.database().ref('exercicios');
+      dbExercicios.once('value', snap => {
+        if (snap.val()) {
+          console.log(snap.val());
+          this.proximo();
+        } else {
+          var msg = "Nenhum valor retornado do banco de dados. Em fitqui-filters-behavior.html."
+          this.databaseError(msg);
+        }
+      }, erro => {
+        var msg = "não foi possível pegar os exercícios na base de dados. Em fitqui-filters-behavior.html; erro.message: " + erro.message + ".";
+        this.databaseError(msg);
+      }, this);
     },
     processarConfiguracao: function(dados, configuracao){
       var niveis = this.niveis;
@@ -104,6 +116,16 @@
         }
       }
       return configuracao;
+    },
+    databaseError: function(msg){
+      ga('send','exception',{
+        'exDescription': msg,
+        'exFatal': false
+      });
+      var spinner = document.querySelector('fitqui-spinner#spinner');
+      spinner.removeAttribute("ativado");
+      this.$.toastFixo.text = "Ops, alguma coisa deu errada. Tente novamente mais tarde.";
+      this.$.toastFixo.show();
     }
   }
 </script>

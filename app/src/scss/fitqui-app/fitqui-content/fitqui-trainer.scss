@@ -3,6 +3,16 @@
   display: flex;
   flex-direction: column;
 }
+.avaliar{
+  text-align: center;
+}
+.avaliar iron-icon{
+  height: 51.3px;
+  width: 51.3px;
+}
+.avaliar #notaNegativa{color: $cor-tetrad2;}
+.avaliar #notaNeutra{color: $cor-triad1;}
+.avaliar #notaPositiva{color: $cor-escura;}
 #nao-ha-dados{
   text-align: center;
   padding: 24px;
