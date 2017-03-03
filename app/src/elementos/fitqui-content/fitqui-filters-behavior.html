@@ -5,6 +5,14 @@
         type: Array,
         value: () => ['iniciante','intermediario','avancado']
       },
+      niveisMultiplicadores: {
+        type: Object,
+        value: () => ({
+          iniciante: 1,
+          intermediario: 1.3,
+          avancado: 1.5
+        })
+      },
       locais: {
         type: Array,
         value: () => ['casa','parque']
@@ -40,6 +48,7 @@
       */
       var configuracao = {
         nivel: "iniciante",
+        nivelMultiplicador: 1,
         duracao: this.duracaoMin,
         aerobico: false,
         local: 'casa',
@@ -49,12 +58,13 @@
       configuracao = this.processarConfiguracao(dados, configuracao);
       this.pegarTodosExercicios(configuracao);
     },
-    criarSerie: function(configuracao, todos){
+    criarSerie: function(configuracao, todos,forca,aerobico,aquecimento,alongamento){
       /*
       *todos é uma array dos exercícios que foram recebidos do DB
       *Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
       */
       var serie = [];
+
       return serie;
     },
     filtrarExercicios: function(configuracao,todos){
@@ -99,11 +109,36 @@
       /*
       *Retorna as series de exercicios baseado na configuracao e na lista de todos exercicios possiveis
       */
-      todos = this.filtrarExercicios(configuracao,todos);
-      console.log(todos);
       this.dados = [];
+      var aquecimento = [];
+      var forca = [];
+      var aerobico = [];
+      var alongamento = [];
+      todos = this.filtrarExercicios(configuracao,todos);
+      for (var i = 0; i < todos.length; i++) {
+        switch (todos[i].tipo) {
+          case "Força":
+            forca.push(todos[i]);
+            break;
+          case "Aeróbico":
+            aerobico.push(todos[i]);
+            break;
+          case "Aquecimento":
+            aquecimento.push(todos[i]);
+            break;
+          case "Alongamento":
+            alongamento.push(todos[i]);
+            break;
+          default:
+            var msg = 'Tipo de treinamento não encontrado. Nome do exercício: ' + todos[i].nome;
+            ga('send','exception',{
+              'exDescription': msg,
+              'exFatal': false
+            });
+        }
+      }
       for (var i = 0; i < this.numSeries; i++) {
-        this.dados.push(this.criarSerie(configuracao,todos));
+        this.dados.push(this.criarSerie(configuracao,todos,forca,aerobico,aquecimento,alongamento));
       }
       this.proximo();
     },
@@ -138,6 +173,7 @@
       for (var i = 0; i < niveis.length; i++) {
         if (dados.hasOwnProperty(niveis[i])) {
           configuracao.nivel = niveis[i];
+          configuracao.nivelMultiplicador = this.niveisMultiplicadores[configuracao.nivel];
           break;
         }
       }

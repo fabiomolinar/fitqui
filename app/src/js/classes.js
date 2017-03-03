@@ -27,7 +27,7 @@ var _fitquiClasses = (function(){
     //notaNegativa = 0,
     //Nota "quasi-NPS" do exercício. Calculada da seguinte forma: (positivas - negativas)/(positivas+neutras+negativas)
     //nps = 0,
-    //Tipo do exercício: [Força, Aeróbico, ...]
+    //Tipo do exercício: [Força, Aeróbico, Aquecimento, Esfriar ...]
     tipo = "Força",
     //Equipamento necessário para realizar o exercício
     //equipamento = ['pesos','barra','bola'],
@@ -36,13 +36,10 @@ var _fitquiClasses = (function(){
     //Link do youtube que mostra alguém realizando o exercício
     youtube = "https://www.youtube.com/watch?v=C8ptU8OJvCM",
     //Indicador mostrando se o vídeo relacionado ao exercício é domínio público
-    //youtubePublico = true
-    /*
-    *Adicionais que não são salvos no banco de dados
-    */
-    //Número de repetições para exercícios de força. Igual a 1 quando aeróbico
+    //youtubeAcessivel = true
+    //Número de repetições para exercícios de força para nivel iniciante. Igual a 0 quando aeróbico
     repeticoes = 3,
-    //Duração do exercício aeróbico. Igual a 0 quando exercício de força
+    //Duração do exercício aeróbico para nivel iniciante. Igual a 0 quando exercício de força
     duracao = 0
   ){
     return {
