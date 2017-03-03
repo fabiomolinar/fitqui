@@ -20,40 +20,41 @@
       <p>De acordo com suas preferências abaixo, tentaremos criar o melhor treino para você.</p>
       <form is="iron-form" id="formulario">
         <label for="dificuldade">Dificuldade: </label>
-        <paper-radio-group id="dificuldade" selected="iniciante">
-          <paper-radio-button name="iniciante">Iniciante</paper-radio-button>
-          <paper-radio-button name="intermediario">Intermediário</paper-radio-button>
-          <paper-radio-button name="avancado">Avançado</paper-radio-button>
+        <paper-radio-group id="dificuldade">
+          <paper-radio-button name="iniciante" on-tap="enviarEvento">Iniciante</paper-radio-button>
+          <paper-radio-button name="intermediario" on-tap="enviarEvento">Intermediário</paper-radio-button>
+          <paper-radio-button name="avancado" on-tap="enviarEvento">Avançado</paper-radio-button>
         </paper-radio-group>
         <paper-input
           label="Duração do treino"
           prevent-invalid-input
           allowed-pattern="[0-9]"
-          name="duracao">
+          name="duracao"
+          on-focusout="enviarEvento">
           <iron-icon icon="icones:timer" prefix></iron-icon>
           <div suffix>minutos</div>
         </paper-input>
-        <paper-checkbox name="aerobico" checked={{usarAerobico}}>Adicionar exercícios aeróbicos</paper-checkbox>
+        <paper-checkbox name="aerobico" checked={{usarAerobico}} on-tap="enviarEvento">Adicionar exercícios aeróbicos</paper-checkbox>
         <div id="local" hidden={{!usarAerobico}}>
           <label for="local">Onde: </label>
-          <paper-radio-group id="local" selected="casa">
-            <paper-radio-button name="casa">Em casa</paper-radio-button>
-            <paper-radio-button name="parque">No parque</paper-radio-button>
+          <paper-radio-group id="local">
+            <paper-radio-button name="casa" on-tap="enviarEvento">Em casa</paper-radio-button>
+            <paper-radio-button name="parque" on-tap="enviarEvento">No parque</paper-radio-button>
           </paper-radio-group>
         </div>
         <div id="musculos">
           <label for="musculos">Grupos musculares: </label>
-          <paper-checkbox name="quadriceps">Quadríceps</paper-checkbox>
-          <paper-checkbox name="panturrilha">Panturrilha</paper-checkbox>
-          <paper-checkbox name="gluteo">Glúteo</paper-checkbox>
-          <paper-checkbox name="trapezio">Trapézio</paper-checkbox>
-          <paper-checkbox name="ombros">Ombros</paper-checkbox>
-          <paper-checkbox name="biceps">Biceps</paper-checkbox>
-          <paper-checkbox name="triceps">Triceps</paper-checkbox>
-          <paper-checkbox name="antebraco">Antebraço</paper-checkbox>
-          <paper-checkbox name="peito">Peito</paper-checkbox>
-          <paper-checkbox name="abdomen">Abdômen</paper-checkbox>
-          <paper-checkbox name="costas">Costas</paper-checkbox>
+          <paper-checkbox name="quadriceps" on-tap="enviarEvento">Quadríceps</paper-checkbox>
+          <paper-checkbox name="panturrilha" on-tap="enviarEvento">Panturrilha</paper-checkbox>
+          <paper-checkbox name="gluteo" on-tap="enviarEvento">Glúteo</paper-checkbox>
+          <paper-checkbox name="trapezio" on-tap="enviarEvento">Trapézio</paper-checkbox>
+          <paper-checkbox name="ombros" on-tap="enviarEvento">Ombros</paper-checkbox>
+          <paper-checkbox name="biceps" on-tap="enviarEvento">Biceps</paper-checkbox>
+          <paper-checkbox name="triceps" on-tap="enviarEvento">Triceps</paper-checkbox>
+          <paper-checkbox name="antebraco"  on-tap="enviarEvento">Antebraço</paper-checkbox>
+          <paper-checkbox name="peito"  on-tap="enviarEvento">Peito</paper-checkbox>
+          <paper-checkbox name="abdomen"  on-tap="enviarEvento">Abdômen</paper-checkbox>
+          <paper-checkbox name="costas" on-tap="enviarEvento">Costas</paper-checkbox>
         </div>
         <paper-button id="proximo" raised>Próximo</paper-button>
       </form>
@@ -102,6 +103,23 @@
         var spinner = document.querySelector('fitqui-spinner#spinner');
         spinner.removeAttribute("ativado");
         window.location.href = "#selector";
+      },
+      enviarEvento: function(e){
+        var elemento = null;
+        for (var i = 0; i < e.path.length; i++) {
+          if (e.path[i].tagName === "PAPER-CHECKBOX" || e.path[i].tagName === "PAPER-RADIO-BUTTON" || e.path[i].tagName === "PAPER-INPUT") {
+            elemento = e.path[i];
+          }
+        }
+        if (elemento.tagName === "PAPER-INPUT") {
+          if (elemento && elemento.value > 0) {
+            ga('send','event','Filters','Selecionado',elemento.value);
+          }
+        } else {
+          if (elemento && elemento.checked) {
+            ga('send','event','Filters','Selecionado',elemento.name);
+          }
+        }
       }
     });
   </script>

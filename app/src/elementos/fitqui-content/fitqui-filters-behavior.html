@@ -55,28 +55,52 @@
       *Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
       */
       var serie = [];
-      console.log(configuracao);
       return serie;
+    },
+    filtrarExercicios: function(configuracao,todos){
+      //Filtrar exercícios de acordo com as configurações
+      for (var i = 0; i < todos.length; i++) {
+        if (configuracao.aerobico === false && todos[i].tipo === "Aeróbico") {
+          todos.splice(i,1);
+          i--;
+          continue;
+        }
+        if (configuracao.nivel === "iniciante" && todos[i].dificuldade > 3) {
+          todos.splice(i,1);
+          i--;
+          continue;
+        }
+        if (configuracao.nivel === "intermediario" && todos[i].dificuldade > 6) {
+          todos.splice(i,1);
+          i--;
+          continue;
+        }
+        //Se nenhum grupo muscular for selecionado, não filtrar por músculo
+        if (configuracao.musculosPrimarios.length > 0) {
+          if (todos[i].tipo === "Força") {
+            var encontrado = false;
+            for (var j = 0; j < configuracao.musculosPrimarios.length; j++) {
+              if (todos[i].musculosPrimarios.includes(configuracao.musculosPrimarios[j])) {
+                encontrado = true;
+                break;
+              }
+            }
+            if (!encontrado) {
+              todos.splice(i,1);
+              i--;
+              continue;
+            }
+          }
+        }
+      }
+      return todos;
     },
     criarSeries: function(configuracao, todos){
       /*
       *Retorna as series de exercicios baseado na configuracao e na lista de todos exercicios possiveis
       */
-      //Filtrar exercícios de acordo com as configurações
-      for (var i = 0; i < todos.length; i++) {
-        if (configuracao.aerobico === false && todos[i].tipo === "Aeróbico") {
-          todos.splice(i,1);
-          continue;
-        }
-        if (configuracao.nivel === "iniciante" && todos[i].dificuldade > 3) {
-          todos.splice(i,1);
-          continue;
-        }
-        if (configuracao.nivel === "intermediario" && todos[i].dificuldade > 6) {
-          todos.splice(i,1);
-          continue;
-        }
-      }
+      todos = this.filtrarExercicios(configuracao,todos);
+      console.log(todos);
       this.dados = [];
       for (var i = 0; i < this.numSeries; i++) {
         this.dados.push(this.criarSerie(configuracao,todos));
