@@ -39,7 +39,7 @@ var _fitquiClasses = (function(){
     //youtubeAcessivel = true
     //Número de repetições para exercícios de força para nivel iniciante. Igual a 0 quando aeróbico
     repeticoes = 3,
-    //Duração do exercício aeróbico para nivel iniciante. Igual a 0 quando exercício de força
+    //Duração do exercício aeróbico para nivel iniciante. Quando exercício de força, indica o tempo (em segundos) para realizar 10 repetições
     duracao = 0
   ){
     return {
