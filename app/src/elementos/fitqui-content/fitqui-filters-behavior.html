@@ -23,7 +23,7 @@
       },
       duracaoMin: {
         type: Number,
-        value: () => 10
+        value: () => 30
       },
       duracaoMax: {
         type: Number,
@@ -58,13 +58,32 @@
       configuracao = this.processarConfiguracao(dados, configuracao);
       this.pegarTodosExercicios(configuracao);
     },
-    criarSerie: function(configuracao, todos,forca,aerobico,aquecimento,alongamento){
+    criarSerie: function(configuracao,todos,forca,aerobico,aquecimento,alongamento){
       /*
       *todos é uma array dos exercícios que foram recebidos do DB
       *Sempre retornar um exercicio de warmup no comeco e um de cooldown no final
       */
       var serie = [];
       var tempoTotal = configuracao.duracao;
+      var nivelMultiplicador = configuracao.nivelMultiplicador;
+      var tempoAquecimento = tempoTotal*0.3/nivelMultiplicador > 10/nivelMultiplicador ? 10/nivelMultiplicador : tempoTotal*0.3/nivelMultiplicador;
+      var tempoAlongamento = tempoTotal*0.2/nivelMultiplicador > 10/nivelMultiplicador ? 10/nivelMultiplicador : tempoTotal*0.2/nivelMultiplicador;
+      var tempoTreino = tempoTotal - tempoAquecimento - tempoAlongamento;
+      var tempoAlocado = 0;
+      var subSerie = [];
+      //Primeiro adicionar aquecimento
+      while (tempoAlocado < tempoAquecimento) {
+        if (aquecimento.length > 0) {
+          var index = Math.floor(Math.random()*aquecimento.length);
+          var exercicio = aquecimento.splice(index,1)[0];
+          subSerie.push(exercicio);
+          tempoAlocado = tempoAlocado + exercicio.duracao;
+        } else {
+          var multiplicador = tempoAquecimento/tempoAlocado;
+          subSerie = this.multiplicarDuracaoRepeticoes(subSerie,multiplicador);
+          break;
+        }
+      }
       return serie;
     },
     filtrarExercicios: function(configuracao,todos){
@@ -105,6 +124,13 @@
       }
       return todos;
     },
+    multiplicarDuracaoRepeticoes: function(todos, multiplicador){
+      for (var i = 0; i < todos.length; i++) {
+        todos[i].duracao = todos[i].duracao * multiplicador;
+        todos[i].repeticoes = Math.floor(todos[i].repeticoes * multiplicador);
+      }
+      return todos;
+    },
     criarSeries: function(configuracao, todos){
       /*
       *Retorna as series de exercicios baseado na configuracao e na lista de todos exercicios possiveis
@@ -115,6 +141,7 @@
       var aerobico = [];
       var alongamento = [];
       todos = this.filtrarExercicios(configuracao,todos);
+      todos = this.multiplicarDuracaoRepeticoes(todos, configuracao.nivelMultiplicador);
       for (var i = 0; i < todos.length; i++) {
         switch (todos[i].tipo) {
           case "Força":
