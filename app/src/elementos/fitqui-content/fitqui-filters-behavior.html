@@ -84,6 +84,27 @@
           break;
         }
       }
+      serie.concat(subSerie);
+      subSerie = [];
+      tempoAlocado = 0;
+      //Variavel abaixo sera necessaria depois para inserir os exercicios entre os exercicios de aquecimento e os de alongamento
+      var indexAquecimento = serie.length;
+      while (tempoAlocado < tempoAlongamento) {
+        if (alongamento.length > 0) {
+          var index = Math.floor(Math.random()*alongamento.length);
+          var exercicio = alongamento.splice(index,1)[0];
+          subSerie.push(exercicio);
+          tempoAlocado = tempoAlocado + exercicio.duracao;
+        } else {
+          var multiplicador = tempoAlongamento/tempoAlocado;
+          subSerie = this.multiplicarDuracaoRepeticoes(subSerie,multiplicador);
+          break;
+        }
+      }
+      serie.concat(subSerie);
+      subSerie = [];
+      tempoAlocado = 0;
+      
       return serie;
     },
     filtrarExercicios: function(configuracao,todos){
