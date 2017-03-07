@@ -58,6 +58,23 @@
       configuracao = this.processarConfiguracao(dados, configuracao);
       this.pegarTodosExercicios(configuracao);
     },
+    criarSubSerie: function(exercicios,tempo){
+      var tempoAlocado = 0;
+      var subSerie = [];
+      while (tempoAlocado < tempo) {
+        if (exercicios.length > 0) {
+          var index = Math.floor(Math.random()*exercicios.length);
+          var exercicio = exercicios.splice(index,1)[0];
+          subSerie.push(exercicio);
+          tempoAlocado = tempoAlocado + exercicio.duracao;
+        } else {
+          var multiplicador = tempo/tempoAlocado;
+          subSerie = this.multiplicarDuracaoRepeticoes(subSerie,multiplicador);
+          break;
+        }
+      }
+      return subSerie;
+    },
     criarSerie: function(configuracao,todos,forca,aerobico,aquecimento,alongamento){
       /*
       *todos é uma array dos exercícios que foram recebidos do DB
@@ -67,44 +84,18 @@
       var tempoTotal = configuracao.duracao;
       var nivelMultiplicador = configuracao.nivelMultiplicador;
       var tempoAquecimento = tempoTotal*0.3/nivelMultiplicador > 10/nivelMultiplicador ? 10/nivelMultiplicador : tempoTotal*0.3/nivelMultiplicador;
-      var tempoAlongamento = tempoTotal*0.2/nivelMultiplicador > 10/nivelMultiplicador ? 10/nivelMultiplicador : tempoTotal*0.2/nivelMultiplicador;
+      var tempoAlongamento = tempoTotal*0.21/nivelMultiplicador > 10/nivelMultiplicador ? 10/nivelMultiplicador : tempoTotal*0.21/nivelMultiplicador;
       var tempoTreino = tempoTotal - tempoAquecimento - tempoAlongamento;
-      var tempoAlocado = 0;
-      var subSerie = [];
       //Primeiro adicionar aquecimento
-      while (tempoAlocado < tempoAquecimento) {
-        if (aquecimento.length > 0) {
-          var index = Math.floor(Math.random()*aquecimento.length);
-          var exercicio = aquecimento.splice(index,1)[0];
-          subSerie.push(exercicio);
-          tempoAlocado = tempoAlocado + exercicio.duracao;
-        } else {
-          var multiplicador = tempoAquecimento/tempoAlocado;
-          subSerie = this.multiplicarDuracaoRepeticoes(subSerie,multiplicador);
-          break;
-        }
+      serie.concat(this.criarSubSerie(aquecimento,tempoAquecimento));
+      if (configuracao.aerobico) {
+        serie.concat(this.criarSubSerie(forca,tempoTreino*0.54));
+        serie.concat(this.criarSubSerie(aerobico,tempoTreino*0.45));
+      } else {
+        serie.concat(this.criarSubSerie(forca,tempoTreino));
       }
-      serie.concat(subSerie);
-      subSerie = [];
-      tempoAlocado = 0;
-      //Variavel abaixo sera necessaria depois para inserir os exercicios entre os exercicios de aquecimento e os de alongamento
-      var indexAquecimento = serie.length;
-      while (tempoAlocado < tempoAlongamento) {
-        if (alongamento.length > 0) {
-          var index = Math.floor(Math.random()*alongamento.length);
-          var exercicio = alongamento.splice(index,1)[0];
-          subSerie.push(exercicio);
-          tempoAlocado = tempoAlocado + exercicio.duracao;
-        } else {
-          var multiplicador = tempoAlongamento/tempoAlocado;
-          subSerie = this.multiplicarDuracaoRepeticoes(subSerie,multiplicador);
-          break;
-        }
-      }
-      serie.concat(subSerie);
-      subSerie = [];
-      tempoAlocado = 0;
-      
+      //Agora, adicionar os de alongamento
+      serie.concat(this.criarSubSerie(alongamento,tempoAlongamento));
       return serie;
     },
     filtrarExercicios: function(configuracao,todos){
@@ -240,11 +231,11 @@
         }
       }
       if (configuracao.aerobico === true) {
-        this.duracaoMin = 20;
+        this.duracaoMin = 40;
       }
       switch (configuracao.nivel) {
         case 'iniciante':
-          this.duracaoMax = configuracao.aerobico === true ? 45 : 45;
+          this.duracaoMax = configuracao.aerobico === true ? 60 : 45;
           break;
         case 'intermediario':
           this.duracaoMax = configuracao.aerobico === true ? 90 : 60;
