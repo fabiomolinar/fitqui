@@ -151,7 +151,7 @@
       /*
       *Retorna as series de exercicios baseado na configuracao e na lista de todos exercicios possiveis
       */
-      this.dados = [];
+      var series = [];
       var aquecimento = [];
       var forca = [];
       var aerobico = [];
@@ -181,12 +181,10 @@
         }
       }
       for (var i = 0; i < this.numSeries; i++) {
-        this.dados.push(this.criarSerie(configuracao,todos,forca,aerobico,aquecimento,alongamento));
+        series.push(this.criarSerie(configuracao,todos,forca,aerobico,aquecimento,alongamento));
       }
       //Forcando o Polymer a identificar as mudancas que fiz na array. Na documentacao do Polymer isso é chamado de "dirty checking"
-      var vetor = this.dados;
-      this.dados = [];
-      this.dados = vetor;
+      this.set('dados',series);
       this.proximo();
     },
     pegarTodosExercicios: function(configuracao){

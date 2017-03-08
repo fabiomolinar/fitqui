@@ -15,3 +15,28 @@ paper-button{
   text-align: center;
   padding: 24px;
 }
+.botoes{
+  float: right;
+}
+.cancelar{
+  background-color: $cor-branca;
+  color: $cor-oposta;
+}
+.aceitar{
+  background-color: $cor-clara;
+}
+#cuidado{
+  background-color: $cor-oposta;
+  color: $cor-branca;
+}
+#cuidado p{
+  color: $cor-branca;
+}
+#cuidado paper-checkbox{
+  --paper-checkbox-unchecked-color: $cor-branca;
+  --paper-checkbox-unchecked-ink-color: $cor-branca;
+  --paper-checkbox-checked-color: transparent;
+  --paper-checkbox-checked-ink-color: $cor-branca;
+  --paper-checkbox-label-color: $cor-branca;
+  --paper-checkbox-label-checked-color: $cor-branca;
+}

@@ -1,8 +1,14 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../fitqui-shared-styles.html">
 <link rel="import" href="fitqui-exercise-summary.html">
 
 <dom-module id="fitqui-selector">
   <template>
+    <style include="fitqui-shared-styles"></style>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-selector.css" inline>
 
     <div id="wrapper">
@@ -20,6 +26,26 @@
         </template>
       </template>
     </div>
+
+    <paper-dialog
+      id="cuidado"
+      modal
+      entry-animation="scale-up-animation">
+      <h2>Aviso!!!</h2>
+      <p>Nosso serviço visa facilitar ao usuário o acesso a um banco de dados de exercícios.</p>
+      <p>Não substituimos o acompanhamento profissional e pessoal de um profissional de educação física ou especializado na execução de exercícios físicos.</p>
+      <p>Por utilizar o nosso serviço você concorda que estará realizando os exercícios por sua própria conta e risco.</p>
+      <p>Se você não está fazendo acompanhamentos pessoais com algum profissional qualificado em educação física, recomendamos que você busque supervisão desse profissional antes de utilizara os nossos serviços.</p>
+      <paper-checkbox id="aceito" name="aceito">Li, entendi e concordo com a advertência. Ir para os exercícios.</paper-checkbox>
+      <paper-checkbox id="repetir" name="repetir">Deixar de mostrar essa mensagem.</paper-checkbox>
+      <div class="botoes">
+        <paper-button class="cancelar" on-tap="cancelar">Cancelar</paper-button>
+        <paper-button class="aceitar" on-tap="aceitar">Continuar</paper-button>
+      </div>
+    </paper-dialog>
+
+    <paper-toast id="toast"></paper-toast>
+
   </template>
   <script>
     var asd;
@@ -40,6 +66,18 @@
           value: () => false
         }
       },
+      cancelar: function(e){
+        this.$.cuidado.close();
+      },
+      aceitar: function(e){
+        if (this.$.aceito.checked) {
+          this.$.cuidado.close();
+          window.location.href = "#trainer/1";
+        } else {
+          this.$.toast.text = "Para confirmar, é preciso confirmar que você concorda com o aviso.";
+          this.$.toast.show();
+        }
+      },
       onTap: function(evento,objeto){
         var paths = evento.path;
         var clicado;
@@ -52,7 +90,7 @@
         if (clicado){
           this.selecionado = clicado.programa;
         }
-        window.location.href = "#trainer/1";
+        this.$.cuidado.open();
       },
       voltar: function(){
         window.location.href = "#filters";
