@@ -11,8 +11,12 @@ var _fitqui = (function(){
       console.log(conteudo);
     }
   };
+  var storageVariableNames = {
+    naoRepetirAvisoDeCuidado = "naoRepetirAvisoDeCuidado"    
+  };
   return {
     devMode: devMode,
-    log: log
+    log: log,
+    storageVariableNames: storageVariableNames
   }
 })();

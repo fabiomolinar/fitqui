@@ -1,0 +1,35 @@
+<script>
+  FitquiSharedBehavior = {
+    properties: {
+      fitquiTemLocalStorage: {
+        type: Boolean,
+        value: () => false
+      },
+      fitquiTemSessionStorage: {
+        type: Boolean,
+        value: () => false
+      }
+    },
+    ready: function(){
+      this.fitquiTemLocalStorage = this.storageAvailable("localStorage");
+      this.fitquiTemSessionStorage = this.storageAvailable("sessionStorage");
+    },
+    storageAvailable: function(type){
+      try {
+    		var storage = window[type],
+            x = '__storage_test__';
+    		storage.setItem(x, x);
+    		storage.removeItem(x);
+    		return true;
+    	}
+    	catch(e) {
+    		return false;
+        var msg = "usuário não suporta " + type;
+        ga('send','exception',{
+          'exDescription': msg,
+          'exFatal': false
+        });
+    	}
+    }
+  }
+</script>

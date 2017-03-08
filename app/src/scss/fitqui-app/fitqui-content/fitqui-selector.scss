@@ -11,10 +11,6 @@ paper-button{
   color: $cor-branca;
   background-color: $cor-triad1;
 }
-#nao-ha-dados{
-  text-align: center;
-  padding: 24px;
-}
 .botoes{
   float: right;
 }
@@ -25,9 +21,14 @@ paper-button{
 .aceitar{
   background-color: $cor-clara;
 }
+#nao-ha-dados{
+  text-align: center;
+  padding: 24px;
+}
 #cuidado{
   background-color: $cor-oposta;
   color: $cor-branca;
+  overflow-y: auto;
 }
 #cuidado p{
   color: $cor-branca;

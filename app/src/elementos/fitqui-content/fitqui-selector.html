@@ -4,6 +4,7 @@
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../fitqui-shared-styles.html">
+<link rel="import" href="../fitqui-shared-behavior.html">
 <link rel="import" href="fitqui-exercise-summary.html">
 
 <dom-module id="fitqui-selector">
@@ -37,7 +38,7 @@
       <p>Por utilizar o nosso serviço você concorda que estará realizando os exercícios por sua própria conta e risco.</p>
       <p>Se você não está fazendo acompanhamentos pessoais com algum profissional qualificado em educação física, recomendamos que você busque supervisão desse profissional antes de utilizara os nossos serviços.</p>
       <paper-checkbox id="aceito" name="aceito">Li, entendi e concordo com a advertência. Ir para os exercícios.</paper-checkbox>
-      <paper-checkbox id="repetir" name="repetir">Deixar de mostrar essa mensagem.</paper-checkbox>
+      <paper-checkbox id="repetir" name="repetir" hidden$="{{!fitquiTemLocalStorage}}">Deixar de mostrar essa mensagem.</paper-checkbox>
       <div class="botoes">
         <paper-button class="cancelar" on-tap="cancelar">Cancelar</paper-button>
         <paper-button class="aceitar" on-tap="aceitar">Continuar</paper-button>
@@ -66,13 +67,20 @@
           value: () => false
         }
       },
+      behaviors: [FitquiSharedBehavior],
       cancelar: function(e){
         this.$.cuidado.close();
       },
+      irTrainer: function(){
+        window.location.href = "#trainer/1";
+      },
       aceitar: function(e){
         if (this.$.aceito.checked) {
+          if (this.fitquiTemLocalStorage && this.$.repetir.checked) {
+            localStorage.setItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidado,"true");
+          }
           this.$.cuidado.close();
-          window.location.href = "#trainer/1";
+          this.irTrainer();
         } else {
           this.$.toast.text = "Para confirmar, é preciso confirmar que você concorda com o aviso.";
           this.$.toast.show();
@@ -90,7 +98,16 @@
         if (clicado){
           this.selecionado = clicado.programa;
         }
-        this.$.cuidado.open();
+        if (this.fitquiTemLocalStorage) {
+          var naoDarAviso = localStorage.getItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidado);
+          if (naoDarAviso === "true") {
+            this.irTrainer();
+          } else {
+            this.$.cuidado.open();
+          }
+        } else {
+          this.$.cuidado.open();
+        }
       },
       voltar: function(){
         window.location.href = "#filters";
