@@ -15,7 +15,7 @@
       </template>
       <template is="dom-if" if="[[haDados]]">
         <p>Montamos alguns treinos para você. Qual deles você prefere?</p>
-        <template is="dom-repeat" items="{{dados}}">
+        <template id="lista" is="dom-repeat" items="{{dados}}">
           <fitqui-exercise-summary programa="{{item}}" on-tap="onTap"></fitqui-exercise-summary>
         </template>
       </template>

@@ -59,12 +59,14 @@
       this.pegarTodosExercicios(configuracao);
     },
     criarSubSerie: function(exercicios,tempo){
+      //Javascript passa arrays sempre por referência. Para manter a array original intacta, temos que fazer o seguinte truque.
+      var _exercicios = JSON.parse(JSON.stringify(exercicios));
       var tempoAlocado = 0;
       var subSerie = [];
       while (tempoAlocado < tempo) {
-        if (exercicios.length > 0) {
-          var index = Math.floor(Math.random()*exercicios.length);
-          var exercicio = exercicios.splice(index,1)[0];
+        if (_exercicios.length > 0) {
+          var index = Math.floor(Math.random()*_exercicios.length);
+          var exercicio = _exercicios.splice(index,1)[0];
           subSerie.push(exercicio);
           tempoAlocado = tempoAlocado + exercicio.duracao;
         } else {
@@ -87,15 +89,15 @@
       var tempoAlongamento = tempoTotal*0.21/nivelMultiplicador > 10/nivelMultiplicador ? 10/nivelMultiplicador : tempoTotal*0.21/nivelMultiplicador;
       var tempoTreino = tempoTotal - tempoAquecimento - tempoAlongamento;
       //Primeiro adicionar aquecimento
-      serie.concat(this.criarSubSerie(aquecimento,tempoAquecimento));
+      serie = serie.concat(this.criarSubSerie(aquecimento,tempoAquecimento));
       if (configuracao.aerobico) {
-        serie.concat(this.criarSubSerie(forca,tempoTreino*0.54));
-        serie.concat(this.criarSubSerie(aerobico,tempoTreino*0.45));
+        serie = serie.concat(this.criarSubSerie(forca,tempoTreino*0.54));
+        serie = serie.concat(this.criarSubSerie(aerobico,tempoTreino*0.45));
       } else {
-        serie.concat(this.criarSubSerie(forca,tempoTreino));
+        serie = serie.concat(this.criarSubSerie(forca,tempoTreino));
       }
       //Agora, adicionar os de alongamento
-      serie.concat(this.criarSubSerie(alongamento,tempoAlongamento));
+      serie = serie.concat(this.criarSubSerie(alongamento,tempoAlongamento));
       return serie;
     },
     filtrarExercicios: function(configuracao,todos){
@@ -139,7 +141,9 @@
     multiplicarDuracaoRepeticoes: function(todos, multiplicador){
       for (var i = 0; i < todos.length; i++) {
         todos[i].duracao = todos[i].duracao * multiplicador;
-        todos[i].repeticoes = Math.floor(todos[i].repeticoes * multiplicador);
+        if (todos[i].tipo === "Força") {
+          todos[i].repeticoes = Math.floor(todos[i].repeticoes * multiplicador);
+        }
       }
       return todos;
     },
@@ -179,6 +183,10 @@
       for (var i = 0; i < this.numSeries; i++) {
         this.dados.push(this.criarSerie(configuracao,todos,forca,aerobico,aquecimento,alongamento));
       }
+      //Forcando o Polymer a identificar as mudancas que fiz na array. Na documentacao do Polymer isso é chamado de "dirty checking"
+      var vetor = this.dados;
+      this.dados = [];
+      this.dados = vetor;
       this.proximo();
     },
     pegarTodosExercicios: function(configuracao){
