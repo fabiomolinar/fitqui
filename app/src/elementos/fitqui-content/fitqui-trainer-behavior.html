@@ -163,7 +163,7 @@
         return ehZero;
       },
       voltar: function(){
-        window.location.href = "#filters";
+        window.location.href = "/#filters";
       },
       controlTap: function(evento,objeto){
         var botao = evento.path[0];
@@ -180,13 +180,13 @@
           case "next":
             if (this.posicao < this.programa.length) {
               var posicao = this.posicao + 1;
-              window.location.href = "#trainer/" + posicao;
+              window.location.href = "/#trainer/" + posicao;
             }
             break;
           case "previous":
             if (this.posicao > 1) {
               var posicao = this.posicao - 1;
-              window.location.href = "#trainer/" + posicao;
+              window.location.href = "/#trainer/" + posicao;
             }
             break;
           default:

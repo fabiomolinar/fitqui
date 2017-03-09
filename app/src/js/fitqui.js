@@ -12,7 +12,8 @@ var _fitqui = (function(){
     }
   };
   var storageVariableNames = {
-    naoRepetirAvisoDeCuidado = "naoRepetirAvisoDeCuidado"    
+    naoRepetirAvisoDeCuidado : "naoRepetirAvisoDeCuidado",
+    naoRepetirAvisoDeCuidadoData : "naoRepetirAvisoDeCuidadoData"
   };
   return {
     devMode: devMode,

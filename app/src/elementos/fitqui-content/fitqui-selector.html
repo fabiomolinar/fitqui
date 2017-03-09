@@ -72,19 +72,25 @@
         this.$.cuidado.close();
       },
       irTrainer: function(){
-        window.location.href = "#trainer/1";
+        window.location.href = "/#trainer/1";
       },
       aceitar: function(e){
         if (this.$.aceito.checked) {
           if (this.fitquiTemLocalStorage && this.$.repetir.checked) {
             localStorage.setItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidado,"true");
+            localStorage.setItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidadoData,Date.now());
           }
           this.$.cuidado.close();
           this.irTrainer();
         } else {
-          this.$.toast.text = "Para confirmar, é preciso confirmar que você concorda com o aviso.";
+          this.$.toast.text = "Para continuar, é preciso confirmar que você concorda com o aviso.";
           this.$.toast.show();
         }
+      },
+      abrirAviso: function(){
+        this.$.aceito.checked = false;
+        this.$.repetir.checked = false;
+        this.$.cuidado.open();
       },
       onTap: function(evento,objeto){
         var paths = evento.path;
@@ -99,18 +105,24 @@
           this.selecionado = clicado.programa;
         }
         if (this.fitquiTemLocalStorage) {
+          var naoDarAvisoData = parseInt(localStorage.getItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidadoData));
+          //Em 30 dias irei deletar a preferencia para que o usuario tenha que concordar com o aviso mais uma vez
+          if (Date.now() - naoDarAvisoData > 1000 * 60 * 60 * 24 * 30) {
+            localStorage.removeItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidado);
+            localStorage.removeItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidadoData);
+          }
           var naoDarAviso = localStorage.getItem(_fitqui.storageVariableNames.naoRepetirAvisoDeCuidado);
           if (naoDarAviso === "true") {
             this.irTrainer();
           } else {
-            this.$.cuidado.open();
+            this.abrirAviso();
           }
         } else {
-          this.$.cuidado.open();
+          this.abrirAviso();
         }
       },
       voltar: function(){
-        window.location.href = "#filters";
+        window.location.href = "/#filters";
       },
       dadosChanged: function(){
         if (this.dados){
