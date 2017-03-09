@@ -8,6 +8,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="fitqui-icones.html">
 <link rel="impoer" href="fitqui-shared-styles.html">
 
@@ -29,16 +30,18 @@
       entry-animation="scale-up-animation">
       <h2 hidden$="{{mandarEmail}}">Reporte um erro</h2>
       <h2 hidden$="{{mandarErro}}">Entre em contato</h2>
-      <form is="iron-form" class="" action="index.html" method="post">
+      <form is="iron-form" id="formMensagem">
         <div>
           <gold-email-input
             label="Seu email"
+            name="email"
             required
             auto-validate>
             <iron-icon icon="icones:email" prefix></iron-icon>
           </gold-email-input>
           <paper-textarea
             id="texto"
+            name="mensagem"
             label="Deixe sua mensagem"
             auto-validate
             required
@@ -60,16 +63,18 @@
       modal
       entry-animation="scale-up-animation">
       <h2>Avalie-nos</h2>
-      <form is="iron-form">
+      <form is="iron-form" id="formAvaliar">
         <div>
           <paper-textarea
             label="Onde precisamos melhorar?"
+            name="onde-pecamos"
             charCounter
             maxRows="10"
             rows="3">
           </paper-textarea>
           <paper-textarea
             label="O que você gostou?"
+            name="onde-acertamos"
             charCounter
             maxRows="10"
             rows="3">
@@ -77,6 +82,7 @@
           <p>Em uma escale de 0 a 10, que nota você nos daria?</p>
           <paper-range-slider
             id="nota"
+            name="nota"
             single-slider
             min="0"
             max="10"
@@ -90,6 +96,8 @@
         </div>
       </form>
     </paper-dialog>
+
+    <paper-toast id="toast"></paper-toast>
 
   </template>
   <script>
@@ -128,8 +136,54 @@
         this.$.nota.setAttribute("style","width:100%");
         this.$.botoes.close();
       },
+      toastError: function(msg,fatal){
+        this.$.toast.text = "Ops, algo deu errado. Por favor, tente novamente mais tarde";
+        this.$.toast.show();
+        ga('send','exception',{
+          'exDescription': msg,
+          'exFatal': fatal
+        });
+      },
       enviarMensagem: function(evento,objeto) {
-
+        var formulario = null;
+        for (var i = 0; i < evento.path.length; i++) {
+          if (evento.path[i].tagName === "FORM") {
+            var formulario = evento.path[i];
+          }
+        }
+        if (formulario) {
+          if (formulario.validate()) {
+            var dbRef;
+            var dadosForm = formulario.serialize();
+            if (formulario.id === "formMensagem") {
+              if (this.mandarEmail) {
+                dbRef = firebase.database().ref('mensagens/contatos');
+              } else if (this.mandarErro) {
+                dbRef = firebase.database().ref('mensagens/bugs');
+              } else {
+                this.toastError('mandarEmail e mandarErro igual a false. Erro em fitqui-buttons-menu.html',false);
+              }
+            } else if (formulario.id === "formAvaliar") {
+              dbRef = firebase.database().ref('mensagens/avaliacoes');
+              dadosForm.nota = this.$.nota.valueMax;
+            } else {
+              this.toastError('id do formulario não encontrado. Erro em fitqui-buttons-menu.html',false);
+            }
+            this.$.toast.text = "Obrigado pela mensagem. Ela já está sendo enviada";
+            this.$.toast.show();
+            var newData = dbRef.push();
+            newData.set(dadosForm).catch(() => {
+              this.$.toast.text = "Ops, não conseguimos entregar sua mensagem. Por favor, tente novamente mais tarde";
+              this.$.toast.show();
+              ga('send','exception',{
+                'exDescription': 'não foi possível salvar mensagem do usuário no banco de dados. Em fitqui-buttons-menu.html',
+                'exFatal': false
+              });
+            });
+          }
+        } else {
+          this.toastError('formulario não encontrado. Erro em fitqui-buttons-menu.html',false);
+        }
       },
       cancelarMensagem: function(evento,objeto) {
         var paths = evento.path;
