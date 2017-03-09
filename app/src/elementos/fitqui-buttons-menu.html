@@ -111,7 +111,7 @@
         this.$.texto.value = "";
       },
       tapMensagem: function(evento,objeto) {
-        var botao = objeto.sourceEvent.path[0]._iconName;
+        var botao = evento.path[0]._iconName;
         if (botao === "bug-report") {
           this.mandarErro = true;
           this.mandarEmail = false;
@@ -132,7 +132,7 @@
 
       },
       cancelarMensagem: function(evento,objeto) {
-        var paths = objeto.sourceEvent.path;
+        var paths = evento.path;
         for (var i = 0; i < paths.length; i++) {
           if (paths[i].tagName === "PAPER-DIALOG") {
             var dialogo = paths[i];
