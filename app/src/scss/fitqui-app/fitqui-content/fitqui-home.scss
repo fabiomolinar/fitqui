@@ -39,12 +39,12 @@ paper-button iron-icon{
 }
 @include tipo-de-aparelho(celular){
   .chamada p{
-    font-size: 1.8em;
+    font-size: 1.1em;
   }
   .explicacao p{
-    font-size: 1.2em;
+    font-size: 0.8em;
   }
   paper-button{
-    font-size: 1.2em;
+    font-size: 0.8em;
   }
 }

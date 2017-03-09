@@ -41,3 +41,8 @@ paper-button{
   --paper-checkbox-label-color: $cor-branca;
   --paper-checkbox-label-checked-color: $cor-branca;
 }
+@include tipo-de-aparelho(celular){
+  paper-button{
+    font-size: 0.9em;
+  }
+}

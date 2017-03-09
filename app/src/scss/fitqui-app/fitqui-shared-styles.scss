@@ -65,3 +65,8 @@ a:hover{
 a:visited{
   color: $cor-link-visitado;
 }
+@include tipo-de-aparelho(celular){
+  paper-button{
+    font-size: 1em;
+  }
+}
