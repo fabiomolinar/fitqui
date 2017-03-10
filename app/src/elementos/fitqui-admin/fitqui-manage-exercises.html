@@ -1,4 +1,9 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 
 <dom-module id="fitqui-manage-exercises">
@@ -6,13 +11,117 @@
     <style include="fitqui-shared-styles"></style>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-admin/fitqui-manage-exercises.css" inline>
 
-    <h1>Ola</h1>
+    <form is="iron-form" id="form1">
+      <paper-input
+        label="Dificuldade"
+        name="dificuldade"
+        error-message="Valor deve ser entre [1,9]"
+        allowed-pattern="[0-9]"
+        max="9"
+        min="1"
+        prevent-invalid-input
+        required>
+      </paper-input>
+      <paper-input
+        label="Duração para se realizar o exercício em nível iniciante (em minutos)"
+        name="duracao"
+        error-message="Valor deve ser um número"
+        allowed-pattern="[0-9]"
+        max="60"
+        min="0"
+        prevent-invalid-input
+        required>
+      </paper-input>
+      <paper-input
+        label="Repetições a serem realizadas em nível iniciante"
+        name="repeticoes"
+        error-message="Valor deve ser um número"
+        allowed-pattern="[0-9]"
+        max="200"
+        min="0"
+        prevent-invalid-input
+        required>
+      </paper-input>
+      <paper-input
+        label="Gif"
+        name="gif"
+        error-message="path para o gif"
+        prevent-invalid-input
+        required>
+      </paper-input>
+      <paper-input
+        label="Nome"
+        name="nome"
+        prevent-invalid-input
+        required>
+      </paper-input>
+      <paper-input
+        label="Link do Youtube"
+        name="youtube"
+        prevent-invalid-input
+        required>
+      </paper-input>
+      <paper-checkbox name="youtubeAcessivel">Vídeo está disponível para uso?</paper-checkbox>
+    </form>
+    <form is="iron-form" id="tipoExercicio">
+      <p for="dificuldade">Tipo: </p>
+      <paper-radio-group id="dificuldade" selected="Aquecimento" attr-for-selected="name">
+        <paper-radio-button name="Aquecimento">Aquecimento</paper-radio-button>
+        <paper-radio-button name="Aeróbico">Aeróbico</paper-radio-button>
+        <paper-radio-button name="Força">Força</paper-radio-button>
+        <paper-radio-button name="Alongamento">Alongamento</paper-radio-button>
+      </paper-radio-group>
+    </form>
+    <form is="iron-form" id="local">
+      <p for="musculos">Locais onde é possível realizar o exercício: </p>
+      <paper-checkbox name="Casa">Casa</paper-checkbox>
+      <paper-checkbox name="Parque">Parque</paper-checkbox>
+    </form>
+    <form is="iron-form" id="musculosPrimarios">
+      <p for="musculos">Músculos primários: </p>
+      <paper-checkbox name="Quadríceps">Quadríceps</paper-checkbox>
+      <paper-checkbox name="Panturrilha">Panturrilha</paper-checkbox>
+      <paper-checkbox name="Glúteo">Glúteo</paper-checkbox>
+      <paper-checkbox name="Trapézio">Trapézio</paper-checkbox>
+      <paper-checkbox name="Ombros">Ombros</paper-checkbox>
+      <paper-checkbox name="Biceps">Biceps</paper-checkbox>
+      <paper-checkbox name="Triceps">Triceps</paper-checkbox>
+      <paper-checkbox name="Antebraço">Antebraço</paper-checkbox>
+      <paper-checkbox name="Peito">Peito</paper-checkbox>
+      <paper-checkbox name="Abdômen">Abdômen</paper-checkbox>
+      <paper-checkbox name="Costas">Costas</paper-checkbox>
+    </form>
+    <form is="iron-form" id="musculosSecundarios">
+      <p for="musculos">Músculos secundários: </p>
+      <paper-checkbox name="Quadríceps">Quadríceps</paper-checkbox>
+      <paper-checkbox name="Panturrilha">Panturrilha</paper-checkbox>
+      <paper-checkbox name="Glúteo">Glúteo</paper-checkbox>
+      <paper-checkbox name="Trapézio">Trapézio</paper-checkbox>
+      <paper-checkbox name="Ombros">Ombros</paper-checkbox>
+      <paper-checkbox name="Biceps">Biceps</paper-checkbox>
+      <paper-checkbox name="Triceps">Triceps</paper-checkbox>
+      <paper-checkbox name="Antebraço">Antebraço</paper-checkbox>
+      <paper-checkbox name="Peito">Peito</paper-checkbox>
+      <paper-checkbox name="Abdômen">Abdômen</paper-checkbox>
+      <paper-checkbox name="Costas">Costas</paper-checkbox>
+    </form>
+    <div class="controle">
+      <span>Status: <span id="status"></span></span>
+      <paper-button raised id="adicionar" on-tap="adicionar">Adicionar</paper-button>
+    </div>
 
   </template>
   <script>
     Polymer({
       is: 'fitqui-manage-exercises',
-      properties: {}
+      properties: {
+        exercicio: {
+          type: Object
+        }
+      },
+      adicionar: function(){
+        this.$.form1.validate();
+      }
     });
   </script>
 </dom-module>

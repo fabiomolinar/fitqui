@@ -27,7 +27,7 @@ var _fitquiClasses = (function(){
     //notaNegativa = 0,
     //Nota "quasi-NPS" do exercício. Calculada da seguinte forma: (positivas - negativas)/(positivas+neutras+negativas)
     //nps = 0,
-    //Tipo do exercício: [Força, Aeróbico, Aquecimento, Esfriar ...]
+    //Tipo do exercício: [Força, Aeróbico, Aquecimento, Alongamento ...]
     tipo = "Força",
     //Equipamento necessário para realizar o exercício
     //equipamento = ['pesos','barra','bola'],

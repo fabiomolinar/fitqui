@@ -1,4 +1,11 @@
 @import '../../variaveis';
 :host{
   display: block;
+  margin: 24px;
+}
+#musculosSecundarios{
+  margin-bottom: 33.3px;
+}
+.controle paper-button{
+  float: right;
 }
