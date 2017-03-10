@@ -3,6 +3,7 @@
 <link rel="import" href="../../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../fitqui-spinner.html">
+<link rel="import" href="../fitqui-admin/fitqui-manage-exercises.html">
 <link rel="import" href="fitqui-home.html">
 <link rel="import" href="fitqui-filters.html">
 <link rel="import" href="fitqui-selector.html">
@@ -29,6 +30,7 @@
       <fitqui-filters name="filters" dados="{{exercicios}}"></fitqui-filters>
       <fitqui-selector name="selector" dados="{{exercicios}}" selecionado="{{selecionado}}"></fitqui-selector>
       <fitqui-trainer name="trainer" route="{{tail}}" programa="{{selecionado}}"></fitqui-trainer>
+      <fitqui-manage-exercises name="manage-exercises" route="{{tail}}"></fitqui-manage-exercises>
     </iron-pages>
 
   </template>
@@ -90,6 +92,43 @@
               document.title = "Treinando!";
               ga('set', 'page', '/trainer.html');
               ga('send', 'pageview');
+              break;
+            case "manage-exercises":
+              _fitqui.setSpinner();
+              var usuario = firebase.auth().currentUser;
+              if (usuario) {
+                var dbAdminRef = firebase.database().ref("administradores/" + usuario.uid + "/roles");
+                dbAdminRef.once('value',snap => {
+                  var roles = snap.val();
+                  var temAcesso = false;
+                  for (var i = 0; i < roles.length; i++) {
+                    if (roles[i] === "tudo") {
+                      temAcesso = true;
+                      break;
+                    }
+                  }
+                  if (temAcesso) {
+                    _fitqui.unsetSpinner();
+                    document.title = "Gerenciar exercícios";
+                    ga('set', 'page', '/manage-exercises.html');
+                    ga('send', 'pageview');
+                  } else {
+                    var msg = "Tentativa de acesso bloqueada. Usuario com uid = " + usuario.uid + " tentou acessar area restrita. Area = manage-exercises. Em fitqui-content.html";
+                    _fitqui.analyticsException(msg,false);
+                    _fitqui.unsetSpinner();
+                    window.location.href = "/#home";
+                  }
+                }, erro => {
+                  var msg = 'Erro ao tentar acessar o path administradores/$uid/roles; mensagem de erro: ' + erro.message + '; em fitqui-content.html';
+                  _fitqui.analyticsException(msg,false);
+                  _fitqui.unsetSpinner();
+                  window.location.href = "/#home";
+                }, this);
+              } else {
+                _fitqui.analyticsException('usuario não logado tentando entrar na área de admin; em fitqui-content.html',false);
+                _fitqui.unsetSpinner();
+                window.location.href = "/#home";
+              }
               break;
             default:
               document.title = "Fitqui";
