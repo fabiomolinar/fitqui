@@ -146,9 +146,17 @@
       },
       enviarMensagem: function(evento,objeto) {
         var formulario = null;
+        var dialogo = null;
         for (var i = 0; i < evento.path.length; i++) {
           if (evento.path[i].tagName === "FORM") {
-            var formulario = evento.path[i];
+            formulario = evento.path[i];
+            break;
+          }
+        }
+        for (var i = 0; i < evento.path.length; i++) {
+          if (evento.path[i].tagName === "PAPER-DIALOG") {
+            dialogo = evento.path[i];
+            break;
           }
         }
         if (formulario) {
@@ -180,6 +188,7 @@
                 'exFatal': false
               });
             });
+            dialogo.close();
           }
         } else {
           this.toastError('formulario não encontrado. Erro em fitqui-buttons-menu.html',false);

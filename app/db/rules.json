@@ -1,0 +1,53 @@
+Notes:
+--Note that shallower rules in the database override deeper rules.
+Kind of rules:
+--.read
+--.write
+--.validate
+--.indexOn
+Rules examples:
+--"$uid === auth.uid"
+--"newData.isString() && newData.val().length < 100"
+Predefined variables:
+--now
+--root
+--newData
+--data
+--$variables
+--auth
+----------------------------------------------------------------------
+{
+  "rules": {
+    "mensagens": {
+      ".write": true,
+      ".read": false
+    },
+    "exercicios": {
+      ".write": false,
+      "$eid": {
+        "curtidores" : {".read": false},
+        "detratores" : {".read": false},
+        "dificuldade" : {".read": true},
+        "duracao" : {".read": true},
+        "equipamento" : {".read": true},
+        "gif" : {".read": true},
+        "local" : {".read": true},
+        "musculosPrimarios" : {".read": true},
+        "musculosSecundarios" : {".read": true},
+        "nome" : {".read": true},
+        "notaNegativa" : {".read": false},
+        "notaNeutra" : {".read": false},
+        "notaPositiva" : {".read": false},
+        "nps" : {".read": false},
+        "repeticoes" : {".read": true},
+        "tipo" : {".read": true},
+        "youtube" : {".read": true},
+        "youtubeAcessivel" : {".read": false}
+      }
+    },
+    "series": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
