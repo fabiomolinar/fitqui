@@ -1,0 +1,3 @@
+No node administradores/$uid/roles do banco de dados, serão guardados as permissões de cada um dos usuários. As seguintes opções existem:
+-"adicionar_exercicios"   =>    permissão para adicionar exercícios ao banco de dados.
+-"manage_exercises"       =>    permissão para entrar na página fitqui-manage-exercises.html

@@ -23,30 +23,19 @@ Predefined variables:
       ".read": false
     },
     "exercicios": {
-      ".write": false,
-      "$eid": {
-        "curtidores" : {".read": false},
-        "detratores" : {".read": false},
-        "dificuldade" : {".read": true},
-        "duracao" : {".read": true},
-        "equipamento" : {".read": true},
-        "gif" : {".read": true},
-        "local" : {".read": true},
-        "musculosPrimarios" : {".read": true},
-        "musculosSecundarios" : {".read": true},
-        "nome" : {".read": true},
-        "notaNegativa" : {".read": false},
-        "notaNeutra" : {".read": false},
-        "notaPositiva" : {".read": false},
-        "nps" : {".read": false},
-        "repeticoes" : {".read": true},
-        "tipo" : {".read": true},
-        "youtube" : {".read": true},
-        "youtubeAcessivel" : {".read": false}
-      }
+      ".write": "auth != null && root.child('administradores').child(auth.uid).child('roles').hasChild('adicionar_exercicios')",
+      ".read": true
+    },
+    "exerciciosInfo": {
+      ".write": "auth != null",
+      ".read": false
     },
     "series": {
       ".read": false,
+      ".write": false
+    },
+    "administradores": {
+			".read": true,
       ".write": false
     }
   }

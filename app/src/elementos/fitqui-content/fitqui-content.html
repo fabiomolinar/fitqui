@@ -101,11 +101,8 @@
                 dbAdminRef.once('value',snap => {
                   var roles = snap.val();
                   var temAcesso = false;
-                  for (var i = 0; i < roles.length; i++) {
-                    if (roles[i] === "tudo") {
-                      temAcesso = true;
-                      break;
-                    }
+                  if ('manage_exercises' in roles) {
+                    temAcesso = true;
                   }
                   if (temAcesso) {
                     _fitqui.unsetSpinner();
