@@ -55,6 +55,12 @@ paper-button.botao-vermelho{
   color: $cor-branca;
   background-color: $cor-tetrad2;
 }
+paper-spinner{
+  --paper-spinner-layer-1-color: $cor-principal;
+  --paper-spinner-layer-2-color: $cor-principal;
+  --paper-spinner-layer-3-color: $cor-principal;
+  --paper-spinner-layer-4-color: $cor-principal;
+}
 a{
   color: $cor-link;
 }

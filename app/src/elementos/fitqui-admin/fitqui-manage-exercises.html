@@ -3,6 +3,7 @@
 <link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../fitqui-shared-styles.html">
 
@@ -106,9 +107,9 @@
       <paper-checkbox name="Costas">Costas</paper-checkbox>
     </form>
     <div class="controle">
-      <span>Status: <span id="status"></span></span>
-      <paper-button raised id="adicionar" on-tap="adicionar">Adicionar</paper-button>
+      <span>Status: <paper-spinner id="spinner"></paper-spinner><span id="status"></span></span>
     </div>
+    <paper-button raised id="adicionar" on-tap="adicionar">Adicionar</paper-button>
 
   </template>
   <script>
@@ -119,8 +120,82 @@
           type: Object
         }
       },
+      iniciarStatus: function(){
+        this.$.status.innerText = "";
+        this.$.status.style.color = "";
+        this.$.spinner.active = false;
+      },
+      contarMusculos: function(sel){
+        var numero = Object.keys(this.$[sel].serialize()).length;
+        if (isNaN(numero)) {
+          return 0;
+        } else {
+          return Math.floor(numero);
+        }
+      },
+      statusErro: function(msg){
+        this.$.status.innerText = msg;
+        this.$.status.style.color = "red";
+        this.$.spinner.active = false;
+      },
+      statusOK: function(msg){
+        this.$.status.innerText = msg;
+        this.$.status.style.color = "green";
+        this.$.spinner.active = false;
+      },
+      inverterObjetoParaVetor: function(nome, sel){
+        var original = this.$[sel].serialize();
+        var chaves = Object.keys(original);
+        var modificado = {};
+        modificado[nome] = [];
+        for (var i = 0; i < chaves.length; i++) {
+          modificado[nome].push(chaves[i]);
+        }
+        return modificado;
+      },
+      onParaTrue: function(dados){
+        var chaves = Object.keys(dados);
+        for (var i = 0; i < chaves.length; i++) {
+          if (dados[chaves[i]] === "on") {
+            dados[chaves[i]] = true;
+          }
+        }
+        return dados;
+      },
+      prepararDados: function(){
+        var dados = {};
+        Object.assign(dados,
+          this.$.form1.serialize(),
+          this.inverterObjetoParaVetor("tipo","tipoExercicio"),
+          this.inverterObjetoParaVetor("local","local"),
+          this.inverterObjetoParaVetor("musculosPrimarios","musculosPrimarios"),
+          this.inverterObjetoParaVetor("musculosSecundarios","musculosSecundarios")
+        );
+        dados = this.onParaTrue(dados);
+        return dados;
+      },
       adicionar: function(){
-        this.$.form1.validate();
+        this.iniciarStatus();
+        this.$.spinner.active = true;
+        var validado = this.$.form1.validate();
+        var msg = "";
+        if (!validado) {
+          this.statusErro("Completar os campos em vermelho.");
+        } else {
+          var numeroMusculosPrimarios = this.contarMusculos("musculosPrimarios");
+          if (this.$.tipoExercicio.serialize().Força === "on" && numeroMusculosPrimarios < 1) {
+            this.statusErro("Pelo menos um musculo primario tem que ser selecionado");
+          } else {
+            var dados = this.prepararDados();
+            var dbExerciciosRef = firebase.database().ref("exercicios");
+            var newData = dbExerciciosRef.push();
+            newData.set(dados).then(() => {
+              this.statusOK("dados salvos no banco de dados");
+            }).catch(() => {
+              this.statusErro("Algo deu errado e os dados nao foram salvos no banco de dados");
+            });
+          }
+        }
       }
     });
   </script>
