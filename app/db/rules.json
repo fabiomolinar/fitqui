@@ -27,8 +27,8 @@ Predefined variables:
       ".read": true
     },
     "exerciciosInfo": {
-      ".write": "auth != null && root.child('administradores').child(auth.uid).child('roles').hasChild('adicionar_exercicios')",
-      ".read": false
+      ".write": true,
+      ".read": "auth != null && root.child('administradores').child(auth.uid).child('roles').hasChild('adicionar_exercicios')"
     },
     "series": {
       ".read": false,
