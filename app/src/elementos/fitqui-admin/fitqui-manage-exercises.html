@@ -192,16 +192,18 @@
             var dbExerciciosRef = firebase.database().ref("exercicios");
             var newData = dbExerciciosRef.push();
             newData.set(dados).then(() => {
-              var dbExercicioInfoRef = firebase.database().ref("exerciciosInfo");
-              var dadosInfo = {};
-              dadosInfo[newData.key]['youtubeAcessivel'] = youtubeAcessivel;
-              dbExercicioInfoRef.set(dadosInfo).then(()=>{
-                this.statusOK("dados salvos no banco de dados");
-              }).catch(()=>{
-                this.statusErro("Algo deu errado e os dadosIndo nao foram salvos no banco de dados");
-              });
+              this.statusOK("dados salvos no banco de dados");
             }).catch(() => {
               this.statusErro("Algo deu errado e os dados nao foram salvos no banco de dados");
+            });
+            var dbExercicioInfoRef = firebase.database().ref("exerciciosInfo");
+            var dadosInfo = {};
+            dadosInfo[newData.key] = {};
+            dadosInfo[newData.key]['youtubeAcessivel'] = youtubeAcessivel;
+            dbExercicioInfoRef.set(dadosInfo).then(()=>{
+              this.statusOK("dadosInfo salvo no banco de dados");
+            }).catch(()=>{
+              this.statusErro("Algo deu errado e os dadosIndo nao foram salvos no banco de dados");
             });
           }
         }
