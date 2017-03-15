@@ -76,3 +76,8 @@ a:visited{
     font-size: 1em;
   }
 }
+@include tipo-de-aparelho(large-screen){
+  paper-toast{
+    font-size: 1em;
+  }
+}

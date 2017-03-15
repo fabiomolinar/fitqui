@@ -43,3 +43,14 @@ paper-button{
     margin: 0px 27px 0px 27px;
   }
 }
+@include tipo-de-aparelho(large-screen){
+  :host{
+    font-size: 1.26em;
+  }
+  paper-radio-group, paper-input, div#local, div#musculos{
+    margin-bottom: 33.3px
+  }
+  paper-button{
+    font-size: 1em;
+  }
+}

@@ -1,4 +1,5 @@
 $break-celular: 767px;
+$break-large-screen: 1024px;
 $header-height: 13vh;
 $footer-height: 9vh;
 $cor-principal: #4CAF50;
@@ -20,6 +21,11 @@ $cor-link-hover: #5E9C9F;
 @mixin tipo-de-aparelho($media) {
   @if $media == celular {
     @media only screen and (max-width: $break-celular) {
+      @content;
+    }
+  }
+  @else if $media == large-screen {
+    @media only screen and (min-width: $break-large-screen){
       @content;
     }
   }

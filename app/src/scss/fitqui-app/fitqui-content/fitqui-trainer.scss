@@ -34,3 +34,14 @@
   float: right;
   font-size: 1em;
 }
+@include tipo-de-aparelho(large-screen){
+  :host{
+    font-size: 1.11em;
+  }
+  paper-dialog{
+    font-size: 1.26em;
+  }
+  paper-button{
+    padding: 9px;
+  }
+}

@@ -5,6 +5,8 @@
 }
 p{
   color: $cor-triad1;
+  margin-left: 9px;
+  margin-right: 9px;
 }
 paper-button{
   font-size: 1.3em;
@@ -44,5 +46,10 @@ paper-button{
 @include tipo-de-aparelho(celular){
   paper-button{
     font-size: 0.9em;
+  }
+}
+@include tipo-de-aparelho(large-screen){
+  :host{
+    font-size: 1.26em;
   }
 }
