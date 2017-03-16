@@ -144,13 +144,17 @@
         this.$.status.style.color = "green";
         this.$.spinner.active = false;
       },
-      inverterObjetoParaVetor: function(nome, sel){
+      inverterObjetoParaVetor: function(nome, sel, arrayMode = true){
         var original = this.$[sel].serialize();
         var chaves = Object.keys(original);
         var modificado = {};
-        modificado[nome] = [];
-        for (var i = 0; i < chaves.length; i++) {
-          modificado[nome].push(chaves[i]);
+        if (arrayMode){
+          modificado[nome] = [];
+          for (var i = 0; i < chaves.length; i++) {
+            modificado[nome].push(chaves[i]);
+          }
+        } else {
+          modificado[nome] = chaves[0];
         }
         return modificado;
       },
@@ -167,7 +171,7 @@
         var dados = {};
         Object.assign(dados,
           this.$.form1.serialize(),
-          this.inverterObjetoParaVetor("tipo","tipoExercicio"),
+          this.inverterObjetoParaVetor("tipo","tipoExercicio",false),
           this.inverterObjetoParaVetor("local","local"),
           this.inverterObjetoParaVetor("musculosPrimarios","musculosPrimarios"),
           this.inverterObjetoParaVetor("musculosSecundarios","musculosSecundarios")

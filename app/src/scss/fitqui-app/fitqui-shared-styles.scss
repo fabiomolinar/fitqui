@@ -1,4 +1,5 @@
 @import '../variaveis';
+
 paper-radio-button{
   --paper-radio-button-unchecked-color: $cor-principal;
   --paper-radio-button-checked-color: $cor-escura;
@@ -72,6 +73,9 @@ a:visited{
   color: $cor-link-visitado;
 }
 @include tipo-de-aparelho(celular){
+  .celular-hide{
+    display: none !important;
+  }
   paper-button{
     font-size: 1em;
   }

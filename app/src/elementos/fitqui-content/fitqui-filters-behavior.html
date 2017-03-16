@@ -102,35 +102,31 @@
     },
     filtrarExercicios: function(configuracao,todos){
       //Filtrar exercícios de acordo com as configurações
-      for (var i = 0; i < todos.length; i++) {
-        if (configuracao.aerobico === false && todos[i].tipo === "Aeróbico") {
-          todos.splice(i,1);
-          i--;
+      for (var item in todos) {
+        if (configuracao.aerobico === false && todos[item].tipo === "Aeróbico") {
+          delete todos[item]
           continue;
         }
-        if (configuracao.nivel === "iniciante" && todos[i].dificuldade > 3) {
-          todos.splice(i,1);
-          i--;
+        if (configuracao.nivel === "iniciante" && todos[item].dificuldade > 3) {
+          delete todos[item]
           continue;
         }
-        if (configuracao.nivel === "intermediario" && todos[i].dificuldade > 6) {
-          todos.splice(i,1);
-          i--;
+        if (configuracao.nivel === "intermediario" && todos[item].dificuldade > 6) {
+          delete todos[item]
           continue;
         }
         //Se nenhum grupo muscular for selecionado, não filtrar por músculo
         if (configuracao.musculosPrimarios.length > 0) {
-          if (todos[i].tipo === "Força") {
+          if (todos[item].tipo === "Força") {
             var encontrado = false;
             for (var j = 0; j < configuracao.musculosPrimarios.length; j++) {
-              if (todos[i].musculosPrimarios.includes(configuracao.musculosPrimarios[j])) {
+              if (todos[item].musculosPrimarios.includes(configuracao.musculosPrimarios[j])) {
                 encontrado = true;
                 break;
               }
             }
             if (!encontrado) {
-              todos.splice(i,1);
-              i--;
+              delete todos[item]
               continue;
             }
           }
@@ -139,10 +135,10 @@
       return todos;
     },
     multiplicarDuracaoRepeticoes: function(todos, multiplicador){
-      for (var i = 0; i < todos.length; i++) {
-        todos[i].duracao = todos[i].duracao * multiplicador;
-        if (todos[i].tipo === "Força") {
-          todos[i].repeticoes = Math.floor(todos[i].repeticoes * multiplicador);
+      for (var item in todos) {
+        todos[item].duracao = todos[item].duracao * multiplicador;
+        if (todos[item].tipo === "Força") {
+          todos[item].repeticoes = Math.floor(todos[item].repeticoes * multiplicador);
         }
       }
       return todos;
@@ -158,22 +154,22 @@
       var alongamento = [];
       todos = this.filtrarExercicios(configuracao,todos);
       todos = this.multiplicarDuracaoRepeticoes(todos, configuracao.nivelMultiplicador);
-      for (var i = 0; i < todos.length; i++) {
-        switch (todos[i].tipo) {
+      for (var item in todos) {
+        switch (todos[item].tipo) {
           case "Força":
-            forca.push(todos[i]);
+            forca.push(todos[item]);
             break;
           case "Aeróbico":
-            aerobico.push(todos[i]);
+            aerobico.push(todos[item]);
             break;
           case "Aquecimento":
-            aquecimento.push(todos[i]);
+            aquecimento.push(todos[item]);
             break;
           case "Alongamento":
-            alongamento.push(todos[i]);
+            alongamento.push(todos[item]);
             break;
           default:
-            var msg = 'Tipo de treinamento não encontrado. Nome do exercício: ' + todos[i].nome;
+            var msg = 'Tipo de treinamento não encontrado. Nome do exercício: ' + todos[item].nome;
             ga('send','exception',{
               'exDescription': msg,
               'exFatal': false
