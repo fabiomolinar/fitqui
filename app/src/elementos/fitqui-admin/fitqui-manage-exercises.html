@@ -27,10 +27,11 @@
         label="Duração para se realizar o exercício em nível iniciante (em minutos)"
         name="duracao"
         error-message="Valor deve ser um número"
-        allowed-pattern="[0-9]"
+        allowed-pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"
+        auto-validate="false"
+        prevent-invalid-input="false"
         max="60"
         min="0"
-        prevent-invalid-input
         required>
       </paper-input>
       <paper-input
@@ -196,10 +197,10 @@
             }).catch(() => {
               this.statusErro("Algo deu errado e os dados nao foram salvos no banco de dados");
             });
-            var dbExercicioInfoRef = firebase.database().ref("exerciciosInfo");
+            var refPath = "exerciciosInfo/" + newData.key;
+            var dbExercicioInfoRef = firebase.database().ref(refPath);
             var dadosInfo = {};
-            dadosInfo[newData.key] = {};
-            dadosInfo[newData.key]['youtubeAcessivel'] = youtubeAcessivel;
+            dadosInfo['youtubeAcessivel'] = youtubeAcessivel;
             dbExercicioInfoRef.set(dadosInfo).then(()=>{
               this.statusOK("dadosInfo salvo no banco de dados");
             }).catch(()=>{
