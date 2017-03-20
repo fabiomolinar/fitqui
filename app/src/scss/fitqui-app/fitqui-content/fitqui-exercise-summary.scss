@@ -16,3 +16,8 @@ fitqui-exercise-icon{
   color: $cor-principal;
   text-align: center;
 }
+@include tipo-de-aparelho(celular){
+  :host{
+    margin: 27px auto 27px auto;
+  }
+}

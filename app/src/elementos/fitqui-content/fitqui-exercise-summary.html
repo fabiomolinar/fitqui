@@ -1,13 +1,15 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../fitqui-shared-styles.html">
 <link rel="import" href="fitqui-exercise-icon.html">
 
 <dom-module id="fitqui-exercise-summary">
   <template>
+    <style include="fitqui-shared-styles"></style>
     <link rel="stylesheet" type="text/css" href="../../css/fitqui-app/fitqui-content/fitqui-exercise-summary.css" inline>
 
     <table>
       <tr id="icones">
-        <td><!-- Vazio --></td>
+        <td class="celular-hide"><!-- Vazio --></td>
         <template is="dom-repeat" items="{{programa}}">
           <td>
             <fitqui-exercise-icon
@@ -20,13 +22,13 @@
         </template>
       </tr>
       <tr id="repeticoes">
-        <td class="header">Repetições</td>
+        <td class="header celular-hide">Repetições</td>
         <template is="dom-repeat" items="{{programa}}">
           <td>{{item.repeticoes}}</td>
         </template>
       </tr>
       <tr id="duracao">
-        <td class="header">Duração (min)</td>
+        <td class="header celular-hide">Duração (min)</td>
         <template is="dom-repeat" items="{{programa}}">
           <td>{{item.duracao}}</td>
         </template>

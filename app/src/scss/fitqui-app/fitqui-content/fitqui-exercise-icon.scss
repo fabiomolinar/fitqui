@@ -1,8 +1,14 @@
 @import '../../variaveis';
 :host{
   display: inline;
+  white-space: nowrap;
 }
 svg{
   height: auto;
   width: 51px;
+}
+@include tipo-de-aparelho(celular){
+  svg{
+    width: 24px;
+  }
 }
