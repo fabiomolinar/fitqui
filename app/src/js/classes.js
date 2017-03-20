@@ -9,7 +9,7 @@ var _fitquiClasses = (function(){
     //dificuldade = 0,
     //Caminho para o gif
     gif = "src/gif/gif.png",
-    //Musculos primários usados no exercício; vazio se o exercício for aeróbico
+    //Musculos primários usados no exercício; para exercicios que usam varios musuclos (como aerobicos), escrever nome dos musculos ou `Todos` para selecionar todos
     musculosPrimarios = ["Biceps"],
     //Musculos secundários usados no exercício; vazio se o exercício for aeróbico
     musculosSecundarios = ["Triceps","Antebraço"],
