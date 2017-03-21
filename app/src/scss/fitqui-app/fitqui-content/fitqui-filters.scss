@@ -16,6 +16,20 @@ label{
   font-weight: bold;
   font-size: 108%;
 }
+label[for="musculos"]{
+  display: block;
+}
+.musculos-selectors{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: flex-start;
+}
+.musculos-selectors paper-checkbox{
+  flex-grow: 1;
+}
 paper-input{
   max-width: 18em;
 }

@@ -354,9 +354,9 @@
           //pintar musculo específico
           if (_musculos.length > 0) {
             for (var i = 0; i < _musculos.length; i++){
-              var path = this.$$("." + _musculos[i]);
-              if (path){
-                path.style.fill = this.corSelected;
+              var path = Polymer.dom(this.root).querySelectorAll("." + _musculos[i]);
+              for (var i = 0; i < path.length; i++) {
+                path[i].style.fill = this.corSelected;
               }
             }
           }
