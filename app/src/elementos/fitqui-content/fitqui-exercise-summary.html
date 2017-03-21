@@ -10,7 +10,7 @@
     <table>
       <tr id="icones">
         <td class="celular-hide"><!-- Vazio --></td>
-        <template is="dom-repeat" items="{{programa}}">
+        <template is="dom-repeat" items="{{programaEditado}}">
           <td>
             <fitqui-exercise-icon
               musculos="{{item.musculosPrimarios}}"
@@ -23,13 +23,13 @@
       </tr>
       <tr id="repeticoes">
         <td class="header celular-hide">Repetições</td>
-        <template is="dom-repeat" items="{{programa}}">
+        <template is="dom-repeat" items="{{programaEditado}}">
           <td>{{item.repeticoes}}</td>
         </template>
       </tr>
       <tr id="duracao">
         <td class="header celular-hide">Duração (min)</td>
-        <template is="dom-repeat" items="{{programa}}">
+        <template is="dom-repeat" items="{{programaEditado}}">
           <td>{{item.duracao}}</td>
         </template>
       </tr>
@@ -47,11 +47,42 @@
         programa: {
           type: Array,
           value: () => []
+        },
+        programaEditado: {
+          type: Array,
+          computed: 'computeProgramaEditado(programa)'
         }
       },
       listeners: {
         'mouseover': 'onMouseOver',
         'mouseout': 'onMouseOut'
+      },
+      computeProgramaEditado: function(programa){
+        var aerobico = {
+          tipo: "Aeróbico",
+          repeticoes: 0,
+          duracao: 0
+        }
+        var alongamento = {
+          tipo: "Alongamento",
+          repeticoes: 0,
+          duracao: 0
+        }
+        var programaEditado = [];
+        for (var i = 0; i < programa.length; i++) {
+          if (programa[i].tipo == "Aquecimento") {
+            aerobico.repeticoes += parseInt(programa[i].repeticoes);
+            aerobico.duracao += parseFloat(programa[i].duracao);
+          } else if (programa[i].tipo == "Alongamento") {
+            alongamento.repeticoes += parseInt(programa[i].repeticoes);
+            alongamento.duracao += parseFloat(programa[i].duracao);
+          } else {
+            programaEditado.push(programa[i])
+          }
+        }
+        if (aerobico.duracao > 0){programaEditado.unshift(aerobico)}
+        if (alongamento.duracao > 0){programaEditado.push(alongamento)}
+        return programaEditado;
       },
       onMouseOver: function(){
         this.style.boxShadow = "0px 0px 3px 3px " + this.corShadow;
