@@ -20,8 +20,8 @@
             <td><h3 id="musculosPrimarios">{{musculosPrimarios}}</h3></td>
             <td></td>
             <td id="quantidades">
-              <p id="pRepeticoes" hidden$="{{ehAerobico}}">Repetições: <span id="repeticoes">{{repeticoes}}</span></p>
-              <p id="pDuracao" hidden$="{{!ehAerobico}}">Duração: <span id="duracao">{{duracao}}</span><span> minutos</span></p>
+              <p id="pRepeticoes" hidden$="{{ehDuracao}}">Repetições: <span id="repeticoes">{{repeticoes}}</span></p>
+              <p id="pDuracao" hidden$="{{!ehDuracao}}">Duração: <span id="duracao">{{duracao}}</span><span> minutos</span></p>
             </td>
           </tr>
           <tr>
@@ -32,7 +32,7 @@
         </table>
         <paper-progress
           id="progressoAerobico"
-          hidden$="{{!ehAerobico}}"
+          hidden$="{{!ehDuracao}}"
           value="{{progresso.value}}"
           min="{{progresso.min}}"
           max="{{progresso.max}}"
@@ -117,10 +117,10 @@
           value: () => "",
           computed: 'computeVariavel(programa, posicao, "youtube")'
         },
-        ehAerobico: {
+        ehDuracao: {
           type: Boolean,
           value: () => false,
-          computed: 'computeEhAerobico(programa, posicao)'
+          computed: 'computeEhDuracao(programa, posicao)'
         },
         progresso: {
           type: Object,
@@ -144,10 +144,16 @@
           return programa[posicao - 1][variavel];
         }
       },
-      computeEhAerobico: function(programa, posicao){
+      computeEhDuracao: function(programa, posicao){
         var eh = false;
         try {
-          eh = programa[posicao - 1].tipo == "Aeróbico" ? true : false;
+          if (
+            programa[posicao - 1].tipo == "Aeróbico" ||
+            programa[posicao - 1].tipo == "Aquecimento" ||
+            programa[posicao - 1].tipo == "Alongamento"
+          ) {
+            eh = true;
+          }
         } finally {
           return eh;
         }
@@ -155,12 +161,17 @@
       changedPrograma: function() {
         if (this.checkProgramaPosicao()) {
           this.sizeGif();
+          this.changedPosicao();
         }
       },
       changedPosicao: function(){
         if (this.checkProgramaPosicao()) {
           //Verificando se é necessário acionar o timer
-          if (this.programa[this.posicao - 1].tipo == "Aeróbico") {
+          if (
+            this.programa[this.posicao - 1].tipo == "Aeróbico" ||
+            this.programa[this.posicao - 1].tipo == "Aquecimento" ||
+            this.programa[this.posicao - 1].tipo == "Alongamento"
+          ) {
             if (this.timerID > 0) {
               clearInterval(this.timerID);
             }

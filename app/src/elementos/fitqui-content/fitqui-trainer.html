@@ -30,7 +30,7 @@
         atual-exercicios={{posicao}}
         total-exercicios={{programa.length}}
         pausado="[[pausado]]"
-        mostrar-play-pause="[[ehAerobico]]">
+        mostrar-play-pause="[[ehDuracao]]">
       </fitqui-controls>
 
       <paper-dialog
@@ -81,10 +81,10 @@
           value: () => false,
           computed: 'computeHaDados(programa)'
         },
-        ehAerobico: {
+        ehDuracao: {
           type: Boolean,
           value: () => false,
-          computed: 'computeEhAerobico(programa, posicao)'
+          computed: 'computeehDuracao(programa, posicao)'
         }
       },
       computeHaDados: function(programa){
@@ -112,10 +112,16 @@
           _fitqui.log(e.name + ": " + e.message);
         }
       },
-      computeEhAerobico: function(programa, posicao) {
+      computeehDuracao: function(programa, posicao) {
         var eh = false;
         try {
-          eh = programa[posicao - 1].tipo == "Aeróbico" ? true : false;
+          if (
+            programa[posicao - 1].tipo == "Aeróbico" ||
+            programa[posicao - 1].tipo == "Aquecimento" ||
+            programa[posicao - 1].tipo == "Alongamento"
+          ) {
+            eh = true;
+          }
         } finally {
           return eh;
         }

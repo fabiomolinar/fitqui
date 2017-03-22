@@ -58,8 +58,8 @@
         'mouseout': 'onMouseOut'
       },
       computeProgramaEditado: function(programa){
-        var aerobico = {
-          tipo: "Aeróbico",
+        var aquecimento = {
+          tipo: "Aquecimento",
           repeticoes: 0,
           duracao: 0
         }
@@ -71,8 +71,8 @@
         var programaEditado = [];
         for (var i = 0; i < programa.length; i++) {
           if (programa[i].tipo == "Aquecimento") {
-            aerobico.repeticoes += parseInt(programa[i].repeticoes);
-            aerobico.duracao += parseFloat(programa[i].duracao);
+            aquecimento.repeticoes += parseInt(programa[i].repeticoes);
+            aquecimento.duracao += parseFloat(programa[i].duracao);
           } else if (programa[i].tipo == "Alongamento") {
             alongamento.repeticoes += parseInt(programa[i].repeticoes);
             alongamento.duracao += parseFloat(programa[i].duracao);
@@ -80,7 +80,7 @@
             programaEditado.push(programa[i])
           }
         }
-        if (aerobico.duracao > 0){programaEditado.unshift(aerobico)}
+        if (aquecimento.duracao > 0){programaEditado.unshift(aquecimento)}
         if (alongamento.duracao > 0){programaEditado.push(alongamento)}
         return programaEditado;
       },
